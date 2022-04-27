@@ -2,6 +2,10 @@
 //SUPPORT THUMBNAIL FOR POSTS AND PAGES
 add_theme_support( 'post-thumbnails' );
 
+function get_current_link() {
+    return (is_ssl() ? 'https' : 'http') . '://' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+}
+
 
 //LOAD APP LIST -- COMMON PART
 function get_child($id, $array = []) {
@@ -16,25 +20,38 @@ function get_child($id, $array = []) {
     $result = "";
     $count = 0;
 
-    if(count($children) == 0) {
-        $result = '<h1 class="section-title">Sorry...\nWe have nothing to show.</h1>';
-    } else {
-        foreach ( $children as $child ) {
+    foreach ( $children as $child ) {
+        $child_id = $child->ID;
+        $child_slug = $child->post_name;
+
+        if($array == []) {
+
+            $url = get_permalink( $child_id );
     
-            $child_id = $child->ID;
-            $child_slug = $child->post_name;
+            $thumb = get_the_post_thumbnail($child_id, array(1024, 1024));
     
-            if($array == []) {
+            $title= $child->post_title;
+            
+            if ($count != 0) {
+                $result .= '<hr>';
+            }
     
+            $result .= '<div class="applist-outer">
+                            <div class="app-icon">' . $thumb . '</div>
+                            <a href="' . $url . '" class="app-name">' . $title . '</a>
+                        </div>';
+            
+            $count ++;
+        } else {
+
+            if (in_array($child_slug, $array['featured'])) {
                 $url = get_permalink( $child_id );
         
                 $thumb = get_the_post_thumbnail($child_id, array(1024, 1024));
         
                 $title= $child->post_title;
-                
-                if ($count != 0) {
-                    $result .= '<hr>';
-                }
+
+                $result .= '<hr>';
         
                 $result .= '<div class="applist-outer">
                                 <div class="app-icon">' . $thumb . '</div>
@@ -42,26 +59,16 @@ function get_child($id, $array = []) {
                             </div>';
                 
                 $count ++;
-            } else {
-    
-                if (in_array($child_slug, $array['featured'])) {
-                    $url = get_permalink( $child_id );
-            
-                    $thumb = get_the_post_thumbnail($child_id, array(1024, 1024));
-            
-                    $title= $child->post_title;
-    
-                    $result .= '<hr>';
-            
-                    $result .= '<div class="applist-outer">
-                                    <div class="app-icon">' . $thumb . '</div>
-                                    <a href="' . $url . '" class="app-name">' . $title . '</a>
-                                </div>';
-                    
-                    $count ++;
-                }
             }
         }
+    }
+
+    //"$id != 28": Same Method is Already Run in No.7(Prev.)
+    if($count == 0 && ($id != 28 || get_current_link() != "https://iapp.devel.jp/")) {
+        if(get_current_link() == "https://iapp.devel.jp/") {
+            $result .= '<hr>';
+        }
+        $result .= '<h1 class="section-title">Sorry...<br>We have nothing to show:(</h1>';
     }
      
     return $result;
@@ -75,8 +82,7 @@ function wpb_list_child_pages() {
 
     $result = '';
 
-
-    if(get_post_permalink() == "https://iapp.devel.jp/?post_type=post&p=1") {
+    if(get_current_link() == "https://iapp.devel.jp/") {
         //index.php - Featured Apps
 
         //LOAD JSON

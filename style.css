@@ -6,7 +6,7 @@ Theme Name: iApp Develop
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Mukta", sans-serif;
+  font-family: "Noto Sans JP", sans-serif;
 }
 
 .page-wrapper {
@@ -139,8 +139,10 @@ Theme Name: iApp Develop
 
 .top-image {
   object-fit: contain;
+  width: auto;
   height: 550px;
   padding: 25px;
+  margin-right: 0;
   margin-left: auto;
   display: block;
 }
@@ -351,7 +353,7 @@ input[type="checkbox"] {
 /* #endregion */
 
 /* For Mobile */
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 550px) {
   /* #region 404 */
   .container {
     display: block;
@@ -371,4 +373,13 @@ input[type="checkbox"] {
     padding-left: 0px;
   }
   /* #endregion */
+
+  .top-image {
+    object-fit: contain;
+    height: auto;
+    width: 400px;
+    padding: 25px;
+    margin: auto;
+    display: block;
+  }
 }
