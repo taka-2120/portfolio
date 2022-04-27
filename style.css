@@ -186,7 +186,6 @@ Theme Name: iApp Develop
 .applist-outer {
   display: grid;
   grid-template-columns: 20% auto;
-  vertical-align: middle;
   padding: 20px;
 }
 
@@ -196,9 +195,9 @@ Theme Name: iApp Develop
 }
 
 .app-icon img {
-  border-radius: 20%;
-  height: 100%; 
   width: 100%; 
+  height: auto;
+  border-radius: 20%;
   object-fit: contain;
 }
 

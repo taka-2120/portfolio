@@ -16,39 +16,25 @@ function get_child($id, $array = []) {
     $result = "";
     $count = 0;
 
-    foreach ( $children as $child ) {
-
-        $child_id = $child->ID;
-        $child_slug = $child->post_name;
-
-        if($array == []) {
-
-            $url = get_permalink( $child_id );
+    if(count($children) == 0) {
+        $result = '<h1 class="section-title">Sorry...\nWe have nothing to show.</h1>';
+    } else {
+        foreach ( $children as $child ) {
     
-            $thumb = get_the_post_thumbnail($child_id, array(1024, 1024));
+            $child_id = $child->ID;
+            $child_slug = $child->post_name;
     
-            $title= $child->post_title;
-            
-            if ($count != 0) {
-                $result .= '<hr>';
-            }
+            if($array == []) {
     
-            $result .= '<div class="applist-outer">
-                            <div class="app-icon">' . $thumb . '</div>
-                            <a href="' . $url . '" class="app-name">' . $title . '</a>
-                        </div>';
-            
-            $count ++;
-        } else {
-
-            if (in_array($child_slug, $array['featured'])) {
                 $url = get_permalink( $child_id );
         
                 $thumb = get_the_post_thumbnail($child_id, array(1024, 1024));
         
                 $title= $child->post_title;
-
-                $result .= '<hr>';
+                
+                if ($count != 0) {
+                    $result .= '<hr>';
+                }
         
                 $result .= '<div class="applist-outer">
                                 <div class="app-icon">' . $thumb . '</div>
@@ -56,6 +42,24 @@ function get_child($id, $array = []) {
                             </div>';
                 
                 $count ++;
+            } else {
+    
+                if (in_array($child_slug, $array['featured'])) {
+                    $url = get_permalink( $child_id );
+            
+                    $thumb = get_the_post_thumbnail($child_id, array(1024, 1024));
+            
+                    $title= $child->post_title;
+    
+                    $result .= '<hr>';
+            
+                    $result .= '<div class="applist-outer">
+                                    <div class="app-icon">' . $thumb . '</div>
+                                    <a href="' . $url . '" class="app-name">' . $title . '</a>
+                                </div>';
+                    
+                    $count ++;
+                }
             }
         }
     }
