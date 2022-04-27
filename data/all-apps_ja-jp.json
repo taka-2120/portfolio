@@ -1,0 +1,45 @@
+{
+    "apps": [
+        {
+            "name": "Fever Monitor",
+            "icon-path": "",
+            "version": "1.0.0 Beta",
+            "last-update": "2022/3/12",
+            "platform": ["iOS"],
+            "main-features": "ヘルスケアアプリにより簡単に体温を追加できます。 体温の変化をより視覚的に表示したり、設定された時間に体温を計測するようにお知らせができます。",
+            "note": "ご自身以外に、最大5人まで他のユーザーを追加できますが、ヘルスケアアプリと連携できるのはご自身のデータのみです。",
+            "future-plan": "データの出力とバックアップ, ウィジェットの追加",
+            "hidden": false
+        },
+        {
+            "name": "Subs Manager",
+            "icon-path": "",
+            "version": "1.0.0 Beta",
+            "last-update": "2022/3/12",
+            "platform": ["iOS", "iPadOS"],
+            "main-features": "より簡単にサブスクリプションを管理できます。指定された日時にお支払日をお知らせします。",
+            "future-plan": "",
+            "hidden": false
+        },
+        {
+            "name": "Wordbook",
+            "icon-path": "",
+            "version": "1.0.0 Beta",
+            "last-update": "2022/3/12",
+            "platform": ["iOS", "iPadOS"],
+            "main-features": "",
+            "future-plan": "",
+            "hidden": true
+        },
+        {
+            "name": "Theme Automator",
+            "icon-path": "",
+            "version": "1.0.0 Beta",
+            "last-update": "2022/3/12",
+            "platform": ["Windows"],
+            "main-features": "Windowsのライトモードとダークモードを日の出と日没や、指定された時間に合わせて自動で変更します。",
+            "future-plan": "壁紙も同時に変更",
+            "hidden": false
+        }
+    ]
+}
