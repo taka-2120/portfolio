@@ -68,7 +68,7 @@ function get_child($id, $array = []) {
         if(get_current_link() == "https://iapp.devel.jp/") {
             $result .= '<hr>';
         }
-        $result .= '<h1 class="section-title">Sorry...<br>We have nothing to show:(</h1>';
+        $result .= '<h4 class="no-item">Sorry...<br>We have nothing to show :(</h4>';
     }
      
     return $result;

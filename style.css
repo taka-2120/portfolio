@@ -9,6 +9,10 @@ Theme Name: iApp Develop
   font-family: "Noto Sans JP", sans-serif;
 }
 
+p {
+  line-height: 2em;
+}
+
 .page-wrapper {
   min-height: 100vh;
   position: relative;
@@ -61,6 +65,13 @@ Theme Name: iApp Develop
   color: #fff;
   position: absolute;
   bottom: 0;
+}
+
+.no-item {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* #region Download Section */
