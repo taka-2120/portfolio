@@ -11,8 +11,25 @@ Theme Name: iApp Develop
 
 p {
   line-height: 2em;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
+.p-no-padding {
+  padding: 0; /*Overwritten onto Default Padding*/
+}
+
+hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/*Most Outside*/
 .page-wrapper {
   min-height: 100vh;
   position: relative;
@@ -20,31 +37,20 @@ p {
   box-sizing: border-box;
 }
 
-.contents {
-  padding-top: 89px;
-}
-
+/*Except Index*/
 .outer {
   padding-top: 110px;
 }
 
-.header-background {
-  position: fixed;
-  background-color: #675afc;
-  width: 100%;
-  height: 90px;
-  z-index: 99;
+.no-item {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.header-title {
-  color: #fff;
-  text-decoration: none;
-  font-size: xx-large;
-  line-height: 90px;
-  padding-left: 20px;
-  font-family: "Oswald", sans-serif;
-}
-
+/*Section*/
 .section {
   width: 100%;
   max-width: 1000px;
@@ -56,8 +62,27 @@ p {
   text-align: center;
 }
 
+/*Header*/
+.header-background {
+  position: fixed;
+  background-color: #675afc;
+  width: 100%;
+  height: 90px;
+  z-index: 99;
+}
+
+.header-title {
+  color: #fff;
+  text-decoration: none;
+  line-height: 90px;
+  padding-left: 20px;
+  font-family: "Source Code Pro", sans-serif;
+}
+
+/*Footer*/
 .footer-container {
   background-color: #675afc;
+  font-size: smaller;
   width: 100%;
   height: 130px;
   padding: 20px;
@@ -65,13 +90,6 @@ p {
   color: #fff;
   position: absolute;
   bottom: 0;
-}
-
-.no-item {
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 /* #region Download Section */
@@ -101,11 +119,8 @@ p {
 }
 /* #endregion */
 
-/* #region Single */
-.single-title {
-  padding-left: 20px;
-}
-
+/* #region Page/Post */
+/*Single(Post)*/
 .single-content {
   padding: 10px;
   width: 100%;
@@ -113,6 +128,7 @@ p {
   margin: 0 auto;
 }
 
+/*Header of App Page*/
 .center-container {
   position: relative;
   width: 100%;
@@ -143,6 +159,27 @@ p {
 /* #endregion */
 
 /* #region index top banner */
+.top-catch {
+  display: grid;
+  grid-template-columns: 55% 45%;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.top-catch h2 {
+  font-family: "Source Code Pro", sans-serif;
+  margin: auto;
+  vertical-align: center;
+  color: #fff;
+  text-align: center;
+  max-lines: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 50px;
+  line-height: 60px;
+}
+
 .top-banner {
   background-color: #675afc;
   height: 600px;
@@ -150,11 +187,10 @@ p {
 
 .top-image {
   object-fit: contain;
-  width: auto;
-  height: 550px;
+  width: 100%;
+  height: auto;
   padding: 25px;
-  margin-right: 0;
-  margin-left: auto;
+  margin: auto;
   display: block;
 }
 
@@ -172,38 +208,38 @@ p {
   left: 0;
   right: 0;
 }
-/* #endregion */
+/* #endregion */ 
 
-/* #region Updates */
+/* #region Recemts Updates */
 .post {
-  padding: 20px;
+  padding: 15px;
   display: grid;
   grid-template-columns: auto auto;
   vertical-align: middle;
 }
 
 .post-title {
-  font-size: large;
-  padding: 10px;
   color: #000;
+  vertical-align: middle;
+  line-height: 40px;
 }
 
 .post-date {
   text-align: right;
   vertical-align: middle;
-  line-height: 48px;
+  line-height: 40px;
 }
 /* #endregion */
 
-/* #region Featured */
+/* #region App List */
 .applist-outer {
   display: grid;
   grid-template-columns: 20% auto;
-  padding: 20px;
+  padding: 15px;
 }
 
 .app-icon {
-  width: 90%;
+  width: 100%;
   border-radius: 20%;
 }
 
@@ -215,7 +251,7 @@ p {
 }
 
 .app-name {
-  font-size: large;
+  padding-left: 15px;
   color: #000;
 }
 /* #endregion */
@@ -287,7 +323,7 @@ p {
 }
 
 .wrapper ul li a {
-  font-family: "Oswald", sans-serif;
+  font-family: "Source Code Pro", sans-serif;
   color: none;
   text-decoration: none;
   font-size: 30px;
@@ -384,12 +420,28 @@ input[type="checkbox"] {
     padding-left: 0px;
   }
   /* #endregion */
+  .top-catch {
+    display: block;
+    width: 100%;
+  }
+  
+  .top-catch h2 {
+    font-family: "Source Code Pro", sans-serif;
+    vertical-align: center;
+    color: #fff;
+    max-lines: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: auto;
+    padding-top: 50px;
+    line-height: 60px;
+  }
 
   .top-image {
     object-fit: contain;
     height: auto;
-    width: 400px;
-    padding: 25px;
+    width: 70%;
+    padding-top: 50px;
     margin: auto;
     display: block;
   }

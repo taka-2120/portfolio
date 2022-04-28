@@ -3,7 +3,7 @@
 
     <div class="outer">
         <div class="single-content">
-            <h1 class="single-title">
+            <h1>
                 <?php the_title(); ?>
             </h1>
             <?php echo the_content(); ?>

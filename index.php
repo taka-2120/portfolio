@@ -1,10 +1,13 @@
 <div class="page-wrapper">
     <?php get_header(); ?>
 
-    <div class="contents">
+    <div style="padding-top: 89px;">
 
         <div class="top-banner">
-            <img class="top-image" src="<?php echo get_template_directory_uri(); ?>/images/header-image.png" />
+            <div class="top-catch">
+                <h2>Software Change the World.</h2>
+                <img class="top-image" src="<?php echo get_template_directory_uri(); ?>/images/header-image.png" />
+            </div>
 
             <div class="banner-overlay">
                 <svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -29,7 +32,7 @@
                         <?php the_title(); ?>
                     </a>
 
-                    <p class="post-date">
+                    <p class="post-date p-no-padding">
                         <?php echo get_the_date(); ?>
                     </p>
                 </div>
