@@ -384,42 +384,44 @@ input[type="checkbox"] {
 }
 
 .img-404 {
-  width: 90%;
+  width: 70%;
   object-fit: contain;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .note-404 {
-  font-size: xx-large;
-  text-align: center;
-  padding-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-weight: bold;
-  padding-left: 20px;
-  vertical-align: middle;
+  font-size: large;
 }
 /* #endregion */
 
 /* For Mobile */
-@media only screen and (max-width: 550px) {
+@media only screen and (max-width: 700px) {
   /* #region 404 */
   .container {
     display: block;
   }
 
   .img-404 {
-    width: 60%;
+    width: 50%;
     object-fit: contain;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .note-404 {
-    font-size: large;
+    display: block;
     text-align: center;
     padding-top: 50px;
     font-weight: bold;
     padding-left: 0px;
   }
   /* #endregion */
+
   .top-catch {
     display: block;
     width: 100%;

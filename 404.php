@@ -6,8 +6,8 @@
 
         <div class="note-404">
             Hmmm....<br>
-            We could not find the page. Please check the url again.<br>
-            If you cannot fix it, please send a feedback to us.
+            お探しのページが見つかりませんでした。もう1度URLを確認してみてください。<br>
+            もし問題が解決いない場合は、フィードバックを送信してください。
         </div>
     </div>
 </div>
