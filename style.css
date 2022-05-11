@@ -15,6 +15,10 @@ p {
   padding-bottom: 10px;
 }
 
+ul {
+  list-style-position: inside;
+}
+
 .p-no-padding {
   padding: 0; /*Overwritten onto Default Padding*/
 }
