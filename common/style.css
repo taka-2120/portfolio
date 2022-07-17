@@ -1,0 +1,17 @@
+body {
+    font-family: 'M PLUS 1p', sans-serif;
+}
+
+img {
+    image-rendering: optimizeQuality;
+}
+
+.contents {
+    padding: 15px;
+    padding-bottom: 150px;
+}
+
+.wrapper {
+    position: relative;
+    min-height: 100vh;
+}

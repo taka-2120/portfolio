@@ -4,7 +4,7 @@ window.addEventListener('DOMContentLoaded', function(){
     ? navigator.languages[0]
     : navigator.language;
   var glot = new Glottologist();
-  glot.import("data/l10n.json").then(() => {
+  glot.import("https://iapp.devel.jp/data/l10n.json").then(() => {
     glot.render();
   });
 });
