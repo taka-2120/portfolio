@@ -1,0 +1,108 @@
+<html>
+    <head>
+        <meta lang="ja">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initiak-scale=1.0">
+        <script src="https://unpkg.com/glottologist"></script>
+        <!--Fonts-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fascinate&family=M+PLUS+1p&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+        <!--Favicons-->
+        <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+        <link rel="manifest" href="images/favicon/site.webmanifest">
+        <!--CSS-->
+        <link rel="stylesheet" href="style.css" >
+        <link rel="stylesheet" href="common/header/header-style.css">
+        <link rel="stylesheet" href="common/footer/footer-style.css">
+        <!--Scripts-->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous">
+        </script>
+        <script>
+         $(function() {
+         $("header").load("common/header/header.html"); 
+         $("footer").load("common/footer/footer.html"); 
+         });
+        </script>
+        <script src="functions/l10n.js"></script>
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <header></header>
+            <div class="contents">
+                <!--Top Banner-->
+                <div class="top-banner">
+                    <div class="banner-child">
+                        <h1 class="top-greet">I'm <span style="color: #f14061">Yu</span> Takahashi</h1>
+                        <h3>Mobile Engineer of SwiftUI, Flutter</h3>
+                    </div>
+                    <div class="banner-child banner-selfie">
+                        <img src="images/selfie-mac.png">
+                    </div>
+                </div>
+
+                <!--About Me-->
+                <div class="body-card">
+                    <h2>About Me</h2>
+                    <div class="details-grid">
+                        <h4 glot-model="age"></h4>
+                        <p>19</p>
+                        <h4 glot-model="univ"></h4>
+                        <p glot-model="univ-details"></p>
+                    </div>
+                    <hr class="default-hr">
+                </div>
+
+                <!--Skills-->
+                <div class="body-card">
+                    <h2>Skills</h2>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <img src="images/icons/swift.png">
+                            <p>Swift</p>
+                        </div>
+                        <div class="skill-item">
+                            <div class="tall-icon">
+                                <img src="images/icons/icon_flutter.png" style="height: 80%; margin-top: 10%;">
+                            </div>
+                            <p>Flutter</p>
+                        </div>
+                        <div class="skill-item">
+                            <div class="tall-icon">
+                                <img src="images/icons/html-5.png">
+                            </div>
+                            <p>HTML</p>
+                        </div>
+                        <div class="skill-item">
+                            <div class="tall-icon">
+                                <img src="images/icons/css-3.png">
+                            </div>
+                            <p>CSS</p>
+                        </div>
+                    </div>
+                    <p class="dim-text" glot-model="studying"></p>
+                    <hr class="default-hr">
+                </div>
+
+                <!--Links-->
+                <div class="body-card">
+                    <h2>Links</h2>
+                    <div class="links-list">
+                        <a href="https://github.com/taka-2120/">
+                            <img src="images/icons/github.png" alt="github">
+                        </a>
+                        <a class="dim-text" href="https://github.com/taka-2120/">@taka-2120</a>
+                        <a href="https://twitter.com/yutk_941">
+                            <img src="images/icons/twitter.png" alt="twitter">
+                        </a>
+                        <a class="dim-text" href="https://twitter.com/yutk_941">@yutk_941</a>
+                    </div>
+                </div>
+            </div>
+            <footer></footer>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <meta lang="ja">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initiak-scale=1.0">
+        <script src="https://unpkg.com/glottologist"></script>
+        <!--Fonts-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fascinate&family=M+PLUS+1p&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+        <!--Favicons-->
+        <link rel="apple-touch-icon" sizes="180x180" href="../images/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon/favicon-16x16.png">
+        <link rel="manifest" href="../images/favicon/site.webmanifest">
+        <!--CSS-->
+        <link rel="stylesheet" href="projects-style.css" >
+        <link rel="stylesheet" href="../common/header/header-style.css">
+        <link rel="stylesheet" href="../common/footer/footer-style.css">
+        <!--Scripts-->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous">
+        </script>
+        <script>
+         $(function() {
+         $("header").load("../common/header/header.html"); 
+         $("footer").load("../common/footer/footer.html"); 
+         });
+        </script>
+        <script src="functions/l10n.js"></script>
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <header></header>
+            <div class="contents">
+            </div>
+            <footer></footer>
+        </div>
+    </body>
+</html>
