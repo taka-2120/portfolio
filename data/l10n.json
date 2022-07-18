@@ -1,14 +1,22 @@
 {
-    "age": {
-      "en": "Age"
-    },
-    "univ": {
-      "en": "University"
-    },
-    "univ-details": {
-      "en": "Kwansei Gakuin University, 1st Year"
-    },
-    "studying": {
-        "en": "Studying: Python, C, and more..."
-    }
+  "age": {
+    "en": "Age"
+  },
+  "univ": {
+    "en": "University"
+  },
+  "univ-details": {
+    "en": "Kwansei Gakuin University, 1st Year"
+  },
+  "studying": {
+      "en": "Studying: Python, C, and more..."
+  },
+  "maintenance-title": {
+      "en": "Maintenance",
+      "js": "メンテナンス中"
+  },
+  "maintenance": {
+      "en": "This website is under maintenance...<br>Please wait for a moment.",
+      "js": "当サイトは只今メンテナンス中です…<br>しばらくお待ち下さい。"
   }
+}
