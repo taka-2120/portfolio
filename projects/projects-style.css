@@ -1,0 +1,28 @@
+.proj-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    background-color: rgb(247, 247, 247);
+    border-radius: 30px;
+    margin-top: 25px;
+    box-shadow: 0 10px 20px 5px rgba(0, 0, 0, .2);
+}
+
+.proj-item a {
+    color: black;
+}
+
+.proj-item img {
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    object-fit: contain;
+    border-radius: 20%;
+    margin-top: 5%;
+    margin-left: 5%;
+    margin-bottom: 5%;
+}
+
+.max-width {
+    max-width: 900px;
+    margin: 0 auto;
+}

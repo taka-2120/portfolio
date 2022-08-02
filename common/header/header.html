@@ -1,15 +1,11 @@
-<html>
-    <body>
-        <div class="nav-bar">
-            <div class="nav-icon">
-                <a href="../../"><img src="../../images/favicon/android-chrome-512x512.png"></a>
-            </div>
-            <div class="nav-list">
-                <a class="activated" href="../../">Home</a>
-                <a href="../../projects/">Projects</a>
-                <!-- <a href="feedback.html">Feedback</a>
-                <a href="about.html">About</a> -->
-            </div>
-        </div>
-    </body>
-</html>
+<div class="nav-bar">
+    <div class="nav-icon">
+        <a href="../../"><img src="../../images/favicon/android-chrome-512x512.png"></a>
+    </div>
+    <div class="nav-list">
+        <a id="home-menu" class="activated" href="../../" onclick="onMenuClicked(this.id)">Home</a>
+        <a id="proj-menu" href="../../projects/" onclick="onMenuClicked(this.id)">Projects</a>
+        <!-- <a href="feedback.html">Feedback</a>
+        <a href="about.html">About</a> -->
+    </div>
+</div>

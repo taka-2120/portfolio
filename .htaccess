@@ -2,9 +2,11 @@ RewriteEngine on
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
-ErrorDocument 503 /maintenance/index.html
-<IfModule mod_rewrite.c>    
+<IfModule mod_rewrite.c>
+    ErrorDocument 503 /maintenance/index.html
     RewriteEngine On
+    RewriteCond %{HTTP:X_FORWARDED_FOR} !^10.157.1.159
+    RewriteCond %{HTTP:X_FORWARDED_FOR} !^172.20.10.2
     RewriteCond %{REQUEST_URI} !^/maintenance/
     RewriteCond %{REQUEST_URI} !^/images/
     RewriteCond %{REQUEST_URI} !^/functions/
@@ -12,6 +14,5 @@ ErrorDocument 503 /maintenance/index.html
     RewriteCond %{REQUEST_URI} !=/common/style.css
     RewriteCond %{REQUEST_URI} !=/maintenance/maintenance-style.css
     RewriteCond %{DOCUMENT_ROOT}/maintenance/index.html -f
-    
     RewriteRule ^.*$ - [R=503,L]
 </IfModule>
