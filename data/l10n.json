@@ -9,14 +9,38 @@
     "en": "Kwansei Gakuin University, 1st Year"
   },
   "studying": {
-      "en": "Studying: Python, C, and more..."
+    "en": "Studying: Python, C, and more..."
   },
   "maintenance-title": {
-      "en": "Maintenance",
-      "js": "メンテナンス中"
+    "en": "Maintenance",
+    "js": "メンテナンス中"
   },
   "maintenance": {
-      "en": "This website is under maintenance...<br>Please wait for a moment.",
-      "js": "当サイトは只今メンテナンス中です…<br>しばらくお待ち下さい。"
+    "en": "This website is under maintenance...<br>Please wait for a moment.",
+    "js": "当サイトは只今メンテナンス中です…<br>しばらくお待ち下さい。"
+  },
+  "projects": {
+    "en": "Projects",
+    "js": "プロジェクト"
+  },
+  "miracle-desc-short": {
+    "en": "Let's record your daily footprints, photos, diary, and place you want to go.",
+    "js": "日々の行動、写真、日記、行きたかったあの場所を記録しよう"
+  },
+  "fevermonitor-desc-short": {
+    "en": "Be smooooother your daily body temp recording.",
+    "js": "毎日の体温記録をスムーズに"
+  },
+  "wordbook-desc-short": {
+    "en": "Let's study effectively by creating your own Wordbook.",
+    "js": "オリジナルの単語帳を作って効率よく勉強しよう"
+  },
+  "subsmanager-desc-short": {
+    "en": "Be smarter subscriptions management.",
+    "js": "サブスク管理をよりスマートに。"
+  },
+  "faire-desc-short": {
+    "en": "Keep your habits",
+    "js": "習慣を続けよう"
   }
 }
