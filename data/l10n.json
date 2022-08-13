@@ -51,6 +51,10 @@
     "en": "Maintenance",
     "ja": "メンテナンス中"
   },
+  "preparation": {
+    "en": "&nbsp&nbsp*Preparing...",
+    "ja": "&nbsp&nbsp*準備中..."
+  },
   "maintenance": {
     "en": "This website is under maintenance...<br>Please wait for a moment.",
     "ja": "当サイトは只今メンテナンス中です…<br>しばらくお待ち下さい。"
