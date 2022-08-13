@@ -1,10 +1,11 @@
 function onMenuClicked(clicked_id) {
+    var domain = window.location.origin;
     switch (clicked_id) {
         case "home-menu": 
-            document.getElementById("home-menu").className = "";
-            document.getElementById("proj-menu").className = "activated";
+            window.location.href = domain;
+            return;
         case "proj-menu": 
-            document.getElementById("home-menu").className = "activated";
-            document.getElementById("proj-menu").className = "";
+            window.location.href = domain + "/projects/";
+            return;
     }
 }

@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', function(){
+window.addEventListener('DOMContentLoaded', function() {
   const userLocale =
   navigator.languages && navigator.languages.length
     ? navigator.languages[0]

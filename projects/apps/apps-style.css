@@ -1,13 +1,13 @@
 #miracle-height {
-    min-height: 500vh;
+    min-height: 100vh;
 }
 
 #subsmanager-height {
-    min-height: 500vh;
+    min-height: 100vh;
 }
 
 #faire-height {
-    min-height: 500vh;
+    min-height: 100vh;
 }
 
 .center {
@@ -15,6 +15,19 @@
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+}
+
+.desc {
+    font-weight: normal;
+    position: absolute;
+    top: 1vh;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.sub-title {
+    font-weight: normal;
 }
 
 .app-top {
@@ -40,12 +53,17 @@
 }
 
 .app-sc {
+    position: absolute;
     opacity: 0;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
 }
 
 .app-sc img {
-    height: 90vh;
-    padding-top: 5vh;
+    height: 80vh;
+    padding-top: 10vh;
 }
 
 @keyframes bounce {
@@ -55,4 +73,21 @@
     70% { transform: scale(0.8); }
     85% { transform: scale(1.2); }
     100% { transform: scale(1); }
+}
+
+.app-info {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    margin-top: 60px;
+    margin-bottom: 100px;
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+th, td {
+    padding: 20px;
 }
