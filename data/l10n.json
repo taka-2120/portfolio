@@ -47,6 +47,10 @@
     "en": "Japanese",
     "ja": "日本語"
   },
+  "belong": {
+    "en": "Belong",
+    "ja": "所属"
+  },
   "maintenance-title": {
     "en": "Maintenance",
     "ja": "メンテナンス中"
