@@ -1,15 +1,19 @@
 {
   "age": {
-    "en": "Age"
+    "en": "Age",
+    "ja": "年齢"
   },
   "univ": {
-    "en": "University"
+    "en": "University",
+    "ja": "大学"
   },
   "univ-details": {
-    "en": "Kwansei Gakuin University, 1st Year"
+    "en": "Kwansei Gakuin University, 1st Year",
+    "ja": "関西学院大学 1回生"
   },
   "studying": {
-    "en": "Studying: Python, C, and more..."
+    "en": "Studying: Python, Java, C, and more...",
+    "ja": "勉強中: Python, Java, C, など..."
   },
   "projects": {
     "en": "Projects",
@@ -50,6 +54,22 @@
   "belong": {
     "en": "Belong",
     "ja": "所属"
+  },
+  "dep-rep": {
+    "en": "Deputy Representative",
+    "ja": "副代表"
+  },
+  "release-date": {
+    "en": "Release Date",
+    "ja": "リリース日"
+  },
+  "not-yet-released": {
+    "en": "Not Yet Released",
+    "ja": "未リリース"
+  },
+  "planning": {
+    "en": "Planning on: ",
+    "ja": "リリース予定: "
   },
   "maintenance-title": {
     "en": "Maintenance",
