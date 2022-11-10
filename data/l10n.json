@@ -59,6 +59,14 @@
     "en": "Deputy Representative",
     "ja": "副代表"
   },
+  "09012022": {
+    "en": "Flutter App Development for Android TV and Mobile",
+    "ja": "スタートアップ企業での、Android TVとモバイル向け Flutterアプリ開発"
+  },
+  "10012022": {
+    "en": "Development of Discord Bot for tech.Uni using JavaScript",
+    "ja": "JavaScriptを用いたTech.Uni用のDiscord Bot開発"
+  },
   "release-date": {
     "en": "Release Date",
     "ja": "リリース日"
