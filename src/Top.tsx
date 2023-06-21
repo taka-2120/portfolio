@@ -13,7 +13,7 @@ import {
   UnstyledButton,
   Center,
   Grid,
-  Card
+  Card,
 } from '@mantine/core';
 import { animated, useSpringValue } from '@react-spring/web';
 import { IconBrandGithub, IconBrandTwitter } from '@tabler/icons-react';
@@ -47,8 +47,8 @@ const useStyles = createStyles((_) => ({
     filter: 'blur(50px)',
     background: 'radial-gradient(circle at 50% 50%,rgba(76, 0, 255, 1), rgba(76, 0, 255, 0))',
     opacity: 0.2,
-    marginTop: '-10%'
-  }
+    marginTop: '-10%',
+  },
 }));
 
 const Top = () => {
@@ -187,16 +187,16 @@ const Top = () => {
                 items={[
                   {
                     label: '2022/09/01 ~ 2022/10/30',
-                    children: 'Development of flutter apps for Android TV and mobile devices at Crosshare.inc'
+                    children: 'Development of flutter apps for Android TV and mobile devices at Crosshare.inc',
                   },
                   {
                     label: '2022/10/01 ~ ',
-                    children: 'Development of Discord Bot at Tech.Uni'
+                    children: 'Development of Discord Bot at Tech.Uni',
                   },
                   {
                     label: '2022/11/01 ~ ',
-                    children: 'Development of SwiftUI app at a start-up team'
-                  }
+                    children: 'Development of SwiftUI app at a start-up team',
+                  },
                 ]}
               />
             </Stack>
