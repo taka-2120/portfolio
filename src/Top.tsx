@@ -2,9 +2,7 @@
 
 import {
   createStyles,
-  Button,
   Flex,
-  Group,
   Stack,
   Text,
   Divider,
@@ -14,9 +12,9 @@ import {
   Center,
   Grid,
   Card,
+  Button
 } from '@mantine/core';
-import { animated, useSpringValue } from '@react-spring/web';
-import { IconBrandGithub, IconBrandTwitter } from '@tabler/icons-react';
+import { IconArrowUpRight, IconBrandGithub, IconBrandTwitter } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
 import Timeline from 'antd/es/timeline';
 import { useState, useEffect } from 'react';
@@ -47,13 +45,13 @@ const useStyles = createStyles((_) => ({
     filter: 'blur(50px)',
     background: 'radial-gradient(circle at 50% 50%,rgba(76, 0, 255, 1), rgba(76, 0, 255, 0))',
     opacity: 0.2,
-    marginTop: '-10%',
-  },
+    marginTop: '-10%'
+  }
 }));
 
 const Top = () => {
   const { classes } = useStyles();
-  const opacity = useSpringValue(0, { to: 1, delay: 1000, config: { duration: 1000 } });
+  // const opacity = useSpringValue(0, { to: 1, delay: 1000, config: { duration: 1000 } });
   const skills = [swift, flutter, react, ts, js, node, python, clang, firebase, supabase];
 
   const [width, setWidth] = useState(window.innerWidth);
@@ -71,7 +69,7 @@ const Top = () => {
 
   return (
     <>
-      <Flex justify="flex-end" align="start" w="98%" pos="fixed" mt={10} style={{ zIndex: 99 }}>
+      {/* <Flex justify="flex-end" align="start" w="98%" pos="fixed" mt={10} style={{ zIndex: 99 }}>
         <animated.div style={{ opacity }}>
           <Group
             bg="white"
@@ -96,7 +94,7 @@ const Top = () => {
             </Button>
           </Group>
         </animated.div>
-      </Flex>
+      </Flex> */}
 
       <Center>
         <Stack pt={80} mx={10} maw="900px" w="100%">
@@ -105,7 +103,14 @@ const Top = () => {
             {width < breakpoint ? (
               <Stack>
                 <Card w="100%" bg="transparent" h={300}>
-                  <Title order={2}>Wordbook</Title>
+                  <Stack w="100%" h="100%" justify="space-between">
+                    <Title order={2}>Wordbook</Title>
+                    <Flex w="100%" align="flex-end">
+                      <Button variant="outlined">
+                        <IconArrowUpRight color="black" />
+                      </Button>
+                    </Flex>
+                  </Stack>
                 </Card>
                 <Grid w="100%">
                   <ProjectCard title="Discord Bot" description="A discord bot for Tech.Uni" image={bot} />
@@ -115,7 +120,14 @@ const Top = () => {
             ) : (
               <Flex w="100%">
                 <Card w="50%" bg="transparent" h={300}>
-                  <Title order={2}>Wordbook</Title>
+                  <Stack w="100%" h="100%" justify="space-between">
+                    <Title order={2}>Wordbook</Title>
+                    <Flex w="100%" justify="flex-end">
+                      <Button component={Link} to="/wordventure" variant="outlined" size="sm">
+                        <IconArrowUpRight color="gray" />
+                      </Button>
+                    </Flex>
+                  </Stack>
                 </Card>
                 <Grid w="50%">
                   <ProjectCard title="Discord Bot" description="A discord bot for Tech.Uni" image={bot} />
@@ -187,16 +199,16 @@ const Top = () => {
                 items={[
                   {
                     label: '2022/09/01 ~ 2022/10/30',
-                    children: 'Development of flutter apps for Android TV and mobile devices at Crosshare.inc',
+                    children: 'Development of flutter apps for Android TV and mobile devices at Crosshare.inc'
                   },
                   {
                     label: '2022/10/01 ~ ',
-                    children: 'Development of Discord Bot at Tech.Uni',
+                    children: 'Development of Discord Bot at Tech.Uni'
                   },
                   {
                     label: '2022/11/01 ~ ',
-                    children: 'Development of SwiftUI app at a start-up team',
-                  },
+                    children: 'Development of SwiftUI app at a start-up team'
+                  }
                 ]}
               />
             </Stack>
