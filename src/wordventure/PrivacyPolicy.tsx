@@ -6,7 +6,6 @@ import { sharedBucket, privacyPolicyEnUrl, privacyPolicyJaUrl } from '../common/
 
 const styles = createStyles(() => ({
   stack: {
-    fontFamily: 'Noto Sans JP',
     margin: '0 auto',
     width: '100%',
     maxWidth: 1000,

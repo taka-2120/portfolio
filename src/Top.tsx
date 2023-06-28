@@ -12,7 +12,8 @@ import {
   Center,
   Grid,
   Card,
-  Button
+  Button,
+  MantineProvider
 } from '@mantine/core';
 import { IconArrowUpRight, IconBrandGithub, IconBrandTwitter } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
@@ -49,7 +50,7 @@ const useStyles = createStyles((_) => ({
   }
 }));
 
-const Top = () => {
+const TopContent = () => {
   const { classes } = useStyles();
   // const opacity = useSpringValue(0, { to: 1, delay: 1000, config: { duration: 1000 } });
   const skills = [swift, flutter, react, ts, js, node, python, clang, firebase, supabase];
@@ -96,7 +97,7 @@ const Top = () => {
         </animated.div>
       </Flex> */}
 
-      <Center>
+      <Center className="outer">
         <Stack pt={80} mx={10} maw="900px" w="100%">
           <>
             <div className={classes.blurryGradient} />
@@ -222,5 +223,11 @@ const Top = () => {
     </>
   );
 };
+
+const Top = () => (
+  <MantineProvider withGlobalStyles withNormalizeCSS theme={{ fontFamily: 'monospace' }}>
+    <TopContent />
+  </MantineProvider>
+);
 
 export default Top;

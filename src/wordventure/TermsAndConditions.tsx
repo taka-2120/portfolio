@@ -6,7 +6,6 @@ import { sharedBucket, termsAndConditionsEnUrl, termsAndConditionsJaUrl } from '
 
 const styles = createStyles(() => ({
   stack: {
-    fontFamily: 'Noto Sans JP',
     margin: '0 auto',
     width: '100%',
     maxWidth: 1000,

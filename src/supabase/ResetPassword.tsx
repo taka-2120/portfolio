@@ -75,13 +75,12 @@ export const ResetPassword = ({ params }: ResetPasswordProps) => {
       </Stack>
     </Center>
   ) : (
-    <Stack p={20}>
+    <Stack p={20} maw={1000}>
       <h1>Reset Password</h1>
       <p>Reset password for {userData?.email ?? 'unknown email'}</p>
 
       <PasswordInput
         label="New Password"
-        ff="sans-serif"
         placeholder="New password"
         required
         mt="md"
@@ -90,7 +89,6 @@ export const ResetPassword = ({ params }: ResetPasswordProps) => {
       />
       <PasswordInput
         label="One more time..."
-        ff="sans-serif"
         placeholder="Re-enter new password"
         required
         mt="md"
@@ -98,7 +96,7 @@ export const ResetPassword = ({ params }: ResetPasswordProps) => {
         onChange={setRePassword}
       />
 
-      <Button mt="xl" ff="sans-serif" onClick={resetPassword}>
+      <Button m='0 auto' mt="xl" px='30px' maw='250px' onClick={resetPassword}>
         Reset Password
       </Button>
     </Stack>

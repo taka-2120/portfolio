@@ -6,7 +6,7 @@ import './index.css';
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
-  <MantineProvider withGlobalStyles withNormalizeCSS theme={{ fontFamily: 'monospace' }}>
+  <MantineProvider withGlobalStyles withNormalizeCSS>
     <Router />
   </MantineProvider>
 );
