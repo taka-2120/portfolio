@@ -17,6 +17,7 @@ module.exports = {
   ignorePatterns: ['build'],
   rules: {
     'no-console': 'off',
+    'no-alert': 'off',
     'no-restricted-syntax': [
       'error',
       {
