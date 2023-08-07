@@ -31,6 +31,7 @@ import python from './assets/skills/python.png';
 import clang from './assets/skills/clang.png';
 import firebase from './assets/skills/firebase.png';
 import supabase from './assets/skills/supabase.png';
+import nextjs from './assets/skills/nextjs.svg';
 import bot from './assets/projects/bot.jpg';
 import subsmanager from './assets/projects/subsmanager.jpg';
 
@@ -53,19 +54,13 @@ const useStyles = createStyles((_) => ({
 const TopContent = () => {
   const { classes } = useStyles();
   // const opacity = useSpringValue(0, { to: 1, delay: 1000, config: { duration: 1000 } });
-  const skills = [swift, flutter, react, ts, js, node, python, clang, firebase, supabase];
+  const skills = [swift, flutter, react, nextjs, ts, js, node, python, clang, firebase, supabase];
 
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 900;
 
   useEffect(() => {
-    /* Inside of a "useEffect" hook add an event listener that updates
-       the "width" state variable when the window size changes */
     window.addEventListener('resize', () => setWidth(window.innerWidth));
-
-    /* passing an empty array as the dependencies of the effect will cause this
-       effect to only run when the component mounts, and not each time it updates.
-       We only want the listener to be added once */
   }, []);
 
   return (
@@ -105,10 +100,10 @@ const TopContent = () => {
               <Stack>
                 <Card w="100%" bg="transparent" h={300}>
                   <Stack w="100%" h="100%" justify="space-between">
-                    <Title order={2}>Wordbook</Title>
+                    <Title order={2}>WordVenture</Title>
                     <Flex w="100%" align="flex-end">
-                      <Button variant="outlined">
-                        <IconArrowUpRight color="black" />
+                      <Button component={Link} to="/wordventure" variant="outlined" size="sm">
+                        <IconArrowUpRight color="gray" />
                       </Button>
                     </Flex>
                   </Stack>
@@ -122,7 +117,7 @@ const TopContent = () => {
               <Flex w="100%">
                 <Card w="50%" bg="transparent" h={300}>
                   <Stack w="100%" h="100%" justify="space-between">
-                    <Title order={2}>Wordbook</Title>
+                    <Title order={2}>WordVenture</Title>
                     <Flex w="100%" justify="flex-end">
                       <Button component={Link} to="/wordventure" variant="outlined" size="sm">
                         <IconArrowUpRight color="gray" />
@@ -186,8 +181,9 @@ const TopContent = () => {
                 Belong to ...
               </Title>
               <Text>- Tech.Uni (Deputy Representative)</Text>
-              <Text>- Crosshare.inc (Engineer)</Text>
-              <Text mb={5}>- 23.inc (Engineer)</Text>
+              <Text>- Re-era.inc (Engineer)</Text>
+              <Text>- Crosshare.inc (Engineer • Paused)</Text>
+              <Text mb={5}>- 23.inc (Engineer • Paused)</Text>
             </Stack>
 
             <Divider />
@@ -204,11 +200,19 @@ const TopContent = () => {
                   },
                   {
                     label: '2022/10/01 ~ ',
-                    children: 'Development of Discord Bot at Tech.Uni'
+                    children: 'Became a deputy representative at Tech.Uni\nDevelopment of the discord bot for Tech.Uni'
                   },
                   {
                     label: '2022/11/01 ~ ',
                     children: 'Development of SwiftUI app at a start-up team'
+                  },
+                  {
+                    label: '2023/03/01 ~ ',
+                    children: 'Joined Re-era.inc as an engineer'
+                  },
+                  {
+                    label: '2023/08/01 ~ ',
+                    children: 'Joined Re-era.inc as an engineer'
                   }
                 ]}
               />
