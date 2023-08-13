@@ -1,3 +1,5 @@
+'use client';
+
 /* eslint-disable import/no-extraneous-dependencies */
 
 import {
@@ -16,9 +18,10 @@ import {
   MantineProvider
 } from '@mantine/core';
 import { IconArrowUpRight, IconBrandGithub, IconBrandTwitter } from '@tabler/icons-react';
-import { Link } from 'react-router-dom';
 import Timeline from 'antd/es/timeline';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import supabase from './assets/skills/supabase.png';
 import { ProjectCard } from './components/ProjectCard';
 import portrait from './assets/portrait.png';
 import swift from './assets/skills/swift.png';
@@ -30,7 +33,6 @@ import node from './assets/skills/node.png';
 import python from './assets/skills/python.png';
 import clang from './assets/skills/clang.png';
 import firebase from './assets/skills/firebase.png';
-import supabase from './assets/skills/supabase.png';
 import nextjs from './assets/skills/nextjs.svg';
 import bot from './assets/projects/bot.jpg';
 import subsmanager from './assets/projects/subsmanager.jpg';
@@ -102,7 +104,7 @@ const TopContent = () => {
                   <Stack w="100%" h="100%" justify="space-between">
                     <Title order={2}>WordVenture</Title>
                     <Flex w="100%" align="flex-end">
-                      <Button component={Link} to="/wordventure" variant="outlined" size="sm">
+                      <Button component={Link} href="/wordventure" variant="outlined" size="sm">
                         <IconArrowUpRight color="gray" />
                       </Button>
                     </Flex>
@@ -119,7 +121,7 @@ const TopContent = () => {
                   <Stack w="100%" h="100%" justify="space-between">
                     <Title order={2}>WordVenture</Title>
                     <Flex w="100%" justify="flex-end">
-                      <Button component={Link} to="/wordventure" variant="outlined" size="sm">
+                      <Button component={Link} href="/wordventure" variant="outlined" size="sm">
                         <IconArrowUpRight color="gray" />
                       </Button>
                     </Flex>
@@ -136,7 +138,7 @@ const TopContent = () => {
 
             <Stack mx={10}>
               <Flex align="center">
-                <Image src={portrait} width={200} mr={15} />
+                <Image src={portrait.src} width={200} mr={15} />
                 <Stack spacing={8}>
                   <Title order={1}>Yu Takahashi</Title>
                   <Text color="gray">he/him</Text>
@@ -147,13 +149,20 @@ const TopContent = () => {
                 <br />
                 <span style={{ paddingLeft: '20px' }}>School of Engineering</span>
                 <br />
+                <span style={{ paddingLeft: '20px' }}>Department of Information Engineering</span>
+                <br />
                 <span style={{ paddingLeft: '20px', color: 'gray' }}>2nd year</span>
               </Text>
               <Flex justify="flex-end">
-                <UnstyledButton style={{ color: 'black' }} mx={10} component={Link} to="https://github.com/taka-2120">
+                <UnstyledButton style={{ color: 'black' }} mx={10} component={Link} href="https://github.com/taka-2120">
                   <IconBrandGithub />
                 </UnstyledButton>
-                <UnstyledButton style={{ color: '#00acee' }} mx={10} component={Link} to="https://twitter.com/yutk_941">
+                <UnstyledButton
+                  style={{ color: '#00acee' }}
+                  mx={10}
+                  component={Link}
+                  href="https://twitter.com/yutk_941"
+                >
                   <IconBrandTwitter />
                 </UnstyledButton>
               </Flex>
@@ -167,7 +176,7 @@ const TopContent = () => {
                 {skills.map((skill) => (
                   <Grid.Col key={skill} xs={4} sm={3} md={2} lg={2} xl={2} span={4} my={8}>
                     <Center>
-                      <Image src={skill} width={100} mr={15} radius={20} />
+                      <Image src={skill.src} width={100} mr={15} radius={20} />
                     </Center>
                   </Grid.Col>
                 ))}
@@ -203,12 +212,12 @@ const TopContent = () => {
                     children: 'Became a deputy representative at Tech.Uni\nDevelopment of the discord bot for Tech.Uni'
                   },
                   {
-                    label: '2022/11/01 ~ ',
+                    label: '2022/11/01 ~ 2023/05/31',
                     children: 'Development of SwiftUI app at a start-up team'
                   },
                   {
                     label: '2023/03/01 ~ ',
-                    children: 'Joined Re-era.inc as an engineer'
+                    children: 'Joined 23.inc as an engineer'
                   },
                   {
                     label: '2023/08/01 ~ ',

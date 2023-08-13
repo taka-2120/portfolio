@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import { createStyles } from '@mantine/core';
-import { SupabaseParams } from '../common/supabase_params';
+import { useRouter } from 'next/router';
+import { SupabaseParams } from '../lib/supabase_params';
 import { ResetPassword } from './ResetPassword';
 
 const styles = createStyles(() => ({
@@ -16,12 +16,12 @@ const styles = createStyles(() => ({
 
 export const SupabaseOuter = () => {
   const { classes } = styles();
-  const { hash } = useLocation();
+  const router = useRouter();
   const [params, setParams] = useState<SupabaseParams | undefined>(undefined);
 
   useEffect(() => {
-    if (hash !== '') {
-      const paramsString = hash.replace(/^#/, '');
+    if (router.asPath !== '') {
+      const paramsString = router.asPath.replace(/^#/, '');
       const paramArray = paramsString.split('&');
       setParams({
         access_token: paramArray[0].replace(/^access_token=/, ''),
@@ -31,7 +31,11 @@ export const SupabaseOuter = () => {
         type: paramArray[4].replace(/^type=/, '')
       });
     }
-  }, [hash]);
+  }, [router]);
 
-  return <div className={classes.stack}>{params?.type === 'recovery' ? <ResetPassword params={params} /> : <h2>Unknown Error Occured</h2>}</div>;
+  return (
+    <div className={classes.stack}>
+      {params?.type === 'recovery' ? <ResetPassword params={params} /> : <h2>Unknown Error Occured</h2>}
+    </div>
+  );
 };

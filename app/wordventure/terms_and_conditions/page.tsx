@@ -1,36 +1,38 @@
+'use client';
+
 import { Button, Flex, Stack, createStyles } from '@mantine/core';
 import ReactMarkdown from 'react-markdown';
 import { useEffect, useState } from 'react';
-import { supabase } from '../common/supabase';
-import { sharedBucket, privacyPolicyEnUrl, privacyPolicyJaUrl } from '../common/urls';
+import { supabase } from '../../lib/supabase';
+import { sharedBucket, termsAndConditionsEnUrl, termsAndConditionsJaUrl } from '../../constants/urls';
 
 const styles = createStyles(() => ({
   stack: {
     margin: '0 auto',
     width: '100%',
     maxWidth: 1000,
-    padding: 20,
-  },
+    padding: 20
+  }
 }));
 
-export const WordVenturePrivacyPolicy = () => {
+const WordVentureTermsAndConditions = () => {
   const { classes } = styles();
-  const [privacyPolicyEn, setprivacyPolicyEn] = useState('');
-  const [privacyPolicyJa, setprivacyPolicyJa] = useState('');
+  const [termsAndConditionsEn, setTermsAndConditionsEn] = useState('');
+  const [termsAndConditionsJa, setTermsAndConditionsJa] = useState('');
   const [isEn, setIsEn] = useState(false);
 
   const fetchEn = async () => {
-    const url = supabase.storage.from(sharedBucket).getPublicUrl(privacyPolicyEnUrl).data.publicUrl;
+    const url = supabase.storage.from(sharedBucket).getPublicUrl(termsAndConditionsEnUrl).data.publicUrl;
     const response = await fetch(url);
     const text = await response.text();
-    setprivacyPolicyEn(text);
+    setTermsAndConditionsEn(text);
   };
 
   const fetchJa = async () => {
-    const url = supabase.storage.from(sharedBucket).getPublicUrl(privacyPolicyJaUrl).data.publicUrl;
+    const url = supabase.storage.from(sharedBucket).getPublicUrl(termsAndConditionsJaUrl).data.publicUrl;
     const response = await fetch(url);
     const text = await response.text();
-    setprivacyPolicyJa(text);
+    setTermsAndConditionsJa(text);
   };
 
   useEffect(() => {
@@ -39,6 +41,7 @@ export const WordVenturePrivacyPolicy = () => {
         fetchEn();
         fetchJa();
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.log(error);
       }
     })();
@@ -51,7 +54,13 @@ export const WordVenturePrivacyPolicy = () => {
           {isEn ? '日本語' : 'English'}
         </Button>
       </Flex>
-      {isEn ? <ReactMarkdown>{privacyPolicyEn}</ReactMarkdown> : <ReactMarkdown>{privacyPolicyJa}</ReactMarkdown>}
+      {isEn ? (
+        <ReactMarkdown>{termsAndConditionsEn}</ReactMarkdown>
+      ) : (
+        <ReactMarkdown>{termsAndConditionsJa}</ReactMarkdown>
+      )}
     </Stack>
   );
 };
+
+export default WordVentureTermsAndConditions;

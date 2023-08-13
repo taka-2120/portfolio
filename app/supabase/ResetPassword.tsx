@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { Button, Center, PasswordInput, Stack } from '@mantine/core';
 import { useInputState } from '@mantine/hooks';
 import { User } from '@supabase/supabase-js';
-import { SupabaseParams } from '../common/supabase_params';
-import { supabase } from '../common/supabase';
-import { passwordRegex } from '../common/regex';
+import { SupabaseParams } from '../lib/supabase_params';
+import { supabase } from '../lib/supabase';
+import { passwordRegex } from '../lib/regex';
 
 interface ResetPasswordProps {
   params: SupabaseParams;

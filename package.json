@@ -2,6 +2,13 @@
   "name": "portfolio",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint --cache --ext \"app/**/*.{js,jsx,ts,tsx}\"",
+    "format": "eslint --cache --fix \"app/**/*.{js,jsx,ts,tsx}\" && prettier --write \"app/**/*.{js,jsx,ts,tsx}\""
+  },
   "dependencies": {
     "@emotion/react": "^11.11.0",
     "@mantine/core": "^6.0.10",
@@ -18,38 +25,13 @@
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
     "antd": "^5.4.7",
+    "next": "^13.4.13",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^8.0.5",
-    "react-router-dom": "^6.11.1",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "lint": "eslint --ext 'src/**/*.{js,jsx,ts,tsx}'",
-    "format": "eslint --cache --fix 'src/**/*.{js,jsx,ts,tsx}' && prettier --write 'src/**/*.{js,jsx,ts,tsx}'"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.59.5",
@@ -62,8 +44,5 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-unused-imports": "^2.0.0",
     "prettier": "^2.8.8"
-  },
-  "resolutions": {
-    "nth-check": "2.0.1"
   }
 }
