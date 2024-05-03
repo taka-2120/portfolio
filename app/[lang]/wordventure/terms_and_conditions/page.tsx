@@ -3,8 +3,8 @@
 import { Button, Flex, Stack, createStyles } from '@mantine/core';
 import ReactMarkdown from 'react-markdown';
 import { useEffect, useState } from 'react';
-import { supabase } from '../../lib/supabase';
-import { sharedBucket, termsAndConditionsEnUrl, termsAndConditionsJaUrl } from '../../constants/urls';
+import { supabase } from '@/lib/supabase';
+import { Urls } from '@/constants/urls';
 
 const styles = createStyles(() => ({
   stack: {
@@ -22,14 +22,14 @@ const WordVentureTermsAndConditions = () => {
   const [isEn, setIsEn] = useState(false);
 
   const fetchEn = async () => {
-    const url = supabase.storage.from(sharedBucket).getPublicUrl(termsAndConditionsEnUrl).data.publicUrl;
+    const url = supabase.storage.from(Urls.sharedBucket).getPublicUrl(Urls.termsAndConditionsEn).data.publicUrl;
     const response = await fetch(url);
     const text = await response.text();
     setTermsAndConditionsEn(text);
   };
 
   const fetchJa = async () => {
-    const url = supabase.storage.from(sharedBucket).getPublicUrl(termsAndConditionsJaUrl).data.publicUrl;
+    const url = supabase.storage.from(Urls.sharedBucket).getPublicUrl(Urls.termsAndConditionsJa).data.publicUrl;
     const response = await fetch(url);
     const text = await response.text();
     setTermsAndConditionsJa(text);

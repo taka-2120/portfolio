@@ -1,3 +1,5 @@
+'use client';
+
 import { createStyles, Title, Text, Button, Container, Group, rem } from '@mantine/core';
 import Link from 'next/link';
 
@@ -39,7 +41,7 @@ const useStyles = createStyles((theme) => ({
   }
 }));
 
-export const NotFound = () => {
+const NotFound = () => {
   const { classes } = useStyles();
 
   return (
@@ -58,3 +60,5 @@ export const NotFound = () => {
     </Container>
   );
 };
+
+export default NotFound;

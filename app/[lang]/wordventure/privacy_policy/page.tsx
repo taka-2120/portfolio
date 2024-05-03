@@ -3,8 +3,8 @@
 import { Button, Flex, Stack, createStyles } from '@mantine/core';
 import ReactMarkdown from 'react-markdown';
 import { useEffect, useState } from 'react';
-import { supabase } from '../../lib/supabase';
-import { sharedBucket, privacyPolicyEnUrl, privacyPolicyJaUrl } from '../../constants/urls';
+import { supabase } from '@/lib/supabase';
+import { Urls } from '@/constants/urls';
 
 const styles = createStyles(() => ({
   stack: {
@@ -22,14 +22,14 @@ const WordVenturePrivacyPolicy = () => {
   const [isEn, setIsEn] = useState(false);
 
   const fetchEn = async () => {
-    const url = supabase.storage.from(sharedBucket).getPublicUrl(privacyPolicyEnUrl).data.publicUrl;
+    const url = supabase.storage.from(Urls.sharedBucket).getPublicUrl(Urls.privacyPolicyEn).data.publicUrl;
     const response = await fetch(url);
     const text = await response.text();
     setprivacyPolicyEn(text);
   };
 
   const fetchJa = async () => {
-    const url = supabase.storage.from(sharedBucket).getPublicUrl(privacyPolicyJaUrl).data.publicUrl;
+    const url = supabase.storage.from(Urls.sharedBucket).getPublicUrl(Urls.privacyPolicyJa).data.publicUrl;
     const response = await fetch(url);
     const text = await response.text();
     setprivacyPolicyJa(text);
