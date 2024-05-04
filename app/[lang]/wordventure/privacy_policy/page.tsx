@@ -1,38 +1,29 @@
 'use client';
 
-import { Button, Flex, Stack, createStyles } from '@mantine/core';
+import { Button, Flex, Stack } from '@mantine/core';
 import ReactMarkdown from 'react-markdown';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { Urls } from '@/constants/urls';
-
-const styles = createStyles(() => ({
-  stack: {
-    margin: '0 auto',
-    width: '100%',
-    maxWidth: 1000,
-    padding: 20
-  }
-}));
+import classes from '../style.module.css';
 
 const WordVenturePrivacyPolicy = () => {
-  const { classes } = styles();
-  const [privacyPolicyEn, setprivacyPolicyEn] = useState('');
-  const [privacyPolicyJa, setprivacyPolicyJa] = useState('');
+  const [privacyPolicyEn, setPrivacyPolicyEn] = useState('');
+  const [privacyPolicyJa, setPrivacyPolicyJa] = useState('');
   const [isEn, setIsEn] = useState(false);
 
   const fetchEn = async () => {
     const url = supabase.storage.from(Urls.sharedBucket).getPublicUrl(Urls.privacyPolicyEn).data.publicUrl;
     const response = await fetch(url);
     const text = await response.text();
-    setprivacyPolicyEn(text);
+    setPrivacyPolicyEn(text);
   };
 
   const fetchJa = async () => {
     const url = supabase.storage.from(Urls.sharedBucket).getPublicUrl(Urls.privacyPolicyJa).data.publicUrl;
     const response = await fetch(url);
     const text = await response.text();
-    setprivacyPolicyJa(text);
+    setPrivacyPolicyJa(text);
   };
 
   useEffect(() => {

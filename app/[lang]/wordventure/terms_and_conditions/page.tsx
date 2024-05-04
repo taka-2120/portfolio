@@ -1,22 +1,13 @@
 'use client';
 
-import { Button, Flex, Stack, createStyles } from '@mantine/core';
+import { Button, Flex, Stack } from '@mantine/core';
 import ReactMarkdown from 'react-markdown';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { Urls } from '@/constants/urls';
-
-const styles = createStyles(() => ({
-  stack: {
-    margin: '0 auto',
-    width: '100%',
-    maxWidth: 1000,
-    padding: 20
-  }
-}));
+import classes from '../style.module.css';
 
 const WordVentureTermsAndConditions = () => {
-  const { classes } = styles();
   const [termsAndConditionsEn, setTermsAndConditionsEn] = useState('');
   const [termsAndConditionsJa, setTermsAndConditionsJa] = useState('');
   const [isEn, setIsEn] = useState(false);

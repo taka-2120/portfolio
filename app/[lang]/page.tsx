@@ -1,20 +1,6 @@
 'use client';
 
-import { createStyles } from '@mantine/emotion';
-import {
-  Flex,
-  Stack,
-  Text,
-  Divider,
-  Image,
-  Title,
-  UnstyledButton,
-  Center,
-  Grid,
-  Card,
-  Button,
-  List,
-} from '@mantine/core';
+import { Flex, Stack, Text, Divider, Image, Title, Center, Grid, Card, Button, List } from '@mantine/core';
 import { IconArrowUpRight, IconBrandGithub, IconBrandX } from '@tabler/icons-react';
 import Timeline from 'antd/es/timeline';
 import Link from 'next/link';
@@ -34,26 +20,9 @@ import wordventure from '@/assets/icons/wordventure.png';
 import nextjs from '@/assets/skills/nextjs.svg';
 import { getSchoolYear } from '@/utils/getSchoolYear';
 import Section from '@/components/Section';
-
-const useStyles = createStyles((_) => ({
-  blurryGradient: {
-    position: 'fixed',
-    aspectRatio: '0.5',
-    left: '50%',
-    transform: 'translate(-50%, 0%)',
-    width: '50%',
-    maxWidth: '500px',
-    borderRadius: '50% 22% 40% 80%',
-    filter: 'blur(50px)',
-    background: 'radial-gradient(circle at 50% 50%,rgba(76, 0, 255, 1), rgba(76, 0, 255, 0))',
-    opacity: 0.2,
-    marginTop: '-10%',
-  },
-}));
+import classes from './style.module.css';
 
 const TopContent = () => {
-  const { classes } = useStyles();
-
   const skills: StaticImageData[] = [swift, flutter, react, nextjs, ts, js, node, python, clang, firebase, supabase];
 
   return (
@@ -70,15 +39,13 @@ const TopContent = () => {
         >
           <Title order={2}>Word Venture</Title>
           <Flex w="100%" justify="space-between">
-            <Stack>
-              <Image src={wordventure.src} width={200} radius={40} m={10} />
-            </Stack>
+            <Image src={wordventure.src} maw={200} radius={40} m={10} />
 
             <Stack w="100%" align="end" justify="space-between">
               <Text w="100%" ta="center">
                 Word Venture is AI integrated word book app!
               </Text>
-              <Button component={Link} href="/wordventure" variant="outlined" size="sm">
+              <Button component={Link} href="/wordventure" variant='transparent' size="sm">
                 <IconArrowUpRight color="gray" />
               </Button>
             </Stack>
@@ -91,12 +58,12 @@ const TopContent = () => {
       <Section title="Profile">
         <Flex align="center">
           <Image src={portrait.src} width={200} mr={15} />
-          <Stack spacing={8}>
+          <Stack gap={8}>
             <Title order={1}>Yu Takahashi</Title>
             <Text color="gray">he/him</Text>
           </Stack>
         </Flex>
-        <Text align="start">
+        <Text ta="start">
           <span style={{ fontWeight: 'bold' }}>Kwansei Gakuin University</span> (Japan)
           <br />
           <span style={{ paddingLeft: '20px' }}>School of Engineering</span>
@@ -106,21 +73,33 @@ const TopContent = () => {
           <span style={{ paddingLeft: '20px', color: 'gray' }}>{getSchoolYear()} year</span>
         </Text>
         <Flex justify="flex-end" w="100%">
-          <UnstyledButton style={{ color: 'black' }} mx={10} component={Link} href="https://github.com/taka-2120">
+          <Button
+            component={Link}
+            href="https://github.com/taka-2120"
+            style={{ color: 'black' }}
+            variant="transparent"
+            size="sm"
+          >
             <IconBrandGithub />
-          </UnstyledButton>
-          <UnstyledButton style={{ color: 'black' }} mx={10} component={Link} href="https://twitter.com/yutk_941">
+          </Button>
+          <Button
+            component={Link}
+            href="https://twitter.com/yutk_941"
+            style={{ color: 'black' }}
+            variant="transparent"
+            size="sm"
+          >
             <IconBrandX />
-          </UnstyledButton>
+          </Button>
         </Flex>
       </Section>
 
       <Divider />
 
       <Section title="Skills">
-        <Grid mb={50}>
+        <Grid mb={50} gutter={{ base: 5, xs: 4, md: 2, lg: 2, xl: 2 }}>
           {skills.map((skill, index) => (
-            <Grid.Col key={skill.src + index} xs={4} sm={3} md={2} lg={2} xl={2} span={4} my={8}>
+            <Grid.Col key={skill.src + index} span={4} my={8}>
               <Center>
                 <Image src={skill.src} width={100} mr={15} radius={20} />
               </Center>

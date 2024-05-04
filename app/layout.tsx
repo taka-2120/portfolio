@@ -1,6 +1,9 @@
-import './globals.css';
+import './layout.css';
+import '@mantine/core/styles.css';
+
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { FC, ReactNode } from 'react';
 import ProviderRoot from './providerRoot';
 import { getCopyrightYear } from '@/utils/getCopyrightYear';
 
@@ -11,17 +14,19 @@ export const metadata: Metadata = {
   description: 'Portfolio of Yu Takahashi',
 };
 
-const RootLayout = async ({ children }: { children: React.ReactNode }) => (
+interface Props {
+  children: ReactNode;
+}
+
+const RootLayout: FC<Props> = async ({ children }) => (
   <html lang="en">
     <body className={inter.className}>
-      <div className="wrapper">
-        <ProviderRoot>
-          <center>{children}</center>
-        </ProviderRoot>
-      </div>
-      <center className="footer">
-        <p>Copyright © {getCopyrightYear()} Yu Takahashi</p>
-      </center>
+      <ProviderRoot>
+        <center className="wrapper">{children}</center>
+        <center className="footer">
+          <p>Copyright © {getCopyrightYear()} Yu Takahashi</p>
+        </center>
+      </ProviderRoot>
     </body>
   </html>
 );

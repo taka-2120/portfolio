@@ -1,16 +1,14 @@
 'use client';
 
-import { MantineProvider } from "@mantine/core";
-import { FC, ReactNode } from "react";
+import { MantineProvider } from '@mantine/core';
+import { FC, ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
 }
 
 const ProviderRoot: FC<Props> = ({ children }) => (
-  <MantineProvider theme={{ fontFamily: 'monospace' }}>
-    {children}
-  </MantineProvider>
+  <MantineProvider>{children}</MantineProvider>
 );
 
 export default ProviderRoot;
