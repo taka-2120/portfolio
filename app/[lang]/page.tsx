@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import { Flex, Stack, Text, Divider, Title, Center, Grid, Card, Button, List } from '@mantine/core';
 import { IconArrowUpRight, IconBrandGithub, IconBrandX } from '@tabler/icons-react';
-import Timeline from 'antd/es/timeline';
 import Link from 'next/link';
 import { getSchoolYear } from '@/utils/getSchoolYear';
 import Section from '@/components/Section';
@@ -12,7 +11,7 @@ import { ImageUrl, skills } from '@/constants/imageUrl';
 import { getEnumKey } from '@/utils/getEnumKey';
 
 const TopContent = () => (
-  <Stack mt={15} mx={15} maw={1000} w="100%">
+  <Stack mt={15} px={15} maw={1000} w="100%">
     <div className={classes.blurryGradient} />
 
     <Section title="Projects">
@@ -26,7 +25,7 @@ const TopContent = () => (
         <Title order={2}>Word Venture</Title>
         <Flex w="100%" justify="space-between">
           <Image
-            src="/projects/wordventure.png"
+            src={ImageUrl.wordventure}
             alt="Word Venture"
             width={200}
             height={200}
@@ -34,7 +33,7 @@ const TopContent = () => (
           />
 
           <Stack w="100%" align="end" justify="space-between">
-            <Text w="100%" ta="center">
+            <Text w="100%" ta="center" p={10}>
               Word Venture is AI integrated word book app!
             </Text>
             <Button component={Link} href="/wordventure" variant="transparent" size="sm">
@@ -104,7 +103,8 @@ const TopContent = () => (
                 alt={getEnumKey(ImageUrl, skill)}
                 width={100}
                 height={100}
-                style={{ borderRadius: 20, marginRight: 15 }}
+                objectFit='contain'
+                style={{ width: '100px', height: 'auto', borderRadius: 20, margin: 10 }}
               />
             </Center>
           </Grid.Col>
@@ -123,7 +123,7 @@ const TopContent = () => (
 
     <Divider />
 
-    <Section title="History">
+    {/* <Section title="History">
       <Timeline
         style={{ fontFamily: 'monospace', width: 'fit-content' }}
         mode="left"
@@ -150,7 +150,7 @@ const TopContent = () => (
           },
         ]}
       />
-    </Section>
+    </Section> */}
   </Stack>
 );
 

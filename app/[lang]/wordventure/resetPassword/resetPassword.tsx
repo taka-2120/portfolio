@@ -2,15 +2,15 @@ import { useEffect, useState } from 'react';
 import { Button, Center, PasswordInput, Stack } from '@mantine/core';
 import { useInputState } from '@mantine/hooks';
 import { User } from '@supabase/supabase-js';
-import { SupabaseParams } from '../constants/supabaseParams';
-import { supabase } from '../lib/supabase';
+import { SupabaseParams } from '@/constants/supabaseParams';
+import { supabase } from '@/lib/supabase';
 import { Regex } from '@/constants/regex';
 
 interface ResetPasswordProps {
   params: SupabaseParams;
 }
 
-export const ResetPassword = ({ params }: ResetPasswordProps) => {
+const ResetPassword = ({ params }: ResetPasswordProps) => {
   const [password, setPassword] = useInputState('');
   const [rePassword, setRePassword] = useInputState('');
   const [userData, setUserData] = useState<User | undefined>(undefined);
@@ -102,3 +102,5 @@ export const ResetPassword = ({ params }: ResetPasswordProps) => {
     </Stack>
   );
 };
+
+export default ResetPassword;

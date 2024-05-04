@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { SupabaseParams } from '../constants/supabaseParams';
-import { ResetPassword } from './resetPassword';
+import { SupabaseParams } from '@/constants/supabaseParams';
+import ResetPassword from './resetPassword';
 import classes from './style.module.css';
 
 export const SupabaseOuter = () => {
