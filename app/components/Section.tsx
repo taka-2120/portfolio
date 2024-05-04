@@ -7,8 +7,10 @@ interface Props {
 }
 
 const Section: FC<Props> = ({ title, children }) => (
-  <Stack mx={10}>
-    <Title order={2} my={5}>{title}</Title>
+  <Stack mx={10} w="100%" align='start'>
+    <Title order={2} my={5}>
+      {title}
+    </Title>
     {children}
   </Stack>
 );
