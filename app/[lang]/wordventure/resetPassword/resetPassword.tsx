@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import { Button, Center, PasswordInput, Stack } from '@mantine/core';
 import { useInputState } from '@mantine/hooks';
