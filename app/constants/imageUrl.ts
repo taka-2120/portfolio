@@ -14,7 +14,7 @@ export enum ImageUrl {
   portrait = '/portrait.png',
 }
 
-export const skills: ImageUrl[] = [
+export const skillImages: ImageUrl[] = [
   ImageUrl.swift,
   ImageUrl.flutter,
   ImageUrl.react,
