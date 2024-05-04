@@ -1,13 +1,15 @@
 'use client';
 
 import Image from 'next/image';
-import { Flex, Stack, Text, Divider, Title, Card, Button, List } from '@mantine/core';
+import { Flex, Stack, Text, Divider, Title, Center, Grid, Card, Button, List } from '@mantine/core';
 import { IconArrowUpRight, IconBrandGithub, IconBrandX } from '@tabler/icons-react';
 import Timeline from 'antd/es/timeline';
 import Link from 'next/link';
 import { getSchoolYear } from '@/utils/getSchoolYear';
 import Section from '@/components/Section';
 import classes from './style.module.css';
+import { ImageUrl, skills } from '@/constants/imageUrl';
+import { getEnumKey } from '@/utils/getEnumKey';
 
 const TopContent = () => (
   <Stack mt={15} mx={15} maw={1000} w="100%">
@@ -24,10 +26,8 @@ const TopContent = () => (
         <Title order={2}>Word Venture</Title>
         <Flex w="100%" justify="space-between">
           <Image
-            // eslint-disable-next-line react/jsx-curly-brace-presence
-            src={"/vercel.svg"}
+            src="/projects/wordventure.png"
             alt="Word Venture"
-            // objectFit='fill'
             width={200}
             height={200}
             style={{ borderRadius: 40, margin: 10 }}
@@ -49,13 +49,13 @@ const TopContent = () => (
 
     <Section title="Profile">
       <Flex align="center">
-        {/* <Image
+        <Image
           src={ImageUrl.portrait}
           alt="Portrait"
           width={200}
           height={200}
           style={{ borderRadius: 40, margin: 15 }}
-        /> */}
+        />
         <Stack gap={8}>
           <Title order={1}>Yu Takahashi</Title>
           <Text color="gray">he/him</Text>
@@ -94,7 +94,7 @@ const TopContent = () => (
 
     <Divider />
 
-    {/* <Section title="Skills">
+    <Section title="Skills">
       <Grid mb={50} gutter={{ base: 5, xs: 4, md: 2, lg: 2, xl: 2 }}>
         {skills.map((skill, index) => (
           <Grid.Col key={skill + index} span={4} my={8}>
@@ -110,7 +110,7 @@ const TopContent = () => (
           </Grid.Col>
         ))}
       </Grid>
-    </Section> */}
+    </Section>
 
     <Divider />
 
