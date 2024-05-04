@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { Button, Center, PasswordInput, Stack } from '@mantine/core';
 import { useInputState } from '@mantine/hooks';
 import { User } from '@supabase/supabase-js';
-import { SupabaseParams } from '../lib/supabase_params';
+import { SupabaseParams } from '../constants/supabaseParams';
 import { supabase } from '../lib/supabase';
-import { passwordRegex } from '../lib/regex';
+import { Regex } from '@/constants/regex';
 
 interface ResetPasswordProps {
   params: SupabaseParams;
@@ -19,7 +19,7 @@ export const ResetPassword = ({ params }: ResetPasswordProps) => {
   const setSession = async () => {
     const response = await supabase.auth.setSession({
       access_token: params.access_token,
-      refresh_token: params.refresh_token
+      refresh_token: params.refresh_token,
     });
     console.log(response);
 
@@ -37,7 +37,7 @@ export const ResetPassword = ({ params }: ResetPasswordProps) => {
       return false;
     }
 
-    if (passwordRegex.test(password) === false) {
+    if (RegExp(Regex.password).test(password) === false) {
       alert('Password must contain at least one alphanumeric character and special symbols: #?!@$%.^&*_-.');
       return false;
     }
@@ -96,7 +96,7 @@ export const ResetPassword = ({ params }: ResetPasswordProps) => {
         onChange={setRePassword}
       />
 
-      <Button m='0 auto' mt="xl" px='30px' maw='250px' onClick={resetPassword}>
+      <Button m="0 auto" mt="xl" px="30px" maw="250px" onClick={resetPassword}>
         Reset Password
       </Button>
     </Stack>
