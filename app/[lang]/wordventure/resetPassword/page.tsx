@@ -1,32 +1,39 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 import { SupabaseParams } from '@/constants/supabaseParams';
 import ResetPassword from './resetPassword';
-import classes from './style.module.css';
 
-export const SupabaseOuter = () => {
-  const router = useRouter();
+const ResetPasswordWrapper = () => {
+  const searchParams = useSearchParams();
   const [params, setParams] = useState<SupabaseParams | undefined>(undefined);
+  const [isValid, setIsValid] = useState(true);
 
   useEffect(() => {
-    if (router.asPath !== '') {
-      const paramsString = router.asPath.replace(/^#/, '');
-      const paramArray = paramsString.split('&');
-      setParams({
-        access_token: paramArray[0].replace(/^access_token=/, ''),
-        expires_in: paramArray[1].replace(/^expires_in=/, '') as unknown as number,
-        refresh_token: paramArray[2].replace(/^refresh_token=/, ''),
-        token_type: paramArray[3].replace(/^token_type=/, ''),
-        type: paramArray[4].replace(/^type=/, ''),
-      });
+    const accessToken = searchParams.get('access_token');
+    const expiresIn = searchParams.get('expires_in') as number | null;
+    const refreshToken = searchParams.get('refresh_token');
+    const tokenType = searchParams.get('token_type');
+    const type = searchParams.get('type');
+    if (type !== 'recovery') {
+      setIsValid(false);
+      return;
     }
-  }, [router]);
+    if (accessToken && expiresIn && refreshToken && tokenType && type) {
+      setParams({
+        access_token: accessToken,
+        expires_in: expiresIn,
+        refresh_token: refreshToken,
+        token_type: tokenType,
+        type,
+      });
+      return;
+    }
+    setIsValid(false);
+  }, [searchParams]);
 
-  return (
-    <div className={classes.stack}>
-      {params?.type === 'recovery' ? <ResetPassword params={params} /> : <h2>Unknown Error Occurred</h2>}
-    </div>
-  );
+  return isValid && params ? <ResetPassword params={params} /> : <p>Invalid Parameters</p>;
 };
+
+export default ResetPasswordWrapper;
