@@ -8,7 +8,7 @@ interface Props {
 }
 
 const ProviderRoot: FC<Props> = ({ children }) => (
-  <MantineProvider withGlobalStyles withNormalizeCSS theme={{ fontFamily: 'monospace' }}>
+  <MantineProvider theme={{ fontFamily: 'monospace' }}>
     {children}
   </MantineProvider>
 );

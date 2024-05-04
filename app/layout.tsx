@@ -1,3 +1,4 @@
+/* eslint-disable react/self-closing-comp */
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -15,9 +16,11 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => (
   <html lang="en">
     <body className={inter.className}>
       <div className="wrapper">
-        <ProviderRoot>{children}</ProviderRoot>
+        <ProviderRoot>
+          <center>{children}</center>
+        </ProviderRoot>
       </div>
-      <center className='footer'>
+      <center className="footer">
         <p>Copyright © {getCopyrightYear()} Yu Takahashi</p>
       </center>
     </body>

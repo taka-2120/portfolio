@@ -1,7 +1,7 @@
 'use client';
 
+import { createStyles } from '@mantine/emotion';
 import {
-  createStyles,
   Flex,
   Stack,
   Text,
@@ -13,6 +13,7 @@ import {
   Grid,
   Card,
   Button,
+  List,
 } from '@mantine/core';
 import { IconArrowUpRight, IconBrandGithub, IconBrandX } from '@tabler/icons-react';
 import Timeline from 'antd/es/timeline';
@@ -60,7 +61,13 @@ const TopContent = () => {
       <div className={classes.blurryGradient} />
 
       <Section title="Projects">
-        <Card p={20} my={15} style={{ borderRadius: '40px', backgroundColor: 'rgba(230, 230, 230, 0.2)' }} shadow="lg">
+        <Card
+          p={20}
+          my={15}
+          w="100%"
+          style={{ borderRadius: '40px', backgroundColor: 'rgba(230, 230, 230, 0.2)' }}
+          shadow="lg"
+        >
           <Title order={2}>Word Venture</Title>
           <Flex w="100%" justify="space-between">
             <Stack>
@@ -68,7 +75,7 @@ const TopContent = () => {
             </Stack>
 
             <Stack w="100%" align="end" justify="space-between">
-              <Text w="100%" align="center">
+              <Text w="100%" ta="center">
                 Word Venture is AI integrated word book app!
               </Text>
               <Button component={Link} href="/wordventure" variant="outlined" size="sm">
@@ -89,7 +96,7 @@ const TopContent = () => {
             <Text color="gray">he/him</Text>
           </Stack>
         </Flex>
-        <Text>
+        <Text align="start">
           <span style={{ fontWeight: 'bold' }}>Kwansei Gakuin University</span> (Japan)
           <br />
           <span style={{ paddingLeft: '20px' }}>School of Engineering</span>
@@ -98,7 +105,7 @@ const TopContent = () => {
           <br />
           <span style={{ paddingLeft: '20px', color: 'gray' }}>{getSchoolYear()} year</span>
         </Text>
-        <Flex justify="flex-end">
+        <Flex justify="flex-end" w="100%">
           <UnstyledButton style={{ color: 'black' }} mx={10} component={Link} href="https://github.com/taka-2120">
             <IconBrandGithub />
           </UnstyledButton>
@@ -125,8 +132,10 @@ const TopContent = () => {
       <Divider />
 
       <Section title="Affiliations">
-        <Text>- Tech.Uni (Representative)</Text>
-        <Text>- Re-era.inc (Engineer)</Text>
+        <List listStyleType="disc">
+          <List.Item style={{ textAlign: 'start' }}>Tech.Uni (Representative)</List.Item>
+          <List.Item style={{ textAlign: 'start' }}>Re-era, inc. (Software Engineer)</List.Item>
+        </List>
       </Section>
 
       <Divider />
