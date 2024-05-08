@@ -24,23 +24,23 @@ const TopContent = ({ params }: { params: { lang: string } }) => (
   <>
     <div className={classes.blurryGradient} />
 
-    <Stack  mt={15} px={15} maw={1200} w="100%">
-      <Flex w="100%" justify="flex-end">
-        {Object.values(SectionName).map((section, index) => (
-          <Button
-            className={classes.headerItem}
-            key={index}
-            component={Link}
-            href={`#${section}`}
-            variant="transparent"
-            size="sm"
-            c="gray"
-          >
-            {section}
-          </Button>
-        ))}
-      </Flex>
+    <Flex w="100%" justify="flex-end" pos="fixed" p={10}>
+      {Object.values(SectionName).map((section, index) => (
+        <Button
+          className={classes.headerItem}
+          key={index}
+          component={Link}
+          href={`#${section}`}
+          variant="transparent"
+          size="sm"
+          c="gray"
+        >
+          {section}
+        </Button>
+      ))}
+    </Flex>
 
+    <Stack mt={15} px={15} pt={50} maw={1200} w="100%">
       <Section title={SectionName.projects}>
         <Card
           p={20}
@@ -63,8 +63,13 @@ const TopContent = ({ params }: { params: { lang: string } }) => (
               <Text w="100%" ta="center" p={10}>
                 Word Venture is AI integrated word book app!
               </Text>
-              <Button component={Link} href="/wordventure" variant="transparent" size="sm">
-                <IconArrowUpRight color="gray" />
+              <Button component={Link} href="/wordventure" variant="transparent" size="sm" color="gray">
+                <Flex align="center">
+                  <Text w="100%" ta="center" p={5}>
+                    Learn more!
+                  </Text>
+                  <IconArrowUpRight />
+                </Flex>
               </Button>
             </Stack>
           </Flex>
@@ -142,8 +147,8 @@ const TopContent = ({ params }: { params: { lang: string } }) => (
 
       <Section title={SectionName.affiliations}>
         <List listStyleType="disc">
-          <List.Item style={{ textAlign: 'start' }}>Tech.Uni (Representative)</List.Item>
-          <List.Item style={{ textAlign: 'start' }}>Re-era, inc. (Software Engineer - Internship)</List.Item>
+          <List.Item ta="start">Tech.Uni (Representative)</List.Item>
+          <List.Item ta="start">Re-era, inc. (Software Engineer - Internship)</List.Item>
         </List>
       </Section>
 
