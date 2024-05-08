@@ -16,22 +16,26 @@ module.exports = {
   plugins: ['react', '@typescript-eslint', 'unused-imports'],
   ignorePatterns: ['build'],
   rules: {
-    'no-console': 'off',
-    'no-restricted-syntax': [
-      'error',
-      {
-        selector: "CallExpression[callee.object.name='console'][callee.property.name!=/^(log|warn|error|info|trace)$/]",
-        message: 'Unexpected property on console object was called',
-      },
-    ],
-    'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
     'import/prefer-default-export': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
     'unused-imports/no-unused-imports': 'error',
+    'react/jsx-props-no-spreading': 'off',
+    'react/prop-types': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'react/no-array-index-key': 'off',
+    indent: ['error', 2, { SwitchCase: 1 }],
+    'no-nested-ternary': 'off',
     'unused-imports/no-unused-vars': [
       'warn',
       { vars: 'all', varsIgnorePattern: '^_', args: 'after-used', argsIgnorePattern: '^_' },
+    ],
+    'react/require-default-props': [
+      'error',
+      {
+        forbidDefaultForRequired: true,
+        functions: 'defaultArguments',
+      },
     ],
     'react/function-component-definition': [
       2,
@@ -68,7 +72,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       node: {
-        paths: ['src'],
+        paths: ['app'],
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
     },
