@@ -13,11 +13,11 @@ import {
 	Text,
 	VStack,
 } from "@yamada-ui/react";
-import EcoNotifyIcon from "./images/eco-notify.png";
-import AppStoreBadge from "./images/app-store.png";
-import PortraitIcon from "./images/portrait.png";
-import { skillImages } from "./constants/image-urls";
-import { footer } from "./components/footer";
+import EcoNotifyIcon from "@/images/eco-notify.png";
+import AppStoreBadge from "@/images/app-store.png";
+import PortraitIcon from "@/images/portrait.png";
+import { skillImages } from "@/constants/image-urls";
+import { footer } from "@/components/footer";
 import { useRouter } from "next/navigation";
 
 export const Home = () => {

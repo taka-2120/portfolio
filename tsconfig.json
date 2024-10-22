@@ -18,7 +18,12 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./pages/*"]
+      "@pages/*": [
+        "./pages/*"
+      ],
+      "@/*": [
+        "./*"
+      ]
     }
   },
   "include": [
