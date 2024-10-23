@@ -31,9 +31,11 @@ export const Home = () => {
 
 	const FeaturedAppSection = () => (
 		<VStack>
-			<HStack justifyContent={'space-between'}>
+			<HStack justifyContent={"space-between"}>
 				<Heading fontSize={32}>Featured App</Heading>
-				<Link href="/services" textDecoration={'solid'}>More services...</Link>
+				<Link href="/services" textDecoration={"solid"}>
+					{"More services >>"}
+				</Link>
 			</HStack>
 			<Button
 				variant={"unstyled"}
@@ -94,6 +96,15 @@ export const Home = () => {
 					<ListItem>President of IT Students Group Tech.Uni</ListItem>
 				</DiscList>
 			</HStack>
+
+			<Link
+				href="/experiences"
+				textAlign={"end"}
+				color={"blue.500"}
+				textDecoration={"solid"}
+			>
+				{"See my experiences >>"}
+			</Link>
 		</VStack>
 	);
 
@@ -121,8 +132,6 @@ export const Home = () => {
 			</Grid>
 		</VStack>
 	);
-
-	const ExperiencesSection = () => { };
 
 	return (
 		<>
