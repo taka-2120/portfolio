@@ -13,12 +13,13 @@ import {
 	Text,
 	VStack,
 } from "@yamada-ui/react";
-import EcoNotifyIcon from "@/images/eco-notify.png";
 import AppStoreBadge from "@/images/app-store.png";
 import PortraitIcon from "@/images/portrait.png";
 import { skillImages } from "@/constants/image-urls";
 import { footer } from "@/components/footer";
 import { useRouter } from "next/navigation";
+import { services } from "@/constants/services";
+import type Service from "@/entities/service";
 
 export const Home = () => {
 	const router = useRouter();
@@ -27,6 +28,29 @@ export const Home = () => {
 		const today = new Date();
 		const timeDiff = today.getTime() - birthday.getTime();
 		return Math.floor(timeDiff / 1000 / 60 / 60 / 24 / 365);
+	};
+
+	const makeButton = (service: Service) => {
+		if (service.releaseDate) {
+			return (
+				<Text fontWeight={"bold"}>
+					Wait until {service.releaseDate.toLocaleDateString()}!
+				</Text>
+			);
+		}
+		if (service.storeURL) {
+			return (
+				<Link href={service.storeURL}>
+					<Image
+						src={AppStoreBadge.src}
+						height={60}
+						objectFit={"contain"}
+						w={"fit-content"}
+					/>
+				</Link>
+			);
+		}
+		return <Text fontWeight={"bold"}>Coming Soon...</Text>;
 	};
 
 	const FeaturedAppSection = () => (
@@ -51,22 +75,15 @@ export const Home = () => {
 					borderWidth={2}
 				>
 					<Image
-						src={EcoNotifyIcon.src}
+						src={services[0].iconSrc}
 						w={200}
 						aspectRatio={1}
 						borderRadius={40}
 					/>
 					<VStack alignItems={"center"}>
-						<Heading fontSize={42}>Eco Notify</Heading>
-						<Text fontSize={18}>Now Available!</Text>
-						<Link href="#">
-							<Image
-								src={AppStoreBadge.src}
-								height={60}
-								objectFit={"contain"}
-								w={"fit-content"}
-							/>
-						</Link>
+						<Heading fontSize={42}>{services[0].appName}</Heading>
+						<Text fontSize={18}>{services[0].hero}</Text>
+						{makeButton(services[0])}
 					</VStack>
 				</HStack>
 			</Button>
@@ -93,7 +110,7 @@ export const Home = () => {
 						<ListItem>Department of Information Engineering</ListItem>
 						<ListItem color={"gray"}>3rd year</ListItem>
 					</List>
-					<ListItem>President of IT Students Group Tech.Uni</ListItem>
+					<ListItem>Former President of IT Students Group Tech.Uni</ListItem>
 				</DiscList>
 			</HStack>
 
