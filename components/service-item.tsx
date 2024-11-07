@@ -1,20 +1,37 @@
 import { Heading, HStack, Image, Link, Text, VStack } from "@yamada-ui/react";
 import AppStoreBadge from "@/images/app-store.png";
+import type Service from "@/entities/service";
 
 interface Props {
-	iconSrc: string;
-	appName: string;
-	description: string;
-	storeURL?: string | undefined;
+	service: Service;
 }
 
-export const ServiceItem = ({
-	iconSrc,
-	appName,
-	description,
-	storeURL = undefined,
-}: Props) => {
-	const appId = appName.toLowerCase().replaceAll(" ", "-");
+export const ServiceItem = ({ service }: Props) => {
+	const appId = service.appName.toLowerCase().replaceAll(" ", "-");
+
+	const makeButton = () => {
+		if (service.releaseDate) {
+			return (
+				<Text fontWeight={"bold"}>
+					Wait until {service.releaseDate.toLocaleDateString()}!
+				</Text>
+			);
+		}
+		if (service.storeURL) {
+			return (
+				<Link href={service.storeURL}>
+					<Image
+						src={AppStoreBadge.src}
+						height={60}
+						objectFit={"contain"}
+						w={"fit-content"}
+					/>
+				</Link>
+			);
+		}
+		return <Text fontWeight={"bold"}>Coming Soon...</Text>;
+	};
+
 	return (
 		<HStack
 			id={appId}
@@ -23,26 +40,24 @@ export const ServiceItem = ({
 			borderRadius={50}
 			borderWidth={2}
 		>
-			<Image src={iconSrc} w={200} aspectRatio={1} borderRadius={40} />
+			<Image src={service.iconSrc} w={200} aspectRatio={1} borderRadius={40} />
 
-			<VStack h={"100%"} justifyContent={"space-between"} alignItems={"end"}>
-				<VStack w={"100%"} alignItems={"center"}>
-					<Heading fontSize={42}>{appName}</Heading>
-					<Text fontSize={18}>{description}</Text>
-				</VStack> 
-				<HStack>
-					{storeURL && (
-						<Link href={storeURL}>
-							<Image
-								src={AppStoreBadge.src}
-								height={60}
-								objectFit={"contain"}
-								w={"fit-content"}
-							/>
-						</Link>
+			<VStack
+				h={"100%"}
+				justifyContent={"space-between"}
+				alignItems={"center"}
+				my={10}
+			>
+				<VStack w={"100%"} alignItems={"left"}>
+					<Heading fontSize={42}>{service.appName}</Heading>
+					<Text fontSize={18}>{service.description}</Text>
+				</VStack>
+				<HStack w={"90%"} mt={5} justifyContent={"space-between"}>
+					{makeButton()}
+
+					{!service.isPrivacyPolicyNotPrepared && (
+						<Link href={`/${appId}/privacy-policy/ja`}>Privacy Policy</Link>
 					)}
-
-					<Link href={`/${appId}/privacy-policy/ja`}>Privacy Policy</Link>
 				</HStack>
 			</VStack>
 		</HStack>
