@@ -2,6 +2,7 @@ import {
 	Button,
 	Center,
 	DiscList,
+	Divider,
 	Grid,
 	GridItem,
 	Heading,
@@ -10,6 +11,7 @@ import {
 	Link,
 	List,
 	ListItem,
+	Spacer,
 	Text,
 	VStack,
 } from "@yamada-ui/react";
@@ -32,23 +34,29 @@ export const Home = () => {
 
 	const makeButton = (service: Service) => {
 		if (service.releaseDate) {
-			return (
-				<Text fontWeight={"bold"}>
-					Wait until {service.releaseDate.toLocaleDateString()}!
-				</Text>
-			);
-		}
-		if (service.storeURL) {
-			return (
-				<Link href={service.storeURL}>
-					<Image
-						src={AppStoreBadge.src}
-						height={60}
-						objectFit={"contain"}
-						w={"fit-content"}
-					/>
-				</Link>
-			);
+			if (service.releaseDate > new Date()) {
+				return (
+					<Text fontWeight={"bold"}>
+						Wait until {service.releaseDate.toLocaleDateString()}!
+					</Text>
+				);
+			}
+			if (service.storeURL) {
+				return (
+					<HStack gapX={50}>
+						<Text fontWeight={"bold"}>Available Now!</Text>
+						<Link href={service.storeURL}>
+							<Image
+								src={AppStoreBadge.src}
+								height={60}
+								objectFit={"contain"}
+								w={"fit-content"}
+							/>
+						</Link>
+					</HStack>
+				);
+			}
+			return <Text fontWeight={"bold"}>Available Now!</Text>;
 		}
 		return <Text fontWeight={"bold"}>Coming Soon...</Text>;
 	};
@@ -83,6 +91,7 @@ export const Home = () => {
 					<VStack alignItems={"center"}>
 						<Heading fontSize={42}>{services[0].appName}</Heading>
 						<Text fontSize={18}>{services[0].hero}</Text>
+						<Spacer minH={15} />
 						{makeButton(services[0])}
 					</VStack>
 				</HStack>

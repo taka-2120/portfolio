@@ -11,23 +11,29 @@ export const ServiceItem = ({ service }: Props) => {
 
 	const makeButton = () => {
 		if (service.releaseDate) {
-			return (
-				<Text fontWeight={"bold"}>
-					Wait until {service.releaseDate.toLocaleDateString()}!
-				</Text>
-			);
-		}
-		if (service.storeURL) {
-			return (
-				<Link href={service.storeURL}>
-					<Image
-						src={AppStoreBadge.src}
-						height={60}
-						objectFit={"contain"}
-						w={"fit-content"}
-					/>
-				</Link>
-			);
+			if (service.releaseDate > new Date()) {
+				return (
+					<Text fontWeight={"bold"}>
+						Wait until {service.releaseDate.toLocaleDateString()}!
+					</Text>
+				);
+			}
+			if (service.storeURL) {
+				return (
+					<HStack gapX={50}>
+						<Text fontWeight={"bold"}>Available Now!</Text>
+						<Link href={service.storeURL}>
+							<Image
+								src={AppStoreBadge.src}
+								height={60}
+								objectFit={"contain"}
+								w={"fit-content"}
+							/>
+						</Link>
+					</HStack>
+				);
+			}
+			return <Text fontWeight={"bold"}>Available Now!</Text>;
 		}
 		return <Text fontWeight={"bold"}>Coming Soon...</Text>;
 	};
@@ -49,16 +55,20 @@ export const ServiceItem = ({ service }: Props) => {
 				my={10}
 			>
 				<VStack w={"100%"} alignItems={"left"}>
-					<Heading fontSize={42}>{service.appName}</Heading>
+					<HStack w={"100%"} justifyContent={"space-between"}>
+						<Heading fontSize={42}>{service.appName}</Heading>
+
+						{service.isPrivacyPolicyNotPrepared !== true && (
+							<Link me={40} href={`/${appId}/privacy-policy/ja`}>
+								Privacy Policy
+							</Link>
+						)}
+					</HStack>
 					<Text fontSize={18}>{service.description}</Text>
 				</VStack>
-				<HStack w={"90%"} mt={5} justifyContent={"space-between"}>
+				<VStack w={"100%"} p={10} mt={5} alignItems={"end"}>
 					{makeButton()}
-
-					{!service.isPrivacyPolicyNotPrepared && (
-						<Link href={`/${appId}/privacy-policy/ja`}>Privacy Policy</Link>
-					)}
-				</HStack>
+				</VStack>
 			</VStack>
 		</HStack>
 	);
