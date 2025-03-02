@@ -1,6 +1,6 @@
 "use server";
 
-import { getDictionary } from "../dictionaries";
+import { getDictionary } from "@/app/[lang]/dictionaries";
 import ProjectsContent from "./content";
 
 const Projects = async ({ params }: { params: { lang: string } }) => {

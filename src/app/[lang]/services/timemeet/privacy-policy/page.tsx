@@ -1,6 +1,6 @@
 "use server";
 
-import { getDictionary } from "../../dictionaries";
+import { getDictionary } from "@/app/[lang]/dictionaries";
 import JA from "./ja.mdx";
 import EN from "./en.mdx";
 import Wrapper from "@/components/custom/wrapper";
