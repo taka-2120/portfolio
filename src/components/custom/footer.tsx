@@ -1,11 +1,17 @@
 "use client";
 
 const Footer = () => (
-  <footer style={{ display: "flex", justifyContent: 'center', margin: "8rem 20px 20px 20px" }}>
-    <small>
-      <time>{new Date().getFullYear()}</time> © Yu Takahashi
-      {/* <a href="/privacy-policy">Privacy Policy</a> */}
-      <style jsx>{`
+	<footer
+		style={{
+			display: "flex",
+			justifyContent: "center",
+			margin: "8rem 20px 20px 20px",
+		}}
+	>
+		<small>
+			<time>{new Date().getFullYear()}</time> © Yu Takahashi
+			{/* <a href="/privacy-policy">Privacy Policy</a> */}
+			<style jsx>{`
     a {
       float: right;
     }
@@ -16,8 +22,8 @@ const Footer = () => (
       }
     }
   `}</style>
-    </small>
-  </footer>
+		</small>
+	</footer>
 );
 
 export default Footer;

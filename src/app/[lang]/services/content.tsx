@@ -1,27 +1,24 @@
 "use client";
 
-import AppStoreBadge from "@/images/app-store.png";
+import { Provider } from "@/components/chakra/provider";
+import TopSection from "@/components/custom/top-section";
 import { services } from "@/constants/services";
+import AppStoreBadge from "@/images/app-store.png";
 import {
 	Card,
-	Heading,
 	HStack,
+	Heading,
 	Image,
 	Link,
 	Text,
 	VStack,
 } from "@chakra-ui/react";
-import { Provider } from "@/components/chakra/provider";
-import TopSection from "@/components/custom/top-section";
 import "@/components/styles/gradient.css";
+import Wrapper from "@/components/custom/wrapper";
 import type Service from "@/entities/service";
 import { useRouter } from "next/navigation";
-import Wrapper from "@/components/custom/wrapper";
 
-const ProjectsContent = ({
-	lang,
-	dict,
-}: { lang: string; dict: Dict }) => {
+const ProjectsContent = ({ lang, dict }: { lang: string; dict: Dict }) => {
 	const router = useRouter();
 
 	const makeButton = (service: Service) => {

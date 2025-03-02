@@ -3,7 +3,9 @@
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import ProjectsContent from "./content";
 
-const Projects = async ({ params }: { params: { lang: string } }) => {
+const Projects = async ({
+	params,
+}: { params: Promise<{ lang: "en" | "ja" }> }) => {
 	const { lang } = await params;
 	const dict = await getDictionary(lang);
 

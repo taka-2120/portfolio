@@ -1,13 +1,13 @@
+import Footer from "@/components/custom/footer";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Footer from "@/components/custom/footer";
 
 import "nextra-theme-docs/style.css";
-import { Layout, Navbar } from "nextra-theme-docs";
 import Header from "@/components/custom/header";
+import { Layout, Navbar } from "nextra-theme-docs";
 
 export async function generateStaticParams() {
-  return [{ lang: 'en-US' }, { lang: 'de' }]
+	return [{ lang: "en" }, { lang: "ja" }];
 }
 
 const geistSans = Geist({
@@ -30,7 +30,7 @@ export default async function RootLayout({
 	params,
 }: Readonly<{
 	children: React.ReactNode;
-	params: Promise<{ lang: 'en-US' | 'de' }>;
+	params: Promise<{ lang: "en" | "ja" }>;
 }>) {
 	const { lang } = await params;
 
