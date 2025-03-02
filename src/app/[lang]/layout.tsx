@@ -6,6 +6,10 @@ import "nextra-theme-docs/style.css";
 import { Layout, Navbar } from "nextra-theme-docs";
 import Header from "@/components/custom/header";
 
+export async function generateStaticParams() {
+  return [{ lang: 'en-US' }, { lang: 'de' }]
+}
+
 const geistSans = Geist({
 	variable: "--font-geist-sans",
 	subsets: ["latin"],
@@ -26,7 +30,7 @@ export default async function RootLayout({
 	params,
 }: Readonly<{
 	children: React.ReactNode;
-	params: { lang: string };
+	params: Promise<{ lang: 'en-US' | 'de' }>;
 }>) {
 	const { lang } = await params;
 
