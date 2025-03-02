@@ -12,6 +12,7 @@ import {
 	Link,
 	Text,
 	VStack,
+	useBreakpointValue,
 } from "@chakra-ui/react";
 import "@/components/styles/gradient.css";
 import Wrapper from "@/components/custom/wrapper";
@@ -20,6 +21,7 @@ import { useRouter } from "next/navigation";
 
 const ProjectsContent = ({ lang, dict }: { lang: string; dict: Dict }) => {
 	const router = useRouter();
+	const isMobile = useBreakpointValue({ base: true, md: false });
 
 	const makeButton = (service: Service) => {
 		if (service.releaseDate) {
@@ -33,15 +35,18 @@ const ProjectsContent = ({ lang, dict }: { lang: string; dict: Dict }) => {
 			if (service.storeURL) {
 				return (
 					<HStack gapX={30}>
-						<Text fontWeight={"bold"} fontSize={"lg"}>
-							{dict.release.availableNow}
-						</Text>
+						{!isMobile && (
+							<Text fontWeight={"bold"} fontSize={"lg"}>
+								{dict.release.availableNow}
+							</Text>
+						)}
 						<Link href={service.storeURL}>
 							<Image
 								src={AppStoreBadge.src}
-								height={"60px"}
+								height={isMobile? "50px": "60px"}
 								objectFit={"contain"}
 								w={"fit-content"}
+								m={"10px"}
 							/>
 						</Link>
 					</HStack>
@@ -63,9 +68,8 @@ const ProjectsContent = ({ lang, dict }: { lang: string; dict: Dict }) => {
 	return (
 		<>
 			<div className={"blurryGradient"} />
-			<Provider>
 				<Wrapper wide>
-					<TopSection title={"Projects"}>
+					<TopSection title={dict.projects.title}>
 						{services.map((service) => (
 							<Card.Root
 								key={service.appName}
@@ -81,14 +85,15 @@ const ProjectsContent = ({ lang, dict }: { lang: string; dict: Dict }) => {
 								cursor={"pointer"}
 							>
 								<Card.Body>
-									<HStack gap={5}>
+									<HStack gap={5} align={"start"}>
 										<Image
 											src={service.iconSrc}
-											width={130}
+											width={"25%"}
+											maxW={140}
 											style={{
 												height: "auto",
 												objectFit: "contain",
-												borderRadius: 25,
+												borderRadius: "20%",
 											}}
 										/>
 										<VStack w={"100%"} alignItems={"start"} gap={2}>
@@ -106,7 +111,6 @@ const ProjectsContent = ({ lang, dict }: { lang: string; dict: Dict }) => {
 						))}
 					</TopSection>
 				</Wrapper>
-			</Provider>
 		</>
 	);
 };

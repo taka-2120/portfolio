@@ -2,6 +2,7 @@
 
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import ProjectsContent from "./content";
+import { Provider } from "@/components/chakra/provider";
 
 const Projects = async ({
 	params,
@@ -9,7 +10,11 @@ const Projects = async ({
 	const { lang } = await params;
 	const dict = await getDictionary(lang);
 
-	return <ProjectsContent lang={lang} dict={dict} />;
+	return (
+		<Provider>
+			<ProjectsContent lang={lang} dict={dict} />
+		</Provider>
+	);
 };
 
 export default Projects;

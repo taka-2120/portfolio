@@ -7,7 +7,7 @@ interface Props {
 
 const TopSection = ({ title, children }: Props) => (
 	<VStack gap={5} w={"100%"} mb={"160px"}>
-		<Heading size={"5xl"}>{title}</Heading>
+		<Heading size={"4xl"}>{title}</Heading>
 		{children}
 	</VStack>
 );
