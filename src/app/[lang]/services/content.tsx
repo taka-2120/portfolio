@@ -86,11 +86,7 @@ const ProjectsContent = ({ lang, dict }: { lang: string; dict: Dict }) => {
 							cursor={"pointer"}
 						>
 							<Card.Body w={"100%"} h={"100%"} p={"15px"}>
-								<HStack
-									w={"100%"}
-									gap={5}
-									align={"start"}
-								>
+								<HStack w={"100%"} gap={5} align={"start"}>
 									<Image
 										src={service.iconSrc}
 										aspectRatio={1}

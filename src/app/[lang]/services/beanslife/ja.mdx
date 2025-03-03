@@ -1,4 +1,5 @@
 import { services } from '@/constants/services';
+import Download from '@/components/custom/download';
 
 export const app = services.find((service) => service.appName === "Beans Life");
 export const privacyPolicyURL = './' + app?.appName.toLowerCase().replace(/ /g, '') + '/privacy-policy';
@@ -10,6 +11,8 @@ export const privacyPolicyURL = './' + app?.appName.toLowerCase().replace(/ /g, 
 {app?.iconSrc && <img src={app.iconSrc} alt={app.appName} style={{width: "160px", height: "160px", borderRadius: "40px", padding: '15px'}} />}
 
 {<p style={{padding: '15px'}}>{app?.descriptionJa}</p>}
+
+{app?.storeURL && <Download sentence="今すぐダウンロード!" url={app.storeURL} />}
 
 {app?.techStack && app.techStack.length !== 0 && <p style={{padding: '15px'}}><strong>技術スタック</strong>: {app.techStack.join(', ')}</p>}
 
