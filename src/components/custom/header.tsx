@@ -33,12 +33,16 @@ const Header = ({ lang }: { lang: string }) => {
 			</div>
 			<style jsx>{`
         .header {
+            position: sticky;
+            top: 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #333;
+            background-color: rgba(51, 51, 51, 0.8);
             color: white;
             padding: 15px 20px;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
         }
         .site-name {
             font-size: 1.5em;
