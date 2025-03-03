@@ -1,26 +1,27 @@
 {
-  "release": {
-    "waitUntil": "Wait until",
-    "availableNow": "App Store で公開中!",
-    "comingSoon": "まもなくリリース..."
-  },
-  "home": {
-    "featuredApp": "ピックアップ",
-    "moreProjects": "つのプロジェクトも是非ご覧ください!",
-    "seeMore": "もっと見る",
-    "age": "歳",
-    "gender": "he/him",
-    "aboutMe": "自己紹介",
-    "affiliation": "所属",
-    "university": "関西学院大学",
-    "school": "工学部",
-    "department": "情報学課程",
-    "grade": "3年生",
-    "techuniPosition": "元代表: IT学生団体",
-    "myExperiences": "職歴を見る",
-    "skills": "スキル"
-  },
-  "projects": {
-    "title": "プロジェクト"
-  }
+	"release": {
+		"waitUntil": "Wait until",
+		"availableNow": "App Store で公開中!",
+		"comingSoon": "まもなくリリース..."
+	},
+	"home": {
+		"featuredApp": "ピックアップ",
+		"moreProjects": "つのプロジェクトも是非ご覧ください!",
+		"seeMore": "もっと見る",
+		"age": "歳",
+		"gender": "he/him",
+		"aboutMe": "自己紹介",
+		"affiliation": "所属",
+		"university": "関西学院大学",
+		"school": "工学部",
+		"department": "情報学課程",
+		"grade": "3年生",
+		"techuniPosition": "元代表: IT学生団体",
+		"myExperiences": "職歴を見る",
+		"skills": "スキル",
+		"links": "リンク"
+	},
+	"projects": {
+		"title": "プロジェクト"
+	}
 }

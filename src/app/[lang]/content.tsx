@@ -1,7 +1,5 @@
 "use client";
 
-import { getDictionary } from "@/app/[lang]/dictionaries";
-import { Provider } from "@/components/chakra/provider";
 import TopSection from "@/components/custom/top-section";
 import { skillImages } from "@/constants/image-urls";
 import { services } from "@/constants/services";
@@ -13,6 +11,7 @@ import {
 	Button,
 	Card,
 	Center,
+	Circle,
 	Grid,
 	GridItem,
 	HStack,
@@ -27,6 +26,7 @@ import {
 } from "@chakra-ui/react";
 import "@/components/styles/gradient.css";
 import Wrapper from "@/components/custom/wrapper";
+import { links } from "@/constants/links";
 
 const HomeContent = ({ lang, dict }: { lang: string; dict: Dict }) => {
 	const isMobile = useBreakpointValue({ base: true, sm: false });
@@ -43,7 +43,7 @@ const HomeContent = ({ lang, dict }: { lang: string; dict: Dict }) => {
 			if (service.storeURL) {
 				return isMobile ? (
 					<VStack
-						gap={50}
+						gap={isMobile ? "20px" : "50px"}
 						backgroundColor={"bg.panel"}
 						p={8}
 						borderRadius={25}
@@ -210,12 +210,36 @@ const HomeContent = ({ lang, dict }: { lang: string; dict: Dict }) => {
 		</TopSection>
 	);
 
+	const LinkSection = () => (
+		<TopSection title={dict.home.links}>
+			<VStack align={"start"} gap={4}>
+				{links.map((link) => (
+					<Link key={link.name} href={link.url}>
+						<HStack key={link.name} gap={4}>
+							<Circle
+								background={"WindowText"}
+								width={"64px"}
+								height={"64px"}
+								padding={"10px"}
+								color={link.color ?? "Background"}
+							>
+								{link.icon}
+							</Circle>
+							<Text>{link.name}</Text>
+						</HStack>
+					</Link>
+				))}
+			</VStack>
+		</TopSection>
+	);
+
 	return (
 		<>
 			<div className={"blurryGradient"} />
 			<Wrapper>
 				{FeaturedAppSection()}
 				{AboutMeSection()}
+				{LinkSection()}
 				{SkillsSection()}
 			</Wrapper>
 		</>

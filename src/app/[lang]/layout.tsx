@@ -4,7 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import "nextra-theme-docs/style.css";
 import Header from "@/components/custom/header";
-import { Layout, Navbar } from "nextra-theme-docs";
+import { Layout } from "nextra-theme-docs";
 
 export async function generateStaticParams() {
 	return [{ lang: "en" }, { lang: "ja" }];

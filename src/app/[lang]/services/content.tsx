@@ -1,6 +1,4 @@
 "use client";
-
-import { Provider } from "@/components/chakra/provider";
 import TopSection from "@/components/custom/top-section";
 import { services } from "@/constants/services";
 import AppStoreBadge from "@/images/app-store.png";
@@ -34,22 +32,21 @@ const ProjectsContent = ({ lang, dict }: { lang: string; dict: Dict }) => {
 			}
 			if (service.storeURL) {
 				return (
-					<HStack gapX={30}>
+					<>
 						{!isMobile && (
 							<Text fontWeight={"bold"} fontSize={"lg"}>
 								{dict.release.availableNow}
 							</Text>
 						)}
-						<Link href={service.storeURL}>
+						<Link href={service.storeURL} w={"fit-content"}>
 							<Image
 								src={AppStoreBadge.src}
-								height={isMobile? "50px": "60px"}
+								height={isMobile ? "50px" : "60px"}
 								objectFit={"contain"}
-								w={"fit-content"}
 								m={"10px"}
 							/>
 						</Link>
-					</HStack>
+					</>
 				);
 			}
 			return (
@@ -68,49 +65,67 @@ const ProjectsContent = ({ lang, dict }: { lang: string; dict: Dict }) => {
 	return (
 		<>
 			<div className={"blurryGradient"} />
-				<Wrapper wide>
-					<TopSection title={dict.projects.title}>
-						{services.map((service) => (
-							<Card.Root
-								key={service.appName}
-								width="100%"
-								size={"lg"}
-								rounded={"4xl"}
-								variant={"outline"}
-								onClick={() =>
-									router.push(
-										`/${lang}/services/${service.appName.replaceAll(" ", "").toLowerCase()}`,
-									)
-								}
-								cursor={"pointer"}
-							>
-								<Card.Body>
-									<HStack gap={5} align={"start"}>
-										<Image
-											src={service.iconSrc}
-											width={"25%"}
-											maxW={140}
-											style={{
-												height: "auto",
-												objectFit: "contain",
-												borderRadius: "20%",
-											}}
-										/>
-										<VStack w={"100%"} alignItems={"start"} gap={2}>
-											<Heading size={"3xl"}>{service.appName}</Heading>
+			<Wrapper wide>
+				<TopSection title={dict.projects.title} gap={8}>
+					{services.map((service) => (
+						<Card.Root
+							key={service.appName}
+							width="100%"
+							height={"fit-content"}
+							size={"lg"}
+							rounded={"4xl"}
+							variant={"outline"}
+							style={{
+								boxShadow: `0px 0px 20px 0px ${service.color}40`,
+							}}
+							onClick={() =>
+								router.push(
+									`/${lang}/services/${service.appName.replaceAll(" ", "").toLowerCase()}`,
+								)
+							}
+							cursor={"pointer"}
+						>
+							<Card.Body w={"100%"} h={"100%"} p={"15px"}>
+								<HStack
+									w={"100%"}
+									gap={5}
+									align={"start"}
+								>
+									<Image
+										src={service.iconSrc}
+										aspectRatio={1}
+										width={"25%"}
+										height={"auto"}
+										maxW={140}
+										objectFit={"contain"}
+										borderRadius={"20%"}
+									/>
+									<VStack
+										w={"100%"}
+										h={"100%"}
+										gap={2}
+										alignItems={"start"}
+										justifyContent={"space-between"}
+									>
+										<VStack align={"start"}>
+											<Heading size={"2xl"} pt={"5px"}>
+												{service.appName}
+											</Heading>
 											<Text fontSize={"lg"}>
 												{lang === "ja" ? service.heroJa : service.heroEn}
 											</Text>
-											<VStack w={"100%"} alignItems={"end"}>
-												{makeButton(service)}
-											</VStack>
 										</VStack>
-									</HStack>
-								</Card.Body>
-							</Card.Root>
-						))}
-					</TopSection>
-				</Wrapper>
+
+										<HStack gapX={30} w={"100%"} justify={"end"}>
+											{makeButton(service)}
+										</HStack>
+									</VStack>
+								</HStack>
+							</Card.Body>
+						</Card.Root>
+					))}
+				</TopSection>
+			</Wrapper>
 		</>
 	);
 };
