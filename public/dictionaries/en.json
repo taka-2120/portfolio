@@ -1,0 +1,27 @@
+{
+	"release": {
+		"waitUntil": "Wait until",
+		"availableNow": "Available Now!",
+		"comingSoon": "Coming Soon..."
+	},
+	"home": {
+		"featuredApp": "Featured App",
+		"moreProjects": "more other projects!",
+		"seeMore": "See More!",
+		"age": "years old",
+		"gender": "he/him",
+		"aboutMe": "About Me",
+		"affiliation": "Affiliation",
+		"university": "Kwansei Gakuin University (Japan)",
+		"school": "School of Engineering",
+		"department": "Department of Information Engineering",
+		"grade": "3rd year",
+		"techuniPosition": "Former Representative of IT Students Group",
+		"myExperiences": "My experiences",
+		"skills": "Skills",
+		"links": "Links"
+	},
+	"projects": {
+		"title": "Projects"
+	}
+}
