@@ -14,8 +14,25 @@ export function middleware(request: NextRequest) {
 
   if (pathnameHasLocale) return;
 
-  const locale = getLocale(request);
-  request.nextUrl.pathname = `/${locale}${pathname}`;
+  switch (pathname) {
+    case "/time-meet/privacy-policy/en":
+      request.nextUrl.pathname = "/en/services/time-meet/privacy-policy";
+      break;
+    case "/time-meet/privacy-policy/ja":
+      request.nextUrl.pathname = "/ja/services/time-meet/privacy-policy";
+      break;
+    case "/eco-notify/privacy-policy/en":
+      request.nextUrl.pathname = "/en/services/eco-notify/privacy-policy";
+      break;
+    case "/eco-notify/privacy-policy/ja":
+      request.nextUrl.pathname = "/ja/services/eco-notify/privacy-policy";
+      break;
+    default: {
+      const locale = getLocale(request);
+      request.nextUrl.pathname = `/${locale}${pathname}`;
+      break;
+    }
+  }
   return NextResponse.redirect(request.nextUrl);
 }
 export const config = {
