@@ -80,7 +80,7 @@ const ProjectsContent = ({ lang, dict }: { lang: string; dict: Dict }) => {
 							}}
 							onClick={() =>
 								router.push(
-									`/${lang}/services/${service.appName.replaceAll(" ", "").toLowerCase()}`,
+									`/${lang}/services/${service.appName.replaceAll(" ", "-").toLowerCase()}`,
 								)
 							}
 							cursor={"pointer"}
