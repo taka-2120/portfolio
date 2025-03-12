@@ -2,11 +2,19 @@
 
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { Provider } from "@/components/chakra/provider";
+import type { Metadata } from "next";
 import ProjectsContent from "./content";
 
-const Projects = async ({
+export async function generateMetadata({
 	params,
-}: { params: Promise<{ lang: "en" | "ja" }> }) => {
+}: AsyncLangParam): Promise<Metadata> {
+	const { lang } = await params;
+	return {
+		title: lang === "ja" ? "プロジェクト" : "Projects",
+	};
+}
+
+const Projects = async ({ params }: AsyncLangParam) => {
 	const { lang } = await params;
 	const dict = await getDictionary(lang);
 

@@ -5,9 +5,7 @@ import Wrapper from "@/components/custom/wrapper";
 import EN from "./en.mdx";
 import JA from "./ja.mdx";
 
-const TMPrivacyPolicy = async ({
-	params,
-}: { params: Promise<{ lang: "en" | "ja" }> }) => {
+const TMPrivacyPolicy = async ({ params }: AsyncLangParam) => {
 	const { lang } = await params;
 	const dict = await getDictionary(lang);
 
