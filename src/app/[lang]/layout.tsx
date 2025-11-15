@@ -43,7 +43,7 @@ export default async function RootLayout({
 				<Layout
 					footer={footer}
 					navbar={navbar}
-					pageMap={[{ title: "Home", href: "/" }]}
+					pageMap={[{ name: "Home", route: "/" }]}
 				>
 					{children}
 				</Layout>
