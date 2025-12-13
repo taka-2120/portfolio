@@ -1,10 +1,10 @@
-import Footer from "@/components/custom/footer";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Footer from "@/components/custom/footer";
 
 import "nextra-theme-docs/style.css";
-import Header from "@/components/custom/header";
 import { Layout } from "nextra-theme-docs";
+import Header from "@/components/custom/header";
 
 export async function generateStaticParams() {
 	return [{ lang: "en" }, { lang: "ja" }];
@@ -30,7 +30,7 @@ export default async function RootLayout({
 	params,
 }: Readonly<{
 	children: React.ReactNode;
-	params: Promise<{ lang: "en" | "ja" }>;
+	params: Promise<{ lang: string }>;
 }>) {
 	const { lang } = await params;
 

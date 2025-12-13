@@ -1,9 +1,10 @@
 "use server";
 
+import type { Metadata } from "next";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { Provider } from "@/components/chakra/provider";
+import type { AsyncLangParam } from "@/types/lang-param";
 import "@/components/styles/gradient.css";
-import type { Metadata } from "next";
 import HomeContent from "./content";
 
 export async function generateMetadata({

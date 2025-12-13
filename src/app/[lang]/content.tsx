@@ -1,12 +1,5 @@
 "use client";
 
-import TopSection from "@/components/custom/top-section";
-import { skillImages } from "@/constants/image-urls";
-import { services } from "@/constants/services";
-import type Service from "@/entities/service";
-import AppStoreBadge from "@/images/app-store.png";
-import PortraitIcon from "@/images/portrait.png";
-import { age } from "@/utils/age";
 import {
 	Button,
 	Card,
@@ -14,19 +7,27 @@ import {
 	Circle,
 	Grid,
 	GridItem,
-	HStack,
 	Heading,
+	HStack,
 	Image,
 	Link,
 	List,
 	Spacer,
 	Text,
-	VStack,
 	useBreakpointValue,
+	VStack,
 } from "@chakra-ui/react";
+import TopSection from "@/components/custom/top-section";
+import { skillImages } from "@/constants/image-urls";
+import { services } from "@/constants/services";
+import type Service from "@/entities/service";
+import AppStoreBadge from "@/images/app-store.png";
+import PortraitIcon from "@/images/portrait.png";
+import { age } from "@/utils/age";
 import "@/components/styles/gradient.css";
 import Wrapper from "@/components/custom/wrapper";
 import { links } from "@/constants/links";
+import type { Dict } from "@/types/dict";
 
 const HomeContent = ({ lang, dict }: { lang: string; dict: Dict }) => {
 	const isMobile = useBreakpointValue({ base: true, sm: false });

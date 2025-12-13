@@ -1,7 +1,10 @@
 const Wrapper = ({
 	wide = false,
 	children,
-}: { wide?: boolean; children: React.ReactNode }) => (
+}: {
+	wide?: boolean;
+	children: React.ReactNode;
+}) => (
 	<div
 		style={{
 			padding: "32px",

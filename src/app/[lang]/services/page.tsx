@@ -1,8 +1,9 @@
 "use server";
 
+import type { Metadata } from "next";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { Provider } from "@/components/chakra/provider";
-import type { Metadata } from "next";
+import type { AsyncLangParam } from "@/types/lang-param";
 import ProjectsContent from "./content";
 
 export async function generateMetadata({

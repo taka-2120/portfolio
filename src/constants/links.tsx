@@ -1,6 +1,6 @@
-import Link from "@/entities/link";
 import { FaAppStore, FaGithub, FaLinkedin } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import Link from "@/entities/link";
 
 export const links: Link[] = [
 	new Link({
