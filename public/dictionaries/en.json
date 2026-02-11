@@ -4,10 +4,21 @@
 		"availableNow": "Available Now!",
 		"comingSoon": "Coming Soon..."
 	},
+	"nav": {
+		"projects": "Projects",
+		"experience": "Experience"
+	},
+	"hero": {
+		"subtitle": "Software Engineer",
+		"education": "Kwansei Gakuin University",
+		"educationDetail": "School of Engineering / Information Engineering (4th year)",
+		"focus": "Developing apps for many kind of platforms mainly for iOS and Web"
+	},
 	"home": {
 		"featuredApp": "Featured App",
 		"moreProjects": "more other projects!",
 		"seeMore": "See More!",
+		"viewAllProjects": "View All Projects",
 		"age": "years old",
 		"gender": "he/him",
 		"aboutMe": "About Me",
@@ -15,11 +26,16 @@
 		"university": "Kwansei Gakuin University (Japan)",
 		"school": "School of Engineering",
 		"department": "Department of Information Engineering",
-		"grade": "3rd year",
+		"grade": "4th year",
 		"techuniPosition": "Former Representative of IT Students Group",
 		"myExperiences": "My experiences",
 		"skills": "Skills",
-		"links": "Links"
+		"links": "Links",
+		"experience": "Experience",
+		"viewAllExperiences": "See all experiences",
+		"present": "Present",
+		"techStack": "Tech Stack",
+		"downloadOnAppStore": "Download on the App Store"
 	},
 	"projects": {
 		"title": "Projects"

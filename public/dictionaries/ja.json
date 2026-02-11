@@ -4,10 +4,21 @@
 		"availableNow": "App Store で公開中!",
 		"comingSoon": "まもなくリリース..."
 	},
+	"nav": {
+		"projects": "プロジェクト",
+		"experience": "経歴"
+	},
+	"hero": {
+		"subtitle": "ソフトウェアエンジニア",
+		"education": "関西学院大学",
+		"educationDetail": "工学部 情報学課程 4年",
+		"focus": "iOS アプリを中心に Web アプリなど幅広く開発してます"
+	},
 	"home": {
 		"featuredApp": "ピックアップ",
 		"moreProjects": "つのプロジェクトも是非ご覧ください!",
 		"seeMore": "もっと見る",
+		"viewAllProjects": "すべてのプロジェクトを見る",
 		"age": "歳",
 		"gender": "he/him",
 		"aboutMe": "自己紹介",
@@ -15,11 +26,16 @@
 		"university": "関西学院大学",
 		"school": "工学部",
 		"department": "情報学課程",
-		"grade": "3年生",
+		"grade": "4年",
 		"techuniPosition": "元代表: IT学生団体",
-		"myExperiences": "職歴を見る",
+		"myExperiences": "経験を見る",
 		"skills": "スキル",
-		"links": "リンク"
+		"links": "リンク",
+		"experience": "経歴",
+		"viewAllExperiences": "すべての経験を見る",
+		"present": "現在",
+		"techStack": "技術スタック",
+		"downloadOnAppStore": "App Store でダウンロード"
 	},
 	"projects": {
 		"title": "プロジェクト"

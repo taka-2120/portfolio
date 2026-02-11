@@ -1,13 +1,13 @@
 import Service from "@/entities/service";
 // import BeansLifeIcon from "@/images/beans-life.png";
-import EcoNotifyIcon from "@/images/eco-notify.png";
+import EcoCycleIcon from "@/images/eco-cycle.jpeg";
 import TimeMeetIcon from "@/images/time-meet.png";
 // import WashTrackerIcon from "@/images/wash-tracker.png";
 
 export const services: Service[] = [
 	new Service({
-		iconSrc: EcoNotifyIcon.src,
-		appName: "Eco Notify",
+		iconSrc: EcoCycleIcon.src,
+		appName: "Eco Cycle",
 		color: "#40826e",
 		techStack: ["SwiftUI", "SwiftData", "WidgetKit", "Xcode Cloud"],
 		storeURL: "https://apps.apple.com/app/eco-notify/id6624308398",

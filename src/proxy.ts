@@ -29,10 +29,16 @@ export function proxy(request: NextRequest) {
 			request.nextUrl.pathname = "/ja/services/time-meet/privacy-policy";
 			break;
 		case "/eco-notify/privacy-policy/en":
-			request.nextUrl.pathname = "/en/services/eco-notify/privacy-policy";
+			request.nextUrl.pathname = "/en/services/eco-cycle/privacy-policy";
 			break;
 		case "/eco-notify/privacy-policy/ja":
-			request.nextUrl.pathname = "/ja/services/eco-notify/privacy-policy";
+			request.nextUrl.pathname = "/ja/services/eco-cycle/privacy-policy";
+			break;
+		case "/en/services/eco-notify/privacy-policy":
+			request.nextUrl.pathname = "/en/services/eco-cycle/privacy-policy";
+			break;
+		case "/ja/services/eco-notify/privacy-policy":
+			request.nextUrl.pathname = "/ja/services/eco-cycle/privacy-policy";
 			break;
 		default: {
 			const locale = getLocale(request);

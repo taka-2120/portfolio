@@ -1,249 +1,279 @@
 "use client";
 
 import {
-	Button,
-	Card,
-	Center,
-	Circle,
-	Grid,
-	GridItem,
-	Heading,
+	Box,
+	Flex,
 	HStack,
 	Image,
 	Link,
-	List,
-	Spacer,
 	Text,
-	useBreakpointValue,
 	VStack,
+	Wrap,
 } from "@chakra-ui/react";
+import { Fragment } from "react";
 import TopSection from "@/components/custom/top-section";
-import { skillImages } from "@/constants/image-urls";
-import { services } from "@/constants/services";
-import type Service from "@/entities/service";
-import AppStoreBadge from "@/images/app-store.png";
-import PortraitIcon from "@/images/portrait.png";
-import { age } from "@/utils/age";
-import "@/components/styles/gradient.css";
 import Wrapper from "@/components/custom/wrapper";
+import { experiences } from "@/constants/experiences";
 import { links } from "@/constants/links";
+import { services } from "@/constants/services";
+import AppStoreBadge from "@/images/app-store.png";
 import type { Dict } from "@/types/dict";
 
-const HomeContent = ({ lang, dict }: { lang: string; dict: Dict }) => {
-	const isMobile = useBreakpointValue({ base: true, sm: false });
+const skills = [
+	"Swift",
+	"SwiftUI",
+	"UIKit",
+	"Flutter",
+	"HTML/CSS",
+	"Next.js",
+	"React",
+	"TypeScript",
+	"JavaScript",
+	"WordPress",
+	"Python",
+	"Ruby",
+	"C",
+	"C#",
+	"Google Cloud Platform",
+	"Firebase",
+	"Supabase",
+];
 
-	const makeButton = (service: Service) => {
-		if (service.releaseDate) {
-			if (service.releaseDate > new Date()) {
-				return (
-					<Text fontWeight={"bold"} fontSize={"lg"}>
-						{dict.release.waitUntil} {service.releaseDate.toLocaleDateString()}!
-					</Text>
-				);
-			}
-			if (service.storeURL) {
-				return isMobile ? (
-					<VStack
-						gap={isMobile ? "20px" : "50px"}
-						backgroundColor={"bg.panel"}
-						p={8}
-						borderRadius={25}
-						style={{
-							boxShadow: `0 0 30px ${services[0].color}`,
-						}}
-					>
-						<Text fontWeight={"bold"} fontSize={"lg"}>
-							{dict.release.availableNow}
-						</Text>
-						<Link href={service.storeURL}>
-							<Image
-								src={AppStoreBadge.src}
-								height={"60px"}
-								objectFit={"contain"}
-								w={"fit-content"}
-							/>
-						</Link>
-					</VStack>
-				) : (
-					<HStack
-						gapX={50}
-						backgroundColor={"bg.panel"}
-						p={8}
-						borderRadius={25}
-						style={{
-							boxShadow: `0 0 30px ${services[0].color}`,
-						}}
-					>
-						<Text fontWeight={"bold"} fontSize={"lg"}>
-							{dict.release.availableNow}
-						</Text>
-						<Link href={service.storeURL}>
-							<Image
-								src={AppStoreBadge.src}
-								height={"60px"}
-								objectFit={"contain"}
-								w={"fit-content"}
-							/>
-						</Link>
-					</HStack>
-				);
-			}
-			return (
-				<Text fontWeight={"bold"} fontSize={"lg"}>
-					{dict.release.availableNow}
-				</Text>
-			);
-		}
-		return (
-			<Text fontWeight={"bold"} fontSize={"lg"}>
-				{dict.release.comingSoon}
-			</Text>
-		);
+const HomeContent = ({ lang, dict }: { lang: string; dict: Dict }) => {
+	const featuredApp = services[0];
+
+	const monthsEn = [
+		"Jan",
+		"Feb",
+		"Mar",
+		"Apr",
+		"May",
+		"Jun",
+		"Jul",
+		"Aug",
+		"Sep",
+		"Oct",
+		"Nov",
+		"Dec",
+	];
+	const formatDate = (date: Date) => {
+		const y = date.getFullYear();
+		const m = date.getMonth();
+		return lang === "ja" ? `${y}年${m + 1}月` : `${monthsEn[m]} ${y}`;
 	};
+
+	const recentExperiences = [...experiences].reverse().slice(0, 3);
+
+	const bioItems = [
+		{
+			label: lang === "ja" ? "学歴" : "Education",
+			value: dict.hero.education,
+			detail: dict.hero.educationDetail,
+		},
+		{ label: lang === "ja" ? "関心" : "Focus", value: dict.hero.focus },
+	];
+
+	const HeroSection = () => (
+		<VStack alignItems={"start"} gap={3} mb={"100px"} pt={"48px"}>
+			<Text
+				fontSize={"2.5rem"}
+				fontWeight={"700"}
+				letterSpacing={"-0.02em"}
+				lineHeight={"1.2"}
+			>
+				Yu Takahashi
+			</Text>
+			<Text fontSize={"1em"} color={"gray.500"} fontWeight={"500"}>
+				{dict.hero.subtitle}
+			</Text>
+			<Box
+				display={"grid"}
+				gridTemplateColumns={"auto 1fr"}
+				columnGap={5}
+				rowGap={3}
+				mt={4}
+				alignItems={"baseline"}
+			>
+				{bioItems.map((item) => (
+					<Fragment key={item.label}>
+						<Text
+							fontSize={"0.75em"}
+							fontWeight={"600"}
+							textTransform={"uppercase"}
+							letterSpacing={"0.05em"}
+							color={"gray.400"}
+							whiteSpace={"nowrap"}
+						>
+							{item.label}
+						</Text>
+						<VStack alignItems={"start"} gap={0}>
+							<Text fontSize={"1em"} fontWeight={"500"}>
+								{item.value}
+							</Text>
+							{item.detail && (
+								<Text fontSize={"0.85em"} color={"gray.500"}>
+									{item.detail}
+								</Text>
+							)}
+						</VStack>
+					</Fragment>
+				))}
+			</Box>
+			<HStack gap={4} mt={4}>
+				{links.map((link) => (
+					<Link
+						key={link.name}
+						href={link.url}
+						opacity={0.45}
+						_hover={{ opacity: 1 }}
+						transition={"opacity 0.2s"}
+						aria-label={link.name}
+						color={"inherit"}
+					>
+						{link.icon}
+					</Link>
+				))}
+			</HStack>
+		</VStack>
+	);
 
 	const FeaturedAppSection = () => (
 		<TopSection title={dict.home.featuredApp}>
-			<Image
-				src={services[0].iconSrc}
-				w={300}
-				aspectRatio={1}
-				borderRadius={60}
-				m={10}
-				style={{
-					boxShadow: `0 5px 60px ${services[0].color}`,
-				}}
-			/>
-
-			<VStack alignItems={"center"}>
-				<Heading size={"3xl"}>{services[0].appName}</Heading>
-				<Heading>
-					{lang === "ja" ? services[0].heroJa : services[0].heroEn}
-				</Heading>
-				<Spacer minH={15} />
-				{makeButton(services[0])}
-			</VStack>
-
-			<VStack w={"100%"} mt={10}>
-				<Heading>
-					{services.length - 1} {dict.home.moreProjects}
-				</Heading>
-				<Button asChild>
-					<Link href={`${lang}/services`}>{dict.home.seeMore}</Link>
-				</Button>
-			</VStack>
+			<Flex
+				direction={{ base: "column", sm: "row" }}
+				gap={5}
+				w={"100%"}
+				alignItems={"start"}
+			>
+				<Image
+					src={featuredApp.iconSrc}
+					w={"72px"}
+					aspectRatio={1}
+					borderRadius={"18%"}
+					flexShrink={0}
+				/>
+				<VStack alignItems={"start"} gap={2} flex={1}>
+					<Text fontSize={"1.25em"} fontWeight={"600"}>
+						{featuredApp.appName}
+					</Text>
+					<Text
+						fontSize={"1em"}
+						color={"gray.500"}
+						_dark={{ color: "gray.400" }}
+						lineHeight={"1.88"}
+					>
+						{lang === "ja"
+							? featuredApp.descriptionJa
+							: featuredApp.descriptionEn}
+					</Text>
+					{featuredApp.techStack && (
+						<HStack gap={1.5} flexWrap={"wrap"}>
+							{featuredApp.techStack.map((tech, i) => (
+								<Text key={tech} fontSize={"0.85em"} color={"gray.400"}>
+									{tech}
+									{i < (featuredApp.techStack?.length ?? 0) - 1 && " ·"}
+								</Text>
+							))}
+						</HStack>
+					)}
+					{featuredApp.storeURL && (
+						<Link href={featuredApp.storeURL} mt={1}>
+							<Image
+								src={AppStoreBadge.src}
+								height={"36px"}
+								objectFit={"contain"}
+							/>
+						</Link>
+					)}
+				</VStack>
+			</Flex>
+			<Link
+				href={`/${lang}/services`}
+				fontSize={"1em"}
+				color={"gray.500"}
+				_hover={{ color: "gray.300" }}
+				mt={3}
+			>
+				{dict.home.viewAllProjects} →
+			</Link>
 		</TopSection>
 	);
 
-	const AboutMeSection = () => (
-		<TopSection title={dict.home.aboutMe}>
-			<HStack w={"100%"} gap={10}>
-				<Image src={PortraitIcon.src} height={180} aspectRatio={1} />
-				<VStack alignItems={"start"}>
-					<Heading size={"3xl"}>Yu Takahashi</Heading>
-					<Text>
-						{age()} {dict.home.age}・{dict.home.gender}
-					</Text>
-				</VStack>
-			</HStack>
-
-			<Card.Root width="100%" size={"lg"} rounded={"3xl"} variant={"outline"}>
-				<Card.Body>
-					<Card.Title mb={4} fontSize={"2xl"}>
-						{dict.home.affiliation}
-					</Card.Title>
-
-					<List.Root>
-						<List.Item fontWeight={"bold"}>{dict.home.university}</List.Item>
-						<List.Root pl={15}>
-							<List.Item>{dict.home.school}</List.Item>
-							<List.Item>{dict.home.department}</List.Item>
-							<List.Item color={"gray"}>{dict.home.grade}</List.Item>
-						</List.Root>
-						<List.Item>
-							{dict.home.techuniPosition}{" "}
-							<Link
-								href="https://techuni.org/"
-								variant={"underline"}
-								color={"blue.500"}
+	const ExperienceSection = () => (
+		<TopSection title={dict.home.experience}>
+			<VStack alignItems={"start"} gap={5} w={"100%"}>
+				{recentExperiences.map((exp) => (
+					<Box
+						key={`${lang === "ja" ? exp.nameJa : exp.nameEn}-${exp.start.getTime()}`}
+						w={"100%"}
+					>
+						<Flex
+							justify={"space-between"}
+							align={"baseline"}
+							w={"100%"}
+							mb={0.5}
+							gap={3}
+						>
+							<Text fontWeight={"600"} fontSize={"1em"}>
+								{lang === "ja" ? exp.nameJa : exp.nameEn}
+							</Text>
+							<Text
+								fontSize={"0.85em"}
+								color={"gray.500"}
+								flexShrink={0}
+								whiteSpace={"nowrap"}
 							>
-								Tech.Uni
-							</Link>
-						</List.Item>
-					</List.Root>
-				</Card.Body>
-
-				<Card.Footer justifyContent="flex-end">
-					<Button asChild>
-						<Link href={`${lang}/experiences`}>{dict.home.myExperiences}</Link>
-					</Button>
-				</Card.Footer>
-			</Card.Root>
+								{formatDate(exp.start)} –{" "}
+								{exp.end ? formatDate(exp.end) : dict.home.present}
+							</Text>
+						</Flex>
+						<Text fontSize={"0.85em"} color={"gray.500"}>
+							{lang === "ja" ? exp.roleJa : exp.roleEn}
+						</Text>
+					</Box>
+				))}
+			</VStack>
+			<Link
+				href={`/${lang}/experiences`}
+				fontSize={"1em"}
+				color={"gray.500"}
+				_hover={{ color: "gray.300" }}
+				mt={3}
+			>
+				{dict.home.viewAllExperiences} →
+			</Link>
 		</TopSection>
 	);
 
 	const SkillsSection = () => (
 		<TopSection title={dict.home.skills}>
-			<Grid
-				templateColumns={["repeat(2, 1fr)", "repeat(3, 1fr)", "repeat(4, 1fr)"]}
-				gap={4}
-			>
-				{skillImages.map((skill) => (
-					<GridItem key={skill} gap={4} my={8}>
-						<Center>
-							<Image
-								src={skill}
-								width={100}
-								height={100}
-								style={{
-									height: "auto",
-									objectFit: "contain",
-									borderRadius: skill.includes("nextjs") ? 100 : 20,
-									margin: 10,
-									backgroundColor: skill.includes("nextjs")
-										? "white"
-										: "transparent",
-								}}
-							/>
-						</Center>
-					</GridItem>
+			<Wrap gap={2}>
+				{skills.map((skill) => (
+					<Box
+						key={skill}
+						px={"10px"}
+						py={"4px"}
+						borderRadius={"full"}
+						border={"1px solid"}
+						borderColor={"gray.200"}
+						_dark={{ borderColor: "gray.700", color: "gray.400" }}
+						fontSize={"0.85em"}
+						color={"gray.500"}
+					>
+						{skill}
+					</Box>
 				))}
-			</Grid>
-		</TopSection>
-	);
-
-	const LinkSection = () => (
-		<TopSection title={dict.home.links}>
-			<VStack align={"start"} gap={4}>
-				{links.map((link) => (
-					<Link key={link.name} href={link.url}>
-						<HStack key={link.name} gap={4}>
-							<Circle
-								background={"WindowText"}
-								width={"64px"}
-								height={"64px"}
-								padding={"10px"}
-								color={link.color ?? "Background"}
-							>
-								{link.icon}
-							</Circle>
-							<Text>{link.name}</Text>
-						</HStack>
-					</Link>
-				))}
-			</VStack>
+			</Wrap>
 		</TopSection>
 	);
 
 	return (
-		<>
-			<div className={"blurryGradient"} />
-			<Wrapper>
-				{FeaturedAppSection()}
-				{AboutMeSection()}
-				{LinkSection()}
-				{SkillsSection()}
-			</Wrapper>
-		</>
+		<Wrapper>
+			<HeroSection />
+			<FeaturedAppSection />
+			<ExperienceSection />
+			<SkillsSection />
+		</Wrapper>
 	);
 };
 
