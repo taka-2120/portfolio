@@ -15,6 +15,8 @@ export function middleware(request: NextRequest) {
 
 	if (pathnameHasLocale) return;
 
+	if (pathname.includes("/app-ads.txt") || pathname.includes("/.well-known/apple-app-site-association")) return;
+
 	switch (pathname) {
 		case "/time-meet/privacy-policy/en":
 			request.nextUrl.pathname = "/en/services/time-meet/privacy-policy";
