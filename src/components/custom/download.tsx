@@ -1,6 +1,6 @@
-import AppStoreBadge from "@/images/app-store.png";
 import Image from "next/image";
 import Link from "next/link";
+import AppStoreBadge from "@/images/app-store.png";
 
 const Download = ({ sentence, url }: { sentence: string; url: string }) => {
 	return (

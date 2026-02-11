@@ -2,7 +2,7 @@ import { services } from '@/constants/services';
 import Download from '@/components/custom/download';
 
 export const app = services.find((service) => service.appName === "Time Meet");
-export const privacyPolicyURL = './' + app?.appName.toLowerCase().replace(/ /g, '') + '/privacy-policy';
+export const privacyPolicyURL = './' + app?.appName.toLowerCase().replace(/ /g, '-') + '/privacy-policy';
 
 # {app?.appName}
 

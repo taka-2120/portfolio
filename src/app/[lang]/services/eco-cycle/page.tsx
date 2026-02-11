@@ -1,20 +1,21 @@
 "use server";
 
-import Wrapper from "@/components/custom/wrapper";
 import type { Metadata } from "next";
+import Wrapper from "@/components/custom/wrapper";
+import type { AsyncLangParam } from "@/types/lang-param";
 import EN from "./en.mdx";
 import JA from "./ja.mdx";
 
 export async function generateMetadata(): Promise<Metadata> {
 	return {
-		title: "Wash Tracker",
+		title: "Eco Cycle",
 	};
 }
 
-const WashTracker = async ({ params }: AsyncLangParam) => {
+const EcoNotify = async ({ params }: AsyncLangParam) => {
 	const { lang } = await params;
 
 	return <Wrapper>{lang === "ja" ? <JA /> : <EN />}</Wrapper>;
 };
 
-export default WashTracker;
+export default EcoNotify;

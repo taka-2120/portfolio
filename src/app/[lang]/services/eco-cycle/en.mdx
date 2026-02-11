@@ -1,8 +1,8 @@
 import { services } from '@/constants/services';
 import Download from '@/components/custom/download';
 
-export const app = services.find((service) => service.appName === "Beans Life");
-export const privacyPolicyURL = './' + app?.appName.toLowerCase().replace(/ /g, '') + '/privacy-policy';
+export const app = services.find((service) => service.appName === "Eco Cycle");
+export const privacyPolicyURL = './' + app?.appName.toLowerCase().replace(/ /g, '-') + '/privacy-policy';
 
 # {app?.appName}
 
