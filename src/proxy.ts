@@ -7,7 +7,7 @@ function getLocale(_request: NextRequest) {
 	return defaultLocale;
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
 	const { pathname } = request.nextUrl;
 	const pathnameHasLocale = locales.some(
 		(locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
@@ -15,7 +15,11 @@ export function middleware(request: NextRequest) {
 
 	if (pathnameHasLocale) return;
 
-	if (pathname.includes("/app-ads.txt") || pathname.includes("/.well-known/apple-app-site-association")) return;
+	if (
+		pathname.includes("/app-ads.txt") ||
+		pathname.includes("/.well-known/apple-app-site-association")
+	)
+		return;
 
 	switch (pathname) {
 		case "/time-meet/privacy-policy/en":
