@@ -44,7 +44,7 @@ const BlogList = async ({ params }: AsyncLangParam) => {
 			</h1>
 
 			{posts.length === 0 ? (
-				<p style={{ opacity: 0.5 }}>{dict.blog.noPosts ?? dict.blog.noPost}</p>
+				<p style={{ opacity: 0.5 }}>{dict.blog.noPosts}</p>
 			) : (
 				<ul
 					style={{
