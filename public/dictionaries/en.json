@@ -10,8 +10,10 @@
 	},
 	"hero": {
 		"subtitle": "Software Engineer",
+		"company": "STORES, inc.",
+		"companyDetail": "Software Engineer",
 		"education": "Kwansei Gakuin University",
-		"educationDetail": "School of Engineering / Information Engineering (Graduated)",
+		"educationDetail": "B.Eng., Information Engineering",
 		"focus": "Developing apps for many kind of platforms mainly for iOS and Web"
 	},
 	"home": {

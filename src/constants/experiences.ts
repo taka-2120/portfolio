@@ -67,9 +67,9 @@ export const experiences: Experience[] = [
 	}),
 	new Experience({
 		nameEn: "STORES, inc.",
-		roleEn: "iOS Engineer",
+		roleEn: "Software Engineer",
 		nameJa: "STORES 株式会社",
-		roleJa: "iOS エンジニア",
+		roleJa: "ソフトウェアエンジニア",
 		start: new Date("2026-04"),
 	}),
 ];
