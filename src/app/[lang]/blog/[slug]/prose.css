@@ -15,14 +15,20 @@
 	margin-bottom: 0.75em;
 	line-height: 1.3;
 }
-.mdx-prose h1 { font-size: 1.75rem; }
+.mdx-prose h1 {
+	font-size: 1.75rem;
+}
 .mdx-prose h2 {
 	font-size: 1.35rem;
 	padding-bottom: 0.3em;
 	border-bottom: 1px solid rgba(128, 128, 128, 0.2);
 }
-.mdx-prose h3 { font-size: 1.15rem; }
-.mdx-prose h4 { font-size: 1rem; }
+.mdx-prose h3 {
+	font-size: 1.15rem;
+}
+.mdx-prose h4 {
+	font-size: 1rem;
+}
 
 /* Paragraph */
 .mdx-prose p {
@@ -36,8 +42,12 @@
 	padding-left: 1.75em;
 	margin-bottom: 1.25em;
 }
-.mdx-prose ul { list-style: disc; }
-.mdx-prose ol { list-style: decimal; }
+.mdx-prose ul {
+	list-style: disc;
+}
+.mdx-prose ol {
+	list-style: decimal;
+}
 .mdx-prose li {
 	margin-bottom: 0.35em;
 	line-height: 1.7;
@@ -90,7 +100,9 @@
 	color: inherit;
 	text-underline-offset: 3px;
 }
-.mdx-prose a:hover { opacity: 0.75; }
+.mdx-prose a:hover {
+	opacity: 0.75;
+}
 
 /* Horizontal rule */
 .mdx-prose hr {
@@ -118,8 +130,14 @@
 }
 
 /* Strong / em */
-.mdx-prose strong { font-weight: 600; }
-.mdx-prose em { font-style: italic; }
+.mdx-prose strong {
+	font-weight: 600;
+}
+.mdx-prose em {
+	font-style: italic;
+}
 
 /* First child margin reset */
-.mdx-prose > *:first-child { margin-top: 0; }
+.mdx-prose > *:first-child {
+	margin-top: 0;
+}

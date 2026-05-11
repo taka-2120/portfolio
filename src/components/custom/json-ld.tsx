@@ -4,8 +4,7 @@ export const PersonJsonLd = ({ lang }: { lang: string }) => {
 		"@context": "https://schema.org",
 		"@type": "Person",
 		name: "Yu Takahashi",
-		url:
-			process.env.NEXT_PUBLIC_SITE_URL ?? "https://yu-dev.vercel.app",
+		url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://yu-dev.vercel.app",
 		jobTitle: isJa ? "ソフトウェアエンジニア" : "Software Engineer",
 		description: isJa
 			? "iOS・Web を中心に開発するソフトウェアエンジニア。関西学院大学 工学部 情報学課程 4年。"

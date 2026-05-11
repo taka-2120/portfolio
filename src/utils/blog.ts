@@ -72,7 +72,10 @@ export function getAllPosts(lang: string): BlogPost[] {
 		});
 }
 
-export function getPost(slug: string, lang: string): BlogPostWithContent | null {
+export function getPost(
+	slug: string,
+	lang: string,
+): BlogPostWithContent | null {
 	const filePath = safeMdxPath(slug, lang);
 	if (!filePath || !fs.existsSync(filePath)) return null;
 	const { data, content } = matter(fs.readFileSync(filePath, "utf-8"));

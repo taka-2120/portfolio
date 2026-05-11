@@ -3,8 +3,8 @@
 import type { Metadata } from "next";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { Provider } from "@/components/chakra/provider";
-import type { AsyncLangParam } from "@/types/lang-param";
 import { PersonJsonLd } from "@/components/custom/json-ld";
+import type { AsyncLangParam } from "@/types/lang-param";
 import HomeContent from "./content";
 
 export async function generateMetadata({
@@ -18,7 +18,9 @@ export async function generateMetadata({
 			? "iOS・Web を中心に開発するソフトウェアエンジニア。アプリや経歴、技術ブログを公開しています。"
 			: "Software engineer focused on iOS and Web development. Showcasing apps, experiences, and technical writing.",
 		openGraph: {
-			title: isJa ? "Yu Takahashi のポートフォリオ" : "Yu Takahashi's Portfolio",
+			title: isJa
+				? "Yu Takahashi のポートフォリオ"
+				: "Yu Takahashi's Portfolio",
 			description: isJa
 				? "iOS・Web を中心に開発するソフトウェアエンジニア。"
 				: "Software engineer focused on iOS and Web.",
