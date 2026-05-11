@@ -4,7 +4,7 @@ import { experiences } from "@/constants/experiences";
 import "nextra-theme-docs/style.css";
 
 const ExperienceListJa = async () =>
-	experiences.map((experience) => {
+	[...experiences].reverse().map((experience) => {
 		return (
 			<div
 				key={experience.nameEn}
