@@ -10,7 +10,19 @@ export async function generateMetadata({
 }: AsyncLangParam): Promise<Metadata> {
 	const { lang } = await params;
 	const dict = await getDictionary(lang);
-	return { title: dict.blog.title };
+	const isJa = lang === "ja";
+	const description = isJa
+		? "iOS・Web 開発に関する技術記事を書いています。"
+		: "Technical writing on iOS and Web development.";
+	return {
+		title: dict.blog.title,
+		description,
+		openGraph: {
+			title: dict.blog.title,
+			description,
+			url: `/${lang}/blog`,
+		},
+	};
 }
 
 const BlogList = async ({ params }: AsyncLangParam) => {

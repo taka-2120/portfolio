@@ -2,10 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import { ArticleJsonLd } from "@/components/custom/json-ld";
 import Wrapper from "@/components/custom/wrapper";
 import type { AsyncLangParam } from "@/types/lang-param";
 import { getAllPostSlugs, getPost } from "@/utils/blog";
 import { getDictionary } from "../../dictionaries";
+
+const BASE_URL =
+	process.env.NEXT_PUBLIC_SITE_URL ?? "https://yu-dev.vercel.app";
 
 type Params = AsyncLangParam & {
 	params: Promise<{ lang: "en" | "ja"; slug: string }>;
@@ -24,6 +28,19 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 	return {
 		title: post.title,
 		description: post.description,
+		openGraph: {
+			title: post.title,
+			description: post.description,
+			type: "article",
+			publishedTime: post.date,
+			url: `/${lang}/blog/${slug}`,
+			tags: post.tags,
+		},
+		twitter: {
+			card: "summary_large_image",
+			title: post.title,
+			description: post.description,
+		},
 	};
 }
 
@@ -36,6 +53,13 @@ const BlogPost = async ({ params }: Params) => {
 
 	return (
 		<Wrapper>
+			<ArticleJsonLd
+				title={post.title}
+				description={post.description}
+				date={post.date}
+				url={`${BASE_URL}/${lang}/blog/${slug}`}
+				tags={post.tags}
+			/>
 			<Link
 				href={`/${lang}/blog`}
 				style={{
