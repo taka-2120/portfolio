@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { ArticleJsonLd } from "@/components/custom/json-ld";
 import Wrapper from "@/components/custom/wrapper";
 import type { AsyncLangParam } from "@/types/lang-param";
-import { getAllPostSlugs, getPost } from "@/utils/blog";
+import { getAllPosts, getPost } from "@/utils/blog";
 import { getDictionary } from "../../dictionaries";
+import "./prose.css";
 
 const BASE_URL =
 	process.env.NEXT_PUBLIC_SITE_URL ?? "https://yu-dev.vercel.app";
@@ -15,16 +17,19 @@ type Params = AsyncLangParam & {
 	params: Promise<{ lang: "en" | "ja"; slug: string }>;
 };
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
-	const slugs = getAllPostSlugs();
 	const langs = ["en", "ja"] as const;
-	return langs.flatMap((lang) => slugs.map((slug) => ({ lang, slug })));
+	return langs.flatMap((lang) =>
+		getAllPosts(lang).map((post) => ({ lang, slug: post.slug })),
+	);
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
 	const { lang, slug } = await params;
 	const post = getPost(slug, lang);
-	if (!post) return {};
+	if (!post?.published) return {};
 	return {
 		title: post.title,
 		description: post.description,
@@ -35,6 +40,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 			publishedTime: post.date,
 			url: `/${lang}/blog/${slug}`,
 			tags: post.tags,
+			...(post.image ? { images: [{ url: post.image }] } : {}),
 		},
 		twitter: {
 			card: "summary_large_image",
@@ -47,7 +53,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 const BlogPost = async ({ params }: Params) => {
 	const { lang, slug } = await params;
 	const post = getPost(slug, lang);
-	if (!post || !post.published) notFound();
+	if (!post?.published) notFound();
 
 	const dict = await getDictionary(lang);
 
@@ -74,6 +80,27 @@ const BlogPost = async ({ params }: Params) => {
 			>
 				{dict.blog.backToBlog}
 			</Link>
+
+			{post.image && (
+				<div
+					style={{
+						position: "relative",
+						width: "100%",
+						aspectRatio: "16/9",
+						borderRadius: "12px",
+						overflow: "hidden",
+						marginBottom: "36px",
+					}}
+				>
+					<Image
+						src={post.image}
+						alt={post.title}
+						fill
+						style={{ objectFit: "cover" }}
+						priority
+					/>
+				</div>
+			)}
 
 			<header style={{ marginBottom: "40px" }}>
 				<p
@@ -117,7 +144,7 @@ const BlogPost = async ({ params }: Params) => {
 				)}
 			</header>
 
-			<div className="mdx-content">
+			<div className="mdx-prose">
 				<MDXRemote source={post.content} />
 			</div>
 		</Wrapper>

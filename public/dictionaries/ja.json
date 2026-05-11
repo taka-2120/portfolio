@@ -44,7 +44,7 @@
 		"title": "ブログ",
 		"allPosts": "すべての記事",
 		"readMore": "続きを読む",
-		"noPost": "まだ記事がありません。",
+		"noPosts": "まだ記事がありません。",
 		"backToBlog": "← ブログへ戻る"
 	}
 }
