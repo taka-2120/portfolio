@@ -20,9 +20,27 @@ const geistMono = Geist_Mono({
 	subsets: ["latin"],
 });
 
+const BASE_URL =
+	process.env.NEXT_PUBLIC_SITE_URL ?? "https://yu-dev.vercel.app";
+
 export const metadata: Metadata = {
-	title: "Yu Takahashi's Portfolio",
-	description: "Here's my experience and projects!",
+	title: {
+		default: "Yu Takahashi's Portfolio",
+		template: "%s | Yu Takahashi",
+	},
+	description:
+		"Software engineer focused on iOS and Web development. Showcasing apps, experiences, and technical writing.",
+	metadataBase: new URL(BASE_URL),
+	openGraph: {
+		type: "website",
+		siteName: "Yu Takahashi's Portfolio",
+		images: [{ url: "/og-default.png", width: 1200, height: 630 }],
+	},
+	twitter: {
+		card: "summary_large_image",
+		site: "@yu_dev",
+		images: ["/og-default.png"],
+	},
 };
 
 export default async function RootLayout({
