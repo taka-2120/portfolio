@@ -20,6 +20,10 @@ const Header = ({ lang }: { lang: string }) => {
 			label: lang === "ja" ? "経歴" : "Experience",
 			href: `/${lang}/experiences`,
 		},
+		{
+			label: lang === "ja" ? "ブログ" : "Blog",
+			href: `/${lang}/blog`,
+		},
 	];
 
 	return (

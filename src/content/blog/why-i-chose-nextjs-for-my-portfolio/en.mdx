@@ -1,0 +1,46 @@
+---
+title: "Why I Chose Next.js for My Portfolio"
+date: "2026-03-15"
+description: "A look at why Next.js with the App Router was the right choice for building a bilingual, statically-generated portfolio site."
+tags: ["Next.js", "React", "Web"]
+published: true
+---
+
+# Why I Chose Next.js for My Portfolio
+
+Building a personal portfolio is an opportunity to pick the stack that fits you best — not just what's popular. Here's why I landed on **Next.js 16 with the App Router**.
+
+## Requirements
+
+Before picking a framework I listed what I actually needed:
+
+- **Static generation** — the site has no dynamic data, so a CDN-friendly output is ideal
+- **Bilingual support (EN/JA)** — routes need to carry locale context without much boilerplate
+- **MDX** — I wanted to write content in Markdown, not hardcode everything in JSX
+- **Good TypeScript support** — type errors should be caught at build time, not in production
+
+Next.js checked all of these.
+
+## App Router and i18n
+
+The `[lang]` dynamic segment approach is clean. Every page lives under `src/app/[lang]/`, and `generateStaticParams` pre-renders both locales at build time:
+
+```ts
+export async function generateStaticParams() {
+    return [{ lang: "en" }, { lang: "ja" }];
+}
+```
+
+Dictionary files (`public/dictionaries/en.json`, `ja.json`) are loaded server-side, which keeps locale logic out of client bundles entirely.
+
+## Nextra for MDX Pages
+
+[Nextra](https://nextra.site) wraps Next.js with an opinionated MDX layer. For pages like the experience timeline and app detail pages, I write MDX and Nextra handles the rendering pipeline. It saved me from setting up remark/rehype manually.
+
+## What I'd Pick Differently
+
+If I were starting today I'd evaluate **Astro** more seriously. For a mostly-static bilingual site, Astro's island architecture might ship less JavaScript by default. That said, since I'm already comfortable in the React ecosystem and the site might grow, Next.js feels like the safer long-term bet.
+
+## Takeaway
+
+Next.js isn't always the right answer, but for a React-native developer who wants static generation, MDX, and solid TypeScript — it's hard to beat.

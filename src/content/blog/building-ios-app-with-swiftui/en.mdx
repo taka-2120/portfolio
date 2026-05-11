@@ -1,0 +1,60 @@
+---
+title: "Building an iOS App with SwiftUI: Lessons from Eco Cycle"
+date: "2025-12-01"
+description: "What I learned building Eco Cycle — a habit tracker app for iOS — using SwiftUI and the challenges I faced along the way."
+tags: ["iOS", "SwiftUI", "Swift"]
+published: true
+---
+
+# Building an iOS App with SwiftUI: Lessons from Eco Cycle
+
+SwiftUI changed the way I think about UI development. Before it, I spent a lot of time managing view lifecycles manually with UIKit. SwiftUI's declarative model let me focus on what the UI should look like rather than how to get there.
+
+## Why SwiftUI
+
+When I started **Eco Cycle**, I had two options: UIKit (safe, mature) or SwiftUI (newer, expressive). I chose SwiftUI for a few reasons:
+
+- Declarative syntax makes prototyping fast
+- Native support for animations and gestures
+- Seamless integration with Swift's type system
+
+The tradeoff is that SwiftUI still has rough edges for complex layouts, but for a habit-tracking app it was the right call.
+
+## State Management
+
+The biggest design challenge was state management. I settled on a combination of `@StateObject` for top-level models and `@EnvironmentObject` to thread shared state through the view hierarchy without prop-drilling.
+
+```swift
+class HabitStore: ObservableObject {
+    @Published var habits: [Habit] = []
+
+    func toggle(_ habit: Habit) {
+        // update logic
+    }
+}
+```
+
+## Data Persistence
+
+For local storage I used **SwiftData** (iOS 17+). The migration from raw CoreData is significant — the boilerplate is mostly gone.
+
+```swift
+@Model
+class Habit {
+    var name: String
+    var completedDates: [Date]
+
+    init(name: String) {
+        self.name = name
+        self.completedDates = []
+    }
+}
+```
+
+## What I'd Do Differently
+
+1. **Start with a data model** before touching UI. I refactored the model layer twice because I jumped into views too early.
+2. **Write previews from day one.** `#Preview` macros make iteration so much faster.
+3. **Test on a real device early.** Simulator performance doesn't reflect actual feel, especially for animations.
+
+SwiftUI is still evolving quickly, but it's already the better default for new iOS apps. I'm sticking with it for my next project.
