@@ -17,6 +17,7 @@ import { experiences } from "@/constants/experiences";
 import { links } from "@/constants/links";
 import { services } from "@/constants/services";
 import AppStoreBadge from "@/images/app-store.png";
+import Portrait from "@/images/portrait.png";
 import type { Dict } from "@/types/dict";
 
 const skills = [
@@ -75,6 +76,13 @@ const HomeContent = ({ lang, dict }: { lang: string; dict: Dict }) => {
 
 	const HeroSection = () => (
 		<VStack alignItems={"start"} gap={3} mb={"100px"} pt={"48px"}>
+			<Image
+				src={Portrait.src}
+				w={"72px"}
+				aspectRatio={1}
+				borderRadius={"full"}
+				mb={1}
+			/>
 			<Text
 				fontSize={"2.5rem"}
 				fontWeight={"700"}

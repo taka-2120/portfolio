@@ -39,6 +39,7 @@ export const experiences: Experience[] = [
 		nameJa: "アットマークソリューション 株式会社",
 		roleJa: "iOS / Android エンジニア (インターン)",
 		start: new Date("2024-06"),
+		end: new Date("2025-09"),
 	}),
 	new Experience({
 		nameEn: "Cybozu, inc.",
@@ -62,5 +63,13 @@ export const experiences: Experience[] = [
 		nameJa: "STORES 株式会社",
 		roleJa: "iOS エンジニア (アルバイト)",
 		start: new Date("2025-02"),
+		end: new Date("2026-03"),
+	}),
+	new Experience({
+		nameEn: "STORES, inc.",
+		roleEn: "iOS Engineer",
+		nameJa: "STORES 株式会社",
+		roleJa: "iOS エンジニア",
+		start: new Date("2026-04"),
 	}),
 ];
