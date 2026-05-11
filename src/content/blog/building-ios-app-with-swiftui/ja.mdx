@@ -1,0 +1,60 @@
+---
+title: "SwiftUI で iOS アプリを作って学んだこと — Eco Cycle 開発記"
+date: "2025-12-01"
+description: "SwiftUI を使ってハビットトラッカーアプリ「Eco Cycle」を開発するなかで学んだことや、ハマったポイントをまとめます。"
+tags: ["iOS", "SwiftUI", "Swift"]
+published: true
+---
+
+# SwiftUI で iOS アプリを作って学んだこと — Eco Cycle 開発記
+
+SwiftUI は UI 開発への考え方を大きく変えてくれました。それ以前は UIKit でビューのライフサイクルを手動で管理していましたが、SwiftUI の宣言的なモデルのおかげで「どのように作るか」ではなく「どう見えるべきか」に集中できるようになりました。
+
+## SwiftUI を選んだ理由
+
+**Eco Cycle** を作り始めたとき、選択肢は UIKit（実績あり・安定）か SwiftUI（新しい・表現力が高い）かでした。SwiftUI を選んだ主な理由は次のとおりです。
+
+- 宣言的な構文でプロトタイピングが速い
+- アニメーションやジェスチャーのネイティブサポートが充実
+- Swift の型システムとシームレスに統合できる
+
+複雑なレイアウトではまだ荒削りな部分もありますが、習慣トラッカーアプリには十分でした。
+
+## 状態管理
+
+設計で一番難しかったのは状態管理です。最終的に、トップレベルのモデルには `@StateObject`、ビュー階層をまたいだ共有状態の受け渡しには `@EnvironmentObject` を組み合わせる構成に落ち着きました。
+
+```swift
+class HabitStore: ObservableObject {
+    @Published var habits: [Habit] = []
+
+    func toggle(_ habit: Habit) {
+        // 更新ロジック
+    }
+}
+```
+
+## データの永続化
+
+ローカルストレージには **SwiftData**（iOS 17+）を使いました。生の CoreData からの移行は大きく、ボイラープレートがほとんど不要になっています。
+
+```swift
+@Model
+class Habit {
+    var name: String
+    var completedDates: [Date]
+
+    init(name: String) {
+        self.name = name
+        self.completedDates = []
+    }
+}
+```
+
+## 次にやるなら変えること
+
+1. **UI より先にデータモデルを固める。** ビューから作り始めたせいでモデル層を 2 回リファクタリングしました。
+2. **最初からプレビューを書く。** `#Preview` マクロがあるとイテレーションが格段に速くなります。
+3. **早い段階で実機確認する。** シミュレータのパフォーマンスは実機と異なり、特にアニメーション周りで差が出ます。
+
+SwiftUI はまだ進化中ですが、新規 iOS アプリのデフォルト選択として既に十分な実力があります。次のプロジェクトでも引き続き使っていく予定です。
