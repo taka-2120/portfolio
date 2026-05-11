@@ -67,6 +67,11 @@ const HomeContent = ({ lang, dict }: { lang: string; dict: Dict }) => {
 
 	const bioItems = [
 		{
+			label: lang === "ja" ? "会社" : "Company",
+			value: dict.hero.company,
+			detail: dict.hero.companyDetail,
+		},
+		{
 			label: lang === "ja" ? "学歴" : "Education",
 			value: dict.hero.education,
 			detail: dict.hero.educationDetail,

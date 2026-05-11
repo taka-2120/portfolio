@@ -10,8 +10,10 @@
 	},
 	"hero": {
 		"subtitle": "ソフトウェアエンジニア",
+		"company": "STORES 株式会社",
+		"companyDetail": "ソフトウェアエンジニア",
 		"education": "関西学院大学",
-		"educationDetail": "工学部 情報学課程 卒業",
+		"educationDetail": "工学部 情報学課程 (学士)",
 		"focus": "iOS アプリを中心に Web アプリなど幅広く開発してます"
 	},
 	"home": {
