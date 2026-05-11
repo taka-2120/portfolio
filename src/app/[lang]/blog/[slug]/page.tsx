@@ -1,13 +1,15 @@
-import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Wrapper from "@/components/custom/wrapper";
 import type { AsyncLangParam } from "@/types/lang-param";
-import { getDictionary } from "../../dictionaries";
 import { getAllPostSlugs, getPost } from "@/utils/blog";
+import { getDictionary } from "../../dictionaries";
 
-type Params = AsyncLangParam & { params: Promise<{ lang: "en" | "ja"; slug: string }> };
+type Params = AsyncLangParam & {
+	params: Promise<{ lang: "en" | "ja"; slug: string }>;
+};
 
 export async function generateStaticParams() {
 	const slugs = getAllPostSlugs();

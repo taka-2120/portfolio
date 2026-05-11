@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Wrapper from "@/components/custom/wrapper";
 import type { AsyncLangParam } from "@/types/lang-param";
-import { getDictionary } from "../dictionaries";
 import { getAllPosts } from "@/utils/blog";
+import { getDictionary } from "../dictionaries";
 
 export async function generateMetadata({
 	params,
@@ -34,7 +34,16 @@ const BlogList = async ({ params }: AsyncLangParam) => {
 			{posts.length === 0 ? (
 				<p style={{ opacity: 0.5 }}>{dict.blog.noPosts ?? dict.blog.noPost}</p>
 			) : (
-				<ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "32px" }}>
+				<ul
+					style={{
+						listStyle: "none",
+						padding: 0,
+						margin: 0,
+						display: "flex",
+						flexDirection: "column",
+						gap: "32px",
+					}}
+				>
 					{posts.map((post) => (
 						<li key={post.slug}>
 							<Link
@@ -62,11 +71,20 @@ const BlogList = async ({ params }: AsyncLangParam) => {
 									>
 										{post.title}
 									</h2>
-									<p style={{ opacity: 0.65, lineHeight: 1.6, fontSize: "0.95rem", marginBottom: "10px" }}>
+									<p
+										style={{
+											opacity: 0.65,
+											lineHeight: 1.6,
+											fontSize: "0.95rem",
+											marginBottom: "10px",
+										}}
+									>
 										{post.description}
 									</p>
 									{post.tags.length > 0 && (
-										<div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+										<div
+											style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}
+										>
 											{post.tags.map((tag) => (
 												<span
 													key={tag}
