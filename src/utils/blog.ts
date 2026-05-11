@@ -49,7 +49,10 @@ export function getAllPosts(lang: string): BlogPost[] {
 		.sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
-export function getPost(slug: string, lang: string): BlogPostWithContent | null {
+export function getPost(
+	slug: string,
+	lang: string,
+): BlogPostWithContent | null {
 	const filePath = getMdxPath(slug, lang);
 	if (!fs.existsSync(filePath)) return null;
 	const { data, content } = matter(fs.readFileSync(filePath, "utf-8"));
