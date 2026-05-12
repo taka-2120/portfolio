@@ -46,18 +46,18 @@ const BlogList = async ({ params }: AsyncLangParam) => {
 			{posts.length === 0 ? (
 				<p style={{ opacity: 0.5 }}>{dict.blog.noPosts}</p>
 			) : (
-				<ul
-					style={{
-						listStyle: "none",
-						padding: 0,
-						margin: 0,
-						display: "flex",
-						flexDirection: "column",
-						gap: "32px",
-					}}
-				>
-					{posts.map((post) => (
-						<li key={post.slug}>
+				<ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+					{posts.map((post, i) => (
+						<li
+							key={post.slug}
+							style={{
+								borderTop:
+									i === 0
+										? "none"
+										: "1px solid rgba(128,128,128,0.15)",
+								padding: "28px 0",
+							}}
+						>
 							<Link
 								href={`/${lang}/blog/${post.slug}`}
 								style={{ textDecoration: "none", color: "inherit" }}
