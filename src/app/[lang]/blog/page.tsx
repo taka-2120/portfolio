@@ -52,9 +52,7 @@ const BlogList = async ({ params }: AsyncLangParam) => {
 							key={post.slug}
 							style={{
 								borderTop:
-									i === 0
-										? "none"
-										: "1px solid rgba(128,128,128,0.15)",
+									i === 0 ? "none" : "1px solid rgba(128,128,128,0.15)",
 								padding: "28px 0",
 							}}
 						>
