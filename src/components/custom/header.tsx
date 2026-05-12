@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from "next/navigation";
 
-const Header = ({ lang }: { lang: string }) => {
+const Header = ({ lang, showBlog = false }: { lang: string; showBlog?: boolean }) => {
 	const pathname = usePathname();
 	const router = useRouter();
 
@@ -20,6 +20,9 @@ const Header = ({ lang }: { lang: string }) => {
 			label: lang === "ja" ? "経歴" : "Experience",
 			href: `/${lang}/experiences`,
 		},
+		...(showBlog
+			? [{ label: lang === "ja" ? "ブログ" : "Blog", href: `/${lang}/blog` }]
+			: []),
 	];
 
 	return (

@@ -5,6 +5,7 @@ import Footer from "@/components/custom/footer";
 import "nextra-theme-docs/style.css";
 import { Layout } from "nextra-theme-docs";
 import Header from "@/components/custom/header";
+import { getAllPosts } from "@/utils/blog";
 
 export async function generateStaticParams() {
 	return [{ lang: "en" }, { lang: "ja" }];
@@ -50,7 +51,8 @@ export default async function RootLayout({
 }>) {
 	const { lang } = await params;
 
-	const navbar = <Header lang={lang} />;
+	const showBlog = getAllPosts(lang).length > 0;
+	const navbar = <Header lang={lang} showBlog={showBlog} />;
 	const footer = <Footer />;
 
 	return (
