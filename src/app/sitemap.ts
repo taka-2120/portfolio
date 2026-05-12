@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getAllPostSlugs } from "@/utils/blog";
+import { getAllPosts } from "@/utils/blog";
 
 const BASE_URL =
 	process.env.NEXT_PUBLIC_SITE_URL ?? "https://yu-dev.vercel.app";
@@ -17,13 +17,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
 		})),
 	);
 
-	const slugs = getAllPostSlugs();
-	const blogEntries: MetadataRoute.Sitemap = slugs.flatMap((slug) =>
-		langs.map((lang) => ({
-			url: `${BASE_URL}/${lang}/blog/${slug}`,
-			changeFrequency: "monthly" as const,
-			priority: 0.7,
-		})),
+	// Use getAllPosts (published only) and deduplicate slugs across langs
+	const publishedSlugs = new Set([
+		...getAllPosts("en").map((p) => p.slug),
+		...getAllPosts("ja").map((p) => p.slug),
+	]);
+
+	const blogEntries: MetadataRoute.Sitemap = [...publishedSlugs].flatMap(
+		(slug) =>
+			langs.map((lang) => ({
+				url: `${BASE_URL}/${lang}/blog/${slug}`,
+				changeFrequency: "monthly" as const,
+				priority: 0.7,
+			})),
 	);
 
 	return [...staticEntries, ...blogEntries];
