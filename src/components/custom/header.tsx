@@ -2,7 +2,13 @@
 
 import { usePathname, useRouter } from "next/navigation";
 
-const Header = ({ lang, showBlog = false }: { lang: string; showBlog?: boolean }) => {
+const Header = ({
+	lang,
+	showBlog = false,
+}: {
+	lang: string;
+	showBlog?: boolean;
+}) => {
 	const pathname = usePathname();
 	const router = useRouter();
 
