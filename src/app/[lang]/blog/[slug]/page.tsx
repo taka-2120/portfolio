@@ -6,7 +6,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { ArticleJsonLd } from "@/components/custom/json-ld";
 import Wrapper from "@/components/custom/wrapper";
 import type { AsyncLangParam } from "@/types/lang-param";
-import { getAllPosts, getPost } from "@/utils/blog";
+import { getAllPosts, getPost, isPreviewEnv } from "@/utils/blog";
 import { getDictionary } from "../../dictionaries";
 import "./prose.css";
 
@@ -29,7 +29,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
 	const { lang, slug } = await params;
 	const post = getPost(slug, lang);
-	if (!post?.published) return {};
+	if (!post || (!isPreviewEnv && !post.published)) return {};
 	return {
 		title: post.title,
 		description: post.description,
@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 const BlogPost = async ({ params }: Params) => {
 	const { lang, slug } = await params;
 	const post = getPost(slug, lang);
-	if (!post?.published) notFound();
+	if (!post || (!isPreviewEnv && !post.published)) notFound();
 
 	const dict = await getDictionary(lang);
 
