@@ -1,0 +1,103 @@
+---
+title: "Swift を Android で動かす: セットアップガイド"
+date: "2026-05-30"
+description: "Swift SDK for Android と swift-java を使って、Alamofire を含む Swift のロジックを Android アプリから Kotlin で呼び出すまでの手順。"
+tags: ["Swift", "Android", "swift-java", "Kotlin"]
+published: false
+---
+
+Swift は Android で動く。Alamofire のようなサードパーティパッケージも含めて、ちゃんとした Swift コードが動く。このポストは [swift-java](https://github.com/swiftlang/swift-java) を使って Swift のロジックを Android アプリに組み込むまでのセットアップ手順をまとめたもの。
+
+## このプロジェクトの構成
+
+リポジトリは2つのパートに分かれている。
+
+- `logic-lib` — Swift パッケージ。`Encoder`（UTF-8 エンコーダー）と `APIHandler`（Alamofire を使った HTTP GET）の2クラスをエクスポートする
+- `swift-android-app` — Jetpack Compose の Android アプリ。swift-java が生成した JVM ブリッジ経由で上記の Swift クラスを呼び出す
+
+Kotlin 側からは `yutakahashi.LogicLib.APIHandler` や `yutakahashi.LogicLib.Encoder` を、通常の JVM クラスと同じ感覚でインポートできる。
+
+## 動作要件
+
+- macOS（Swiftly のインストーラーが `.pkg` 形式のため）
+- JDK 25 以上（sdkman 経由で Amazon Corretto 25.0.1 を使用）
+- Swiftly（Swift ツールチェーンマネージャー）
+- Swift 6.3 以上
+- Swift SDK for Android（swift.org 公式のアーティファクトバンドル）
+- Android Studio
+
+## 1. sdkman で JDK をインストール
+
+```bash
+curl -s "https://get.sdkman.io" | bash
+sdk install java 25.0.1-amzn --use
+export JAVA_HOME="${HOME}/.sdkman/candidates/java/current"
+```
+
+sdkman があれば複数の JDK バージョンを手動でファイルを動かすことなく管理できる。`JAVA_HOME` のエクスポートはシェルのプロファイルに書いておかないとセッションをまたいで消える。
+
+## 2. Swiftly で Swift をインストール
+
+Swiftly は Swift の公式ツールチェーンマネージャー。rustup に近いイメージ。
+
+```bash
+curl -L https://download.swift.org/swiftly/darwin/swiftly.pkg > swiftly.pkg
+installer -pkg swiftly.pkg -target CurrentUserHomeDirectory
+~/.swiftly/bin/swiftly init
+```
+
+Swift 6.3 以上をインストールして有効化する：
+
+```bash
+swiftly install latest
+swiftly use latest
+```
+
+## 3. Swift SDK for Android をインストール
+
+SDK はアーティファクトバンドルとして配布されている。Swift 6.3.1 用：
+
+```bash
+swift sdk install \
+  https://download.swift.org/swift-6.3.1-release/android-sdk/swift-6.3.1-RELEASE/swift-6.3.1-RELEASE_android.artifactbundle.tar.gz \
+  --checksum 8193a4e96538635131a154736c8896fba0e5a1c30e065524f00ed78719bac35a
+```
+
+`--checksum` フラグで既知の SHA-256 とダウンロードを照合する。
+
+## 4. logic-lib をビルド・パブリッシュ
+
+`logic-lib` が実際のロジックを持つ Swift パッケージ。`Package.swift` に書かれた `JExtractSwiftPlugin`（swift-java 製）がビルド時に JVM ブリッジコードを生成する。
+
+```bash
+cd logic-lib
+swift package resolve
+./.build/checkouts/swift-java/gradlew \
+  --project-dir .build/checkouts/swift-java \
+  :SwiftKitCore:publishToMavenLocal
+```
+
+`publishToMavenLocal` でローカルの Maven キャッシュに SwiftKitCore ランタイム（JVM のグルーライブラリ）を登録する。Android Studio はここから依存解決する。
+
+## 5. Android Studio で実行
+
+リポジトリのルートを Android Studio で開いて、Run か Debug を押すだけ。アプリにはデモが2つある：
+
+- **Swift Encoder** — 文字列を入力すると Swift が UTF-8 の hex バイト列に変換する
+- **Swift APIHandler** — Alamofire が `https://httpbin.org/get` を叩き、レスポンスの JSON がアプリ内に表示される
+
+## ブリッジの仕組み
+
+swift-java の `JExtractSwiftPlugin` がビルド時に Swift ソースを解析し、JNI 経由でコンパイル済みの Swift `.so` を呼ぶ `.java` ラッパークラスを生成する。Kotlin 側では `SwiftArena` で Swift オブジェクトのライフタイムを管理する。JVM は Swift のヒープメモリをいつ解放すればいいか知らないため、ARC に近い概念を明示的に扱う形になっている。
+
+```kotlin
+// SwiftArena がスコープを抜けると Swift オブジェクトが解放される
+SwiftArena.ofConfined().use { arena ->
+    val encoder = Encoder.init(arena)
+    val data = encoder.encode(inputText, arena)
+}
+```
+
+Swift の `async throws` 関数は JVM 側では `CompletableFuture` として公開される。Kotlin から `.get()` を呼ぶとブロックして結果を取得できる。
+
+詰まったところはまた別途書く予定。
