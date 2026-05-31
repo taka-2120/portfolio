@@ -1,0 +1,36 @@
+name: Sync Obsidian blog to portfolio
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: 'Blog post slug to sync (empty = all)'
+        required: false
+        default: ''
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger obsidian-mcp-server /sync
+        run: |
+          SLUG="${{ inputs.slug }}"
+          URL="${{ secrets.OBSIDIAN_MCP_URL }}/sync${SLUG:+?slug=$SLUG}"
+
+          response=$(curl -s -w "\n%{http_code}" -X POST \
+            -H "Authorization: Bearer ${{ secrets.OBSIDIAN_MCP_TOKEN }}" \
+            --max-time 120 \
+            "$URL")
+
+          body=$(echo "$response" | head -n -1)
+          status=$(echo "$response" | tail -n 1)
+
+          echo "Status: $status"
+          echo "Response: $body"
+
+          if [ "$status" != "200" ]; then
+            echo "Sync failed"
+            exit 1
+          fi

@@ -33,6 +33,15 @@ ls src/content/blog/ 2>/dev/null && echo "IN_PORTFOLIO" || echo "NOT_IN_PORTFOLI
 
 現在のリポジトリ（`git remote get-url origin 2>/dev/null` で確認）をユーザーに伝え、**そのリポジトリでの体験や問題をブログに書く**ことを前提に進める。
 
+### 0-4. Obsidian MCP を検出する
+
+利用可能なツール一覧に `write_blog_post`（obsidian-mcp-server のツール）が含まれているか確認する。
+
+- **含まれている**: Step 4 では vault に直接書く → GitHub Actions が portfolio に自動同期する
+- **含まれていない**: Step 4 では portfolio に直接書く（従来どおり）
+
+この判定結果を Step 4 まで保持しておく。
+
 ---
 
 ## Blog System
@@ -100,28 +109,61 @@ ls src/content/blog/ 2>/dev/null && echo "IN_PORTFOLIO" || echo "NOT_IN_PORTFOLI
 
 ## Step 4: ファイルを作成する
 
-### 英語版
+Step 0-4 の判定結果に基づいて書き込み先を選ぶ。
 
+### 4-A. Obsidian vault に書く（`write_blog_post` ツールが使える場合）
+
+`write_blog_post` ツールを 2 回呼ぶ（en, ja それぞれ）。
+
+```
+slug: {slug}          (ケバブケース)
+lang: "en" または "ja"
+content: frontmatter + 本文（以下のフォーマット）
+```
+
+frontmatter はここで完全に書いておく。sync 側は変換しない。
+
+```yaml
+---
+title: "..."
+date: "YYYY-MM-DD"
+description: "..."
+tags: ["...", "..."]
+published: false
+---
+```
+
+- wikilinks `[[...]]` は使わない
+- `.md` として書く（sync 時に `.mdx` にリネームされる）
+- 書き込み完了後、GitHub Actions（`sync-blog` workflow）が自動で portfolio に draft PR を作る
+
+### 4-B. portfolio に直接書く（MCP 未接続の場合）
+
+英語版:
 ```
 {PORTFOLIO_ROOT}/src/content/blog/{slug}/en.mdx
 ```
 
-自然な英語で書く。日本語版の直訳にしない。英語として自然な表現を選ぶ。
-
-### 日本語版
-
+日本語版:
 ```
 {PORTFOLIO_ROOT}/src/content/blog/{slug}/ja.mdx
 ```
 
-英語版の構造・見出しに揃える。ただし英語の直訳ではなく、日本語として自然な表現を使う。
-コードブロックのコメントは日本語にする。
+自然な英語・日本語でそれぞれ書く。直訳にしない。
+コードブロックのコメントは日本語版では日本語にする。
 
 ---
 
 ## 完了後
 
 ユーザーに以下を伝える:
+
+**4-A (Obsidian) の場合:**
+- 書き込んだファイル: `blog/{slug}/en.md`, `blog/{slug}/ja.md`
+- GitHub Actions (`sync-blog` workflow) が毎朝 02:00 UTC に自動同期するか、手動実行できる
+- 公開するときは PR 内で `published: false` → `true` に変更してマージ
+
+**4-B (直接書き込み) の場合:**
 - 作成したファイルパス（en/ja 両方）
 - 記事を公開する場合は `published: false` → `true` に変更するよう案内する
 - 別リポジトリから実行した場合: portfolio でコミット・プッシュが必要なことを伝える
