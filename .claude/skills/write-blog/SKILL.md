@@ -47,7 +47,7 @@ ls src/content/blog/ 2>/dev/null && echo "IN_PORTFOLIO" || echo "NOT_IN_PORTFOLI
 ## Blog System
 
 - **ファイルの場所**: `{PORTFOLIO_ROOT}/src/content/blog/{slug}/en.mdx` と `ja.mdx`
-- **slug ルール**: ケバブケース、英小文字・数字・ハイフン（`-`）のみ（例: `debugging-swift-concurrency`）
+- **slug ルール**: `^[a-z0-9]+(?:-[a-z0-9]+)*$` — 英小文字・数字の間をハイフンで繋ぐ形式。先頭・末尾・連続したハイフン不可（例: `debugging-swift-concurrency`）
 - **frontmatter**:
   ```yaml
   ---
