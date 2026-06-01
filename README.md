@@ -45,7 +45,7 @@ public/
 
 ## i18n
 
-All pages are served under `/{lang}/` where `lang` is `en` or `ja`. The middleware in `src/proxy.ts` handles locale redirects.
+All pages are served under `/{lang}/` where `lang` is `en` or `ja`. `src/proxy.ts` exports a `proxy` function that handles locale redirects and legacy privacy-policy URL rewrites — it must be imported from a `middleware.ts` file to run as Next.js middleware.
 
 ## Agent Instructions
 

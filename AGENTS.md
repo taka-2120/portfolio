@@ -13,7 +13,7 @@ Personal portfolio website for a software engineer. Bilingual (English/Japanese)
 - **Format**: `bun run format` (runs Biome check + fix on `./src/**/*`)
 - **Format staged files**: `bun run format:staged` (used by pre-commit hook)
 
-Package manager is **Bun** (v1.3.9). Node version is 24.11.1 (managed via mise).
+Package manager is **Bun** (v1.3.13). Node version is 24.15.0 (managed via mise).
 
 There is no test suite configured.
 
@@ -27,7 +27,7 @@ There is no test suite configured.
 
 ### Routing & i18n
 
-All pages live under `src/app/[lang]/` using Next.js dynamic route segments. The `[lang]` parameter is either `en` or `ja`. Middleware (`src/proxy.ts`) redirects bare paths to `/{locale}/path` and handles legacy privacy policy URL redirects for iOS apps.
+All pages live under `src/app/[lang]/` using Next.js dynamic route segments. The `[lang]` parameter is either `en` or `ja`. `src/proxy.ts` exports a `proxy` function that redirects bare paths to `/{locale}/path` and handles legacy privacy policy URL redirects for iOS apps — it must be wired into a `middleware.ts` file to execute as Next.js middleware.
 
 Static params are generated for both locales via `generateStaticParams()`. Dictionary files (`public/dictionaries/en.json`, `ja.json`) are loaded server-side by `src/app/[lang]/dictionaries.js`.
 
