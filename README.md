@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio
+
+Personal portfolio website. Bilingual (English/Japanese) static site showcasing iOS apps and work experience.
+
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **UI**: Chakra UI 3
+- **Content/Docs layout**: Nextra
+- **Package manager**: Bun
+- **Formatter/Linter**: Biome
+- **Analytics**: Firebase
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+bun install
+bun run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Description |
+|---|---|
+| `bun run dev` | Start development server |
+| `bun run build` | Build for production |
+| `bun run format` | Format and lint `./src/**/*` |
 
-## Learn More
+## Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/[lang]/          # Pages (en / ja)
+├── components/
+│   ├── chakra/          # Chakra UI wrapper components
+│   └── custom/          # Layout components (Header, Footer, etc.)
+├── constants/           # Hardcoded content (services, experiences, links)
+├── entities/            # TypeScript entity classes
+└── types/               # Shared type definitions
+public/
+└── dictionaries/        # en.json / ja.json translation files
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## i18n
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+All pages are served under `/{lang}/` where `lang` is `en` or `ja`. The middleware in `src/proxy.ts` handles locale redirects.
 
-## Deploy on Vercel
+## Agent Instructions
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See [AGENTS.md](./AGENTS.md) for AI coding agent guidance (`CLAUDE.md` is a symlink to it).
