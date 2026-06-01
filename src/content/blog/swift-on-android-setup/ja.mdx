@@ -1,0 +1,94 @@
+---
+title: "Swift を Android で動かす: セットアップガイド"
+date: "2026-05-30"
+description: "Swift SDK for Android と swift-java を使って、Alamofire を含む Swift のロジックを Android アプリから Kotlin で呼び出すまでの手順。"
+tags: ["Swift", "Android", "swift-java", "Kotlin"]
+published: false
+---
+
+Swift は Android で動く。Alamofire のようなサードパーティパッケージも含めて、ちゃんとした Swift コードが動く。このポストは [swift-java](https://github.com/swiftlang/swift-java) を使って Swift のロジックを Android アプリに組み込むまでのセットアップ手順をまとめたもの。
+
+## このプロジェクトの構成
+
+リポジトリは2つのパートに分かれている。`logic-lib` は Swift パッケージで、文字列を UTF-8 バイト列に変換する `Encoder` クラスと、Alamofire を使って HTTP GET リクエストを行う `APIHandler` クラスをエクスポートしている。`swift-android-app` は Jetpack Compose の Android アプリで、swift-java が生成した JVM ブリッジ経由でそれらの Swift クラスを呼び出す。
+
+面白いのは、Kotlin 側では `yutakahashi.LogicLib.APIHandler` や `yutakahashi.LogicLib.Encoder` を普通の JVM クラスとまったく同じ感覚でインポートできること。セットアップさえ終わればブリッジの存在は透明になる。
+
+## 動作要件
+
+始める前に揃えておくものがいくつかある。Swiftly のインストーラーが `.pkg` 形式なので macOS が必要になる。JDK は 25 以上が必要で、今回は sdkman 経由で Amazon Corretto 25.0.1 を使った。それ以外に、Swiftly（Swift のツールチェーンマネージャー）、Swift 6.3 以上、swift.org の公式 Swift SDK for Android アーティファクトバンドル、そして Android Studio が必要になる。
+
+## 1. sdkman で JDK をインストール
+
+sdkman は JDK のバージョンマネージャーで、ファイルを手動で移動することなくバージョンを管理できる。切り替えもコマンド一発だ。
+
+```bash
+curl -s "https://get.sdkman.io" | bash
+sdk install java 25.0.1-amzn --use
+export JAVA_HOME="${HOME}/.sdkman/candidates/java/current"
+```
+
+ひとつ注意点がある。`JAVA_HOME` のエクスポートはシェルのプロファイル（`.zshrc` や `.bashrc` など）に書き込まないと、ターミナルを再起動するたびに消えてしまう。
+
+## 2. Swiftly で Swift をインストール
+
+Swiftly は Swift の公式ツールチェーンマネージャーで、Rust における rustup に近いもの。システムの Swift に触れることなく、バージョンのインストールや切り替えを管理できる。
+
+```bash
+curl -L https://download.swift.org/swiftly/darwin/swiftly.pkg > swiftly.pkg
+installer -pkg swiftly.pkg -target CurrentUserHomeDirectory
+~/.swiftly/bin/swiftly init
+```
+
+あとは Swift 6.3 をインストールして有効化するだけ。
+
+```bash
+swiftly install latest
+swiftly use latest
+```
+
+## 3. Swift SDK for Android をインストール
+
+Swift SDK for Android は swift.org からアーティファクトバンドルとして配布されている。以下のコマンドで Swift 6.3.1 版をインストールする。
+
+```bash
+swift sdk install \
+  https://download.swift.org/swift-6.3.1-release/android-sdk/swift-6.3.1-RELEASE/swift-6.3.1-RELEASE_android.artifactbundle.tar.gz \
+  --checksum 8193a4e96538635131a154736c8896fba0e5a1c30e065524f00ed78719bac35a
+```
+
+`--checksum` フラグは既知の SHA-256 でダウンロードを照合する。バンドルが改ざんされていないか、破損していないかを確認できる。
+
+## 4. logic-lib をビルド・パブリッシュ
+
+`logic-lib` が実際の Swift コードが置かれているパッケージだ。`Package.swift` には swift-java の `JExtractSwiftPlugin` が書かれていて、ビルド時に Swift ソースから JVM のラッパークラスを自動生成する。Android Studio がそのランタイムを依存として取得できるよう、先にローカルの Maven キャッシュにパブリッシュしておく必要がある。
+
+```bash
+cd logic-lib
+swift package resolve
+./.build/checkouts/swift-java/gradlew \
+  --project-dir .build/checkouts/swift-java \
+  :SwiftKitCore:publishToMavenLocal
+```
+
+`publishToMavenLocal` タスクは SwiftKitCore（JVM のグルーランタイム）を `~/.m2` に書き出す。Android Studio はそこを参照して依存を解決する。
+
+## 5. Android Studio で実行
+
+リポジトリのルートを Android Studio で開いて、Run か Debug を押すだけ。アプリにはデモが2つある。最初のデモでは文字列を入力すると、`Encoder` クラスが Swift 側で UTF-8 の hex バイト列に変換して表示する。もうひとつは、ボタンを押すと Alamofire が `https://httpbin.org/get` を叩き、レスポンスの JSON がアプリ内に表示される仕組みになっている。HTTP の処理はすべて Swift 側で行われ、Kotlin がそれを呼び出している。
+
+## ブリッジの仕組み
+
+`JExtractSwiftPlugin` がビルド時に Swift ソースを解析し、JNI 経由でコンパイル済みの Swift `.so` を呼ぶ `.java` ラッパークラスを生成する。Kotlin 側では `SwiftArena` で Swift オブジェクトのライフタイムを管理する。JVM は Swift のヒープメモリをいつ解放すればいいか知らないので、ARC に近い概念を明示的に扱う形になっている。
+
+```kotlin
+// use ブロックを抜けるとアリーナが閉じられ、Swift オブジェクトが解放される
+SwiftArena.ofConfined().use { arena ->
+    val encoder = Encoder.init(arena)
+    val data = encoder.encode(inputText, arena)
+}
+```
+
+`async throws` の Swift 関数は JVM 側では `CompletableFuture` として公開される。Kotlin 側からは `.get()` を呼ぶとブロックして結果を取得できる。
+
+セットアップ中に詰まった箇所がいくつかある。それはまた別で書く予定。

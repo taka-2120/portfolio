@@ -21,6 +21,8 @@ const BLOG_DIR = path.join(process.cwd(), "src/content/blog");
 const VALID_SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const VALID_LANG = new Set(["en", "ja"]);
 
+export const isPreviewEnv = process.env.VERCEL_ENV !== "production";
+
 function safeMdxPath(slug: string, lang: string): string | null {
 	if (!VALID_SLUG.test(slug) || !VALID_LANG.has(lang)) return null;
 
@@ -64,7 +66,7 @@ export function getAllPosts(lang: string): BlogPost[] {
 				published: data.published !== false,
 			};
 		})
-		.filter((p): p is BlogPost => p !== null && p.published)
+		.filter((p): p is BlogPost => p !== null && (isPreviewEnv || p.published))
 		.sort((a, b) => {
 			if (a.date > b.date) return -1;
 			if (a.date < b.date) return 1;
