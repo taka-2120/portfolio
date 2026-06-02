@@ -8,7 +8,7 @@ const langs = ["en", "ja"] as const;
 
 const staticRoutes = ["", "/blog", "/experiences", "/services"];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const staticEntries: MetadataRoute.Sitemap = staticRoutes.flatMap((route) =>
 		langs.map((lang) => ({
 			url: `${BASE_URL}/${lang}${route}`,
@@ -17,10 +17,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
 		})),
 	);
 
-	// Use getAllPosts (published only) and deduplicate slugs across langs
+	const [enPosts, jaPosts] = await Promise.all([
+		getAllPosts("en"),
+		getAllPosts("ja"),
+	]);
+
 	const publishedSlugs = new Set([
-		...getAllPosts("en").map((p) => p.slug),
-		...getAllPosts("ja").map((p) => p.slug),
+		...enPosts.map((p) => p.slug),
+		...jaPosts.map((p) => p.slug),
 	]);
 
 	const blogEntries: MetadataRoute.Sitemap = [...publishedSlugs].flatMap(
