@@ -35,20 +35,24 @@ function normalizeTags(raw: unknown): string[] {
 }
 
 export async function getAllPosts(lang: string): Promise<BlogPost[]> {
-	const posts = await apiFetch<Record<string, unknown>[]>(
-		`/api/blog?lang=${lang}`,
-	);
-	return posts
-		.map((raw) => ({
-			slug: String(raw.slug ?? ""),
-			title: String(raw.title ?? raw.slug ?? ""),
-			date: String(raw.date ?? ""),
-			description: String(raw.description ?? ""),
-			tags: normalizeTags(raw.tags),
-			image: typeof raw.image === "string" ? raw.image : undefined,
-			published: raw.published !== false,
-		}))
-		.filter((p) => p.published);
+	try {
+		const posts = await apiFetch<Record<string, unknown>[]>(
+			`/api/blog?lang=${lang}`,
+		);
+		return posts
+			.map((raw) => ({
+				slug: String(raw.slug ?? ""),
+				title: String(raw.title ?? raw.slug ?? ""),
+				date: String(raw.date ?? ""),
+				description: String(raw.description ?? ""),
+				tags: normalizeTags(raw.tags),
+				image: typeof raw.image === "string" ? raw.image : undefined,
+				published: raw.published !== false,
+			}))
+			.filter((p) => p.published);
+	} catch {
+		return [];
+	}
 }
 
 export async function getPost(
