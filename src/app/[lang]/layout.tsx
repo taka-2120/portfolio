@@ -51,7 +51,8 @@ export default async function RootLayout({
 }>) {
 	const { lang } = await params;
 
-	const showBlog = getAllPosts(lang).length > 0;
+	const posts = await getAllPosts(lang);
+	const showBlog = posts.length > 0;
 	const navbar = <Header lang={lang} showBlog={showBlog} />;
 	const footer = <Footer />;
 
