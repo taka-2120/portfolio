@@ -5,6 +5,8 @@ import type { AsyncLangParam } from "@/types/lang-param";
 import { getAllPosts } from "@/utils/blog";
 import { getDictionary } from "../dictionaries";
 
+export const revalidate = 3600;
+
 export async function generateMetadata({
 	params,
 }: AsyncLangParam): Promise<Metadata> {
@@ -28,7 +30,7 @@ export async function generateMetadata({
 const BlogList = async ({ params }: AsyncLangParam) => {
 	const { lang } = await params;
 	const dict = await getDictionary(lang);
-	const posts = getAllPosts(lang);
+	const posts = await getAllPosts(lang);
 
 	return (
 		<Wrapper>

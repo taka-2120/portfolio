@@ -1,7 +1,4 @@
 import "server-only";
-import fs from "node:fs";
-import path from "node:path";
-import matter from "gray-matter";
 
 export type BlogPost = {
 	slug: string;
@@ -17,76 +14,66 @@ export type BlogPostWithContent = BlogPost & {
 	content: string;
 };
 
-const BLOG_DIR = path.join(process.cwd(), "src/content/blog");
-const VALID_SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-const VALID_LANG = new Set(["en", "ja"]);
+const BLOG_API_URL = process.env.BLOG_API_URL;
+const BLOG_API_KEY = process.env.BLOG_API_KEY;
 
-function safeMdxPath(slug: string, lang: string): string | null {
-	if (!VALID_SLUG.test(slug) || !VALID_LANG.has(lang)) return null;
-
-	const preferred = path.resolve(BLOG_DIR, slug, `${lang}.mdx`);
-	const fallback = path.resolve(BLOG_DIR, slug, "en.mdx");
-
-	if (!preferred.startsWith(BLOG_DIR + path.sep)) return null;
-
-	return fs.existsSync(preferred) ? preferred : fallback;
+async function apiFetch<T>(path: string): Promise<T> {
+	if (!BLOG_API_URL || !BLOG_API_KEY) {
+		throw new Error("BLOG_API_URL and BLOG_API_KEY must be set");
+	}
+	const res = await fetch(`${BLOG_API_URL}${path}`, {
+		headers: { Authorization: `Bearer ${BLOG_API_KEY}` },
+		next: { revalidate: 3600 },
+	});
+	if (!res.ok) throw new Error(`Blog API ${res.status}: ${path}`);
+	return res.json() as Promise<T>;
 }
 
-function parseTags(raw: unknown): string[] {
+function normalizeTags(raw: unknown): string[] {
 	if (Array.isArray(raw)) return raw.map(String);
 	return [];
 }
 
-export function getAllPostSlugs(): string[] {
-	if (!fs.existsSync(BLOG_DIR)) return [];
-	return fs
-		.readdirSync(BLOG_DIR)
-		.filter(
-			(name) =>
-				VALID_SLUG.test(name) &&
-				fs.statSync(path.join(BLOG_DIR, name)).isDirectory(),
+export async function getAllPosts(lang: string): Promise<BlogPost[]> {
+	try {
+		const posts = await apiFetch<Record<string, unknown>[]>(
+			`/api/blog?lang=${lang}`,
 		);
+		return posts
+			.map((raw) => ({
+				slug: String(raw.slug ?? ""),
+				title: String(raw.title ?? raw.slug ?? ""),
+				date: String(raw.date ?? ""),
+				description: String(raw.description ?? ""),
+				tags: normalizeTags(raw.tags),
+				image: typeof raw.image === "string" ? raw.image : undefined,
+				published: raw.published !== false,
+			}))
+			.filter((p) => p.published);
+	} catch {
+		return [];
+	}
 }
 
-export function getAllPosts(lang: string): BlogPost[] {
-	return getAllPostSlugs()
-		.map((slug): BlogPost | null => {
-			const filePath = safeMdxPath(slug, lang);
-			if (!filePath || !fs.existsSync(filePath)) return null;
-			const { data } = matter(fs.readFileSync(filePath, "utf-8"));
-			return {
-				slug,
-				title: data.title ?? slug,
-				date: data.date ?? "",
-				description: data.description ?? "",
-				tags: parseTags(data.tags),
-				image: typeof data.image === "string" ? data.image : undefined,
-				published: data.published !== false,
-			};
-		})
-		.filter((p): p is BlogPost => p !== null && p.published)
-		.sort((a, b) => {
-			if (a.date > b.date) return -1;
-			if (a.date < b.date) return 1;
-			return a.slug.localeCompare(b.slug);
-		});
-}
-
-export function getPost(
+export async function getPost(
 	slug: string,
 	lang: string,
-): BlogPostWithContent | null {
-	const filePath = safeMdxPath(slug, lang);
-	if (!filePath || !fs.existsSync(filePath)) return null;
-	const { data, content } = matter(fs.readFileSync(filePath, "utf-8"));
-	return {
-		slug,
-		title: data.title ?? slug,
-		date: data.date ?? "",
-		description: data.description ?? "",
-		tags: parseTags(data.tags),
-		image: typeof data.image === "string" ? data.image : undefined,
-		published: data.published !== false,
-		content,
-	};
+): Promise<BlogPostWithContent | null> {
+	try {
+		const raw = await apiFetch<Record<string, unknown>>(
+			`/api/blog/${slug}?lang=${lang}`,
+		);
+		return {
+			slug: String(raw.slug ?? slug),
+			title: String(raw.title ?? slug),
+			date: String(raw.date ?? ""),
+			description: String(raw.description ?? ""),
+			tags: normalizeTags(raw.tags),
+			image: typeof raw.image === "string" ? raw.image : undefined,
+			published: raw.published !== false,
+			content: String(raw.content ?? ""),
+		};
+	} catch {
+		return null;
+	}
 }
