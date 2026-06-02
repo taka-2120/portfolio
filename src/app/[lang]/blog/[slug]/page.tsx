@@ -17,18 +17,23 @@ type Params = AsyncLangParam & {
 	params: Promise<{ lang: "en" | "ja"; slug: string }>;
 };
 
-export const dynamicParams = false;
+export const revalidate = 3600;
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
 	const langs = ["en", "ja"] as const;
-	return langs.flatMap((lang) =>
-		getAllPosts(lang).map((post) => ({ lang, slug: post.slug })),
+	const results = await Promise.all(
+		langs.map(async (lang) => {
+			const posts = await getAllPosts(lang);
+			return posts.map((post) => ({ lang, slug: post.slug }));
+		}),
 	);
+	return results.flat();
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
 	const { lang, slug } = await params;
-	const post = getPost(slug, lang);
+	const post = await getPost(slug, lang);
 	if (!post?.published) return {};
 	return {
 		title: post.title,
@@ -52,7 +57,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 const BlogPost = async ({ params }: Params) => {
 	const { lang, slug } = await params;
-	const post = getPost(slug, lang);
+	const post = await getPost(slug, lang);
 	if (!post?.published) notFound();
 
 	const dict = await getDictionary(lang);
