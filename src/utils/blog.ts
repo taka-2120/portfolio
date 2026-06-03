@@ -55,6 +55,25 @@ export async function getAllPosts(lang: string): Promise<BlogPost[]> {
 	}
 }
 
+export async function getAllPostsIncludingDrafts(lang: string): Promise<BlogPost[]> {
+	try {
+		const posts = await apiFetch<Record<string, unknown>[]>(
+			`/api/blog?lang=${lang}&include_drafts=true`,
+		);
+		return posts.map((raw) => ({
+			slug: String(raw.slug ?? ""),
+			title: String(raw.title ?? raw.slug ?? ""),
+			date: String(raw.date ?? ""),
+			description: String(raw.description ?? ""),
+			tags: normalizeTags(raw.tags),
+			image: typeof raw.image === "string" ? raw.image : undefined,
+			published: raw.published !== false,
+		}));
+	} catch {
+		return [];
+	}
+}
+
 export async function getPost(
 	slug: string,
 	lang: string,
