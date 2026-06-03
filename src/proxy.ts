@@ -7,9 +7,12 @@ const PREVIEW_PASSWORD = process.env.BLOG_PREVIEW_PASSWORD ?? "";
 
 function requireBasicAuth(request: NextRequest): NextResponse | null {
 	if (!PREVIEW_PASSWORD) {
-		return new NextResponse("Preview not available: BLOG_PREVIEW_PASSWORD not set", {
-			status: 503,
-		});
+		return new NextResponse(
+			"Preview not available: BLOG_PREVIEW_PASSWORD not set",
+			{
+				status: 503,
+			},
+		);
 	}
 	const authHeader = request.headers.get("authorization");
 	if (!authHeader?.startsWith("Basic ")) {
