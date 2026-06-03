@@ -14,12 +14,12 @@ export type BlogPostWithContent = BlogPost & {
 	content: string;
 };
 
-const BLOG_API_URL = process.env.BLOG_API_URL;
-const BLOG_API_KEY = process.env.BLOG_API_KEY;
+const BLOG_API_URL = process.env.PORTAL_API_URL;
+const BLOG_API_KEY = process.env.PORTAL_API_TOKEN;
 
 async function apiFetch<T>(path: string): Promise<T> {
 	if (!BLOG_API_URL || !BLOG_API_KEY) {
-		throw new Error("BLOG_API_URL and BLOG_API_KEY must be set");
+		throw new Error("PORTAL_API_URL and PORTAL_API_TOKEN must be set");
 	}
 	const res = await fetch(`${BLOG_API_URL}${path}`, {
 		headers: { Authorization: `Bearer ${BLOG_API_KEY}` },
