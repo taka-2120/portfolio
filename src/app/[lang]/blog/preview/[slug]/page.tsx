@@ -1,76 +1,49 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { ArticleJsonLd } from "@/components/custom/json-ld";
 import Wrapper from "@/components/custom/wrapper";
 import type { AsyncLangParam } from "@/types/lang-param";
-import { getAllPosts, getPost } from "@/utils/blog";
-import { getDictionary } from "../../dictionaries";
-import "../prose.css";
-
-const BASE_URL =
-	process.env.NEXT_PUBLIC_SITE_URL ?? "https://yu-dev.vercel.app";
+import { getPost } from "@/utils/blog";
+import { getDictionary } from "../../../dictionaries";
+import "../../prose.css";
 
 type Params = AsyncLangParam & {
 	params: Promise<{ lang: "en" | "ja"; slug: string }>;
 };
 
-export const revalidate = 3600;
-export const dynamicParams = true;
+export const dynamic = "force-dynamic";
 
-export async function generateStaticParams() {
-	const langs = ["en", "ja"] as const;
-	const results = await Promise.all(
-		langs.map(async (lang) => {
-			const posts = await getAllPosts(lang);
-			return posts.map((post) => ({ lang, slug: post.slug }));
-		}),
-	);
-	return results.flat();
+export async function generateMetadata() {
+	return { robots: { index: false, follow: false } };
 }
 
-export async function generateMetadata({ params }: Params): Promise<Metadata> {
+const BlogPreview = async ({ params }: Params) => {
 	const { lang, slug } = await params;
 	const post = await getPost(slug, lang);
-	if (!post?.published) return {};
-	return {
-		title: post.title,
-		description: post.description,
-		openGraph: {
-			title: post.title,
-			description: post.description,
-			type: "article",
-			publishedTime: post.date,
-			url: `/${lang}/blog/${slug}`,
-			tags: post.tags,
-			...(post.image ? { images: [{ url: post.image }] } : {}),
-		},
-		twitter: {
-			card: "summary_large_image",
-			title: post.title,
-			description: post.description,
-		},
-	};
-}
-
-const BlogPost = async ({ params }: Params) => {
-	const { lang, slug } = await params;
-	const post = await getPost(slug, lang);
-	if (!post || !post.published) notFound();
+	if (!post) notFound();
 
 	const dict = await getDictionary(lang);
 
 	return (
 		<Wrapper>
-			<ArticleJsonLd
-				title={post.title}
-				description={post.description}
-				date={post.date}
-				url={`${BASE_URL}/${lang}/blog/${slug}`}
-				tags={post.tags}
-			/>
+			{!post.published && (
+				<div
+					style={{
+						background: "rgba(255, 200, 0, 0.1)",
+						border: "1px solid rgba(255, 200, 0, 0.35)",
+						borderRadius: "8px",
+						padding: "8px 16px",
+						marginBottom: "24px",
+						fontSize: "0.8rem",
+						color: "#b8960a",
+						fontFamily: "var(--font-geist-mono)",
+					}}
+				>
+					DRAFT — not published
+				</div>
+			)}
+
 			<Link
 				href={`/${lang}/blog`}
 				style={{
@@ -156,4 +129,4 @@ const BlogPost = async ({ params }: Params) => {
 	);
 };
 
-export default BlogPost;
+export default BlogPreview;
