@@ -8,7 +8,7 @@ import Wrapper from "@/components/custom/wrapper";
 import type { AsyncLangParam } from "@/types/lang-param";
 import { getAllPosts, getPost } from "@/utils/blog";
 import { getDictionary } from "../../dictionaries";
-import "./prose.css";
+import "../prose.css";
 
 const BASE_URL =
 	process.env.NEXT_PUBLIC_SITE_URL ?? "https://yu-dev.vercel.app";

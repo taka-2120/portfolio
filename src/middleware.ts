@@ -38,4 +38,6 @@ export function middleware(request: NextRequest) {
 	return proxy(request) ?? NextResponse.next();
 }
 
-export { config } from "./proxy";
+export const config = {
+	matcher: ["/((?!_next).*)"],
+};
