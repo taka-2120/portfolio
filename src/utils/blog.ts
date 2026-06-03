@@ -55,7 +55,9 @@ export async function getAllPosts(lang: string): Promise<BlogPost[]> {
 	}
 }
 
-export async function getAllPostsIncludingDrafts(lang: string): Promise<BlogPost[]> {
+export async function getAllPostsIncludingDrafts(
+	lang: string,
+): Promise<BlogPost[]> {
 	try {
 		const posts = await apiFetch<Record<string, unknown>[]>(
 			`/api/blog?lang=${lang}&include_drafts=true`,

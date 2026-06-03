@@ -42,7 +42,9 @@ const BlogPreviewList = async ({ params }: AsyncLangParam) => {
 		padding: "12px 16px",
 		borderRadius: "8px",
 		background: isDraft ? "rgba(255, 200, 0, 0.06)" : "rgba(128,128,128,0.06)",
-		border: isDraft ? "1px solid rgba(255, 200, 0, 0.2)" : "1px solid rgba(128,128,128,0.12)",
+		border: isDraft
+			? "1px solid rgba(255, 200, 0, 0.2)"
+			: "1px solid rgba(128,128,128,0.12)",
 		textDecoration: "none",
 		color: "inherit",
 	});
