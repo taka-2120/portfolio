@@ -39,7 +39,7 @@ function getLocale(_request: NextRequest) {
 export function proxy(request: NextRequest) {
 	const { pathname } = request.nextUrl;
 
-	if (/^\/(en|ja)\/blog\/preview\//.test(pathname)) {
+	if (/^\/(en|ja)\/blog\/preview(\/|$)/.test(pathname)) {
 		const authResponse = requireBasicAuth(request);
 		if (authResponse) return authResponse;
 	}
