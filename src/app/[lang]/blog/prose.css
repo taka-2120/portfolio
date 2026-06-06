@@ -74,7 +74,6 @@
 	line-height: 1.65;
 	padding: 1.1em 1.25em;
 	border-radius: 8px;
-	background: rgba(128, 128, 128, 0.08);
 	border: 1px solid rgba(128, 128, 128, 0.15);
 	overflow-x: auto;
 	margin-bottom: 1.5em;
@@ -84,6 +83,22 @@
 	background: transparent;
 	padding: 0;
 	font-size: inherit;
+}
+
+/* Syntax highlighting — light theme (default) */
+.mdx-prose [data-rehype-pretty-code-figure] pre {
+	background-color: var(--shiki-light-bg);
+}
+.mdx-prose [data-rehype-pretty-code-figure] span {
+	color: var(--shiki-light);
+}
+
+/* Syntax highlighting — dark theme */
+.dark .mdx-prose [data-rehype-pretty-code-figure] pre {
+	background-color: var(--shiki-dark-bg);
+}
+.dark .mdx-prose [data-rehype-pretty-code-figure] span {
+	color: var(--shiki-dark);
 }
 
 /* Blockquote */

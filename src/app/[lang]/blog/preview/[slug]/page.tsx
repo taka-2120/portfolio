@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import rehypePrettyCode from "rehype-pretty-code";
 import Wrapper from "@/components/custom/wrapper";
 import type { AsyncLangParam } from "@/types/lang-param";
 import { getPost } from "@/utils/blog";
@@ -123,7 +124,24 @@ const BlogPreview = async ({ params }: Params) => {
 			</header>
 
 			<div className="mdx-prose">
-				<MDXRemote source={post.content} />
+				<MDXRemote
+					source={post.content}
+					options={{
+						mdxOptions: {
+							rehypePlugins: [
+								[
+									rehypePrettyCode,
+									{
+										themes: {
+											light: "github-light",
+											dark: "github-dark",
+										},
+									},
+								],
+							],
+						},
+					}}
+				/>
 			</div>
 		</Wrapper>
 	);
