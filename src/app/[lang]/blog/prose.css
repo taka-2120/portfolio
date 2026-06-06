@@ -101,6 +101,50 @@
 	color: var(--shiki-dark);
 }
 
+/* Collapsible code block */
+.mdx-prose details.code-collapsible {
+	margin-bottom: 1.5em;
+}
+.mdx-prose details.code-collapsible > summary.code-collapsible-summary {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4em;
+	font-family: var(--font-geist-mono), ui-monospace, monospace;
+	font-size: 0.8rem;
+	padding: 0.35em 0.75em;
+	border-radius: 6px;
+	border: 1px solid rgba(128, 128, 128, 0.2);
+	background: rgba(128, 128, 128, 0.06);
+	cursor: pointer;
+	user-select: none;
+	list-style: none;
+	opacity: 0.65;
+	transition: opacity 0.15s;
+	margin-bottom: 0;
+}
+.mdx-prose details.code-collapsible > summary.code-collapsible-summary::-webkit-details-marker {
+	display: none;
+}
+.mdx-prose details.code-collapsible > summary.code-collapsible-summary::before {
+	content: "▶";
+	font-size: 0.6em;
+	transition: transform 0.15s;
+}
+.mdx-prose details.code-collapsible[open] > summary.code-collapsible-summary::before {
+	transform: rotate(90deg);
+}
+.mdx-prose details.code-collapsible > summary.code-collapsible-summary:hover {
+	opacity: 1;
+}
+.mdx-prose details.code-collapsible[open] > summary.code-collapsible-summary {
+	margin-bottom: 0.5em;
+	opacity: 0.85;
+}
+.mdx-prose details.code-collapsible > pre,
+.mdx-prose details.code-collapsible > figure {
+	margin-bottom: 0;
+}
+
 /* Blockquote */
 .mdx-prose blockquote {
 	border-left: 3px solid rgba(128, 128, 128, 0.4);

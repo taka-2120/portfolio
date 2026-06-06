@@ -4,6 +4,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypePrettyCode from "rehype-pretty-code";
+import {
+	collapsibleTransformer,
+	rehypeCollapsibleCode,
+} from "@/lib/rehype-collapsible-code";
 import { ArticleJsonLd } from "@/components/custom/json-ld";
 import Wrapper from "@/components/custom/wrapper";
 import type { AsyncLangParam } from "@/types/lang-param";
@@ -163,8 +167,10 @@ const BlogPost = async ({ params }: Params) => {
 											light: "github-light",
 											dark: "github-dark",
 										},
+										transformers: [collapsibleTransformer],
 									},
 								],
+								rehypeCollapsibleCode,
 							],
 						},
 					}}
