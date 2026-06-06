@@ -122,7 +122,9 @@
 	transition: opacity 0.15s;
 	margin-bottom: 0;
 }
-.mdx-prose details.code-collapsible > summary.code-collapsible-summary::-webkit-details-marker {
+.mdx-prose
+	details.code-collapsible
+	> summary.code-collapsible-summary::-webkit-details-marker {
 	display: none;
 }
 .mdx-prose details.code-collapsible > summary.code-collapsible-summary::before {
@@ -130,7 +132,9 @@
 	font-size: 0.6em;
 	transition: transform 0.15s;
 }
-.mdx-prose details.code-collapsible[open] > summary.code-collapsible-summary::before {
+.mdx-prose
+	details.code-collapsible[open]
+	> summary.code-collapsible-summary::before {
 	transform: rotate(90deg);
 }
 .mdx-prose details.code-collapsible > summary.code-collapsible-summary:hover {

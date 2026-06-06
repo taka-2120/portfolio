@@ -1,5 +1,5 @@
+import type { Element, Root, RootContent } from "hast";
 import type { ShikiTransformer } from "shiki";
-import type { Root, Element, RootContent } from "hast";
 
 export const collapsibleTransformer: ShikiTransformer = {
 	name: "collapsible-code",
