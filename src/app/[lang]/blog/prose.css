@@ -75,7 +75,8 @@
 	padding: 1.1em 1.25em;
 	border-radius: 8px;
 	border: 1px solid rgba(128, 128, 128, 0.15);
-	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
 	margin-bottom: 1.5em;
 	tab-size: 2;
 }
@@ -86,6 +87,9 @@
 }
 
 /* Syntax highlighting — light theme (default) */
+.mdx-prose [data-rehype-pretty-code-figure] {
+	position: relative;
+}
 .mdx-prose [data-rehype-pretty-code-figure] pre {
 	background-color: var(--shiki-light-bg);
 }
@@ -99,6 +103,38 @@
 }
 .dark .mdx-prose [data-rehype-pretty-code-figure] span {
 	color: var(--shiki-dark);
+}
+
+/* Copy button */
+.mdx-prose .code-copy-button {
+	position: absolute;
+	top: 0.6em;
+	right: 0.6em;
+	font-family: var(--font-geist-mono), ui-monospace, monospace;
+	font-size: 0.7rem;
+	line-height: 1;
+	padding: 0.35em 0.65em;
+	border-radius: 6px;
+	border: 1px solid rgba(128, 128, 128, 0.25);
+	background: rgba(128, 128, 128, 0.08);
+	color: inherit;
+	opacity: 0;
+	cursor: pointer;
+	transition:
+		opacity 0.15s,
+		background-color 0.15s;
+}
+.mdx-prose [data-rehype-pretty-code-figure]:hover .code-copy-button,
+.mdx-prose .code-copy-button:focus-visible {
+	opacity: 1;
+}
+.mdx-prose .code-copy-button:hover {
+	background: rgba(128, 128, 128, 0.18);
+}
+.mdx-prose .code-copy-button.copied {
+	opacity: 1;
+	border-color: rgba(63, 185, 80, 0.5);
+	color: #2da44e;
 }
 
 /* Collapsible code block */
