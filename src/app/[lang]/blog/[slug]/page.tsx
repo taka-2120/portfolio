@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypePrettyCode from "rehype-pretty-code";
+import CodeCopyButton from "@/components/custom/code-copy-button";
 import { ArticleJsonLd } from "@/components/custom/json-ld";
 import Wrapper from "@/components/custom/wrapper";
 import {
@@ -175,6 +176,7 @@ const BlogPost = async ({ params }: Params) => {
 						},
 					}}
 				/>
+				<CodeCopyButton />
 			</div>
 		</Wrapper>
 	);
