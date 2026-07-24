@@ -48,5 +48,11 @@
 		"readMore": "Read more",
 		"noPosts": "No posts yet.",
 		"backToBlog": "← Back to Blog"
+	},
+	"presentations": {
+		"title": "Talks",
+		"noPosts": "No talks yet.",
+		"backToList": "← Back to Talks",
+		"watchOnSpeakerDeck": "View on Speaker Deck"
 	}
 }

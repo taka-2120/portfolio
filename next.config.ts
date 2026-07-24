@@ -11,6 +11,14 @@ const nextConfig: NextConfig = {
 	experimental: {
 		optimizePackageImports: ["@chakra-ui/react"],
 	},
+	images: {
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "files.speakerdeck.com",
+			},
+		],
+	},
 };
 
 export default withNextra(nextConfig);

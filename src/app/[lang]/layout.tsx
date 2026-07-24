@@ -6,6 +6,7 @@ import "nextra-theme-docs/style.css";
 import { Layout } from "nextra-theme-docs";
 import Header from "@/components/custom/header";
 import { getAllPosts } from "@/utils/blog";
+import { getAllPresentations } from "@/utils/presentations";
 
 export async function generateStaticParams() {
 	return [{ lang: "en" }, { lang: "ja" }];
@@ -51,9 +52,19 @@ export default async function RootLayout({
 }>) {
 	const { lang } = await params;
 
-	const posts = await getAllPosts(lang);
+	const [posts, presentations] = await Promise.all([
+		getAllPosts(lang),
+		getAllPresentations(lang),
+	]);
 	const showBlog = posts.length > 0;
-	const navbar = <Header lang={lang} showBlog={showBlog} />;
+	const showPresentations = presentations.length > 0;
+	const navbar = (
+		<Header
+			lang={lang}
+			showBlog={showBlog}
+			showPresentations={showPresentations}
+		/>
+	);
 	const footer = <Footer />;
 
 	return (

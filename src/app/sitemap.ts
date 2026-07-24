@@ -1,12 +1,19 @@
 import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/utils/blog";
+import { getAllPresentations } from "@/utils/presentations";
 
 const BASE_URL =
 	process.env.NEXT_PUBLIC_SITE_URL ?? "https://yu-dev.vercel.app";
 
 const langs = ["en", "ja"] as const;
 
-const staticRoutes = ["", "/blog", "/experiences", "/services"];
+const staticRoutes = [
+	"",
+	"/blog",
+	"/experiences",
+	"/services",
+	"/presentations",
+];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const staticEntries: MetadataRoute.Sitemap = staticRoutes.flatMap((route) =>
@@ -17,10 +24,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		})),
 	);
 
-	const [enPosts, jaPosts] = await Promise.all([
-		getAllPosts("en"),
-		getAllPosts("ja"),
-	]);
+	const [enPosts, jaPosts, enPresentations, jaPresentations] =
+		await Promise.all([
+			getAllPosts("en"),
+			getAllPosts("ja"),
+			getAllPresentations("en"),
+			getAllPresentations("ja"),
+		]);
 
 	const publishedSlugs = new Set([
 		...enPosts.map((p) => p.slug),
@@ -36,5 +46,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 			})),
 	);
 
-	return [...staticEntries, ...blogEntries];
+	const publishedPresentationSlugs = new Set([
+		...enPresentations.map((p) => p.slug),
+		...jaPresentations.map((p) => p.slug),
+	]);
+
+	const presentationEntries: MetadataRoute.Sitemap = [
+		...publishedPresentationSlugs,
+	].flatMap((slug) =>
+		langs.map((lang) => ({
+			url: `${BASE_URL}/${lang}/presentations/${slug}`,
+			changeFrequency: "monthly" as const,
+			priority: 0.7,
+		})),
+	);
+
+	return [...staticEntries, ...blogEntries, ...presentationEntries];
 }

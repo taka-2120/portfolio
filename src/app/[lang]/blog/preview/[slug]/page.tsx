@@ -12,7 +12,7 @@ import {
 import type { AsyncLangParam } from "@/types/lang-param";
 import { getPost } from "@/utils/blog";
 import { getDictionary } from "../../../dictionaries";
-import "../../prose.css";
+import "../../../prose.css";
 
 type Params = AsyncLangParam & {
 	params: Promise<{ lang: "en" | "ja"; slug: string }>;

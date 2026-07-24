@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypePrettyCode from "rehype-pretty-code";
 import CodeCopyButton from "@/components/custom/code-copy-button";
 import { ArticleJsonLd } from "@/components/custom/json-ld";
+import SpeakerDeckEmbed from "@/components/custom/speaker-deck-embed";
 import Wrapper from "@/components/custom/wrapper";
 import {
 	collapsibleTransformer,
 	rehypeCollapsibleCode,
 } from "@/lib/rehype-collapsible-code";
 import type { AsyncLangParam } from "@/types/lang-param";
-import { getAllPosts, getPost } from "@/utils/blog";
+import { getAllPresentations, getPresentation } from "@/utils/presentations";
+import { getSpeakerDeckEmbed } from "@/utils/speakerdeck";
 import { getDictionary } from "../../dictionaries";
 import "../../prose.css";
 
@@ -30,8 +31,11 @@ export async function generateStaticParams() {
 	const langs = ["en", "ja"] as const;
 	const results = await Promise.all(
 		langs.map(async (lang) => {
-			const posts = await getAllPosts(lang);
-			return posts.map((post) => ({ lang, slug: post.slug }));
+			const presentations = await getAllPresentations(lang);
+			return presentations.map((presentation) => ({
+				lang,
+				slug: presentation.slug,
+			}));
 		}),
 	);
 	return results.flat();
@@ -39,46 +43,46 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
 	const { lang, slug } = await params;
-	const post = await getPost(slug, lang);
-	if (!post?.published) return {};
+	const presentation = await getPresentation(slug, lang);
+	if (!presentation?.published) return {};
 	return {
-		title: post.title,
-		description: post.description,
+		title: presentation.title,
+		description: presentation.description,
 		openGraph: {
-			title: post.title,
-			description: post.description,
+			title: presentation.title,
+			description: presentation.description,
 			type: "article",
-			publishedTime: post.date,
-			url: `/${lang}/blog/${slug}`,
-			tags: post.tags,
-			...(post.image ? { images: [{ url: post.image }] } : {}),
+			publishedTime: presentation.date,
+			url: `/${lang}/presentations/${slug}`,
+			tags: presentation.tags,
 		},
 		twitter: {
 			card: "summary_large_image",
-			title: post.title,
-			description: post.description,
+			title: presentation.title,
+			description: presentation.description,
 		},
 	};
 }
 
-const BlogPost = async ({ params }: Params) => {
+const PresentationDetail = async ({ params }: Params) => {
 	const { lang, slug } = await params;
-	const post = await getPost(slug, lang);
-	if (!post || !post.published) notFound();
+	const presentation = await getPresentation(slug, lang);
+	if (!presentation || !presentation.published) notFound();
 
 	const dict = await getDictionary(lang);
+	const embed = await getSpeakerDeckEmbed(presentation.speakerDeckUrl);
 
 	return (
 		<Wrapper>
 			<ArticleJsonLd
-				title={post.title}
-				description={post.description}
-				date={post.date}
-				url={`${BASE_URL}/${lang}/blog/${slug}`}
-				tags={post.tags}
+				title={presentation.title}
+				description={presentation.description}
+				date={presentation.date}
+				url={`${BASE_URL}/${lang}/presentations/${slug}`}
+				tags={presentation.tags}
 			/>
 			<Link
-				href={`/${lang}/blog`}
+				href={`/${lang}/presentations`}
 				style={{
 					fontSize: "0.875rem",
 					opacity: 0.5,
@@ -89,31 +93,10 @@ const BlogPost = async ({ params }: Params) => {
 					transition: "opacity 0.2s",
 				}}
 			>
-				{dict.blog.backToBlog}
+				{dict.presentations.backToList}
 			</Link>
 
-			{post.image && (
-				<div
-					style={{
-						position: "relative",
-						width: "100%",
-						aspectRatio: "16/9",
-						borderRadius: "12px",
-						overflow: "hidden",
-						marginBottom: "36px",
-					}}
-				>
-					<Image
-						src={post.image}
-						alt={post.title}
-						fill
-						style={{ objectFit: "cover" }}
-						priority
-					/>
-				</div>
-			)}
-
-			<header style={{ marginBottom: "40px" }}>
+			<header style={{ marginBottom: "24px" }}>
 				<p
 					style={{
 						fontSize: "0.8rem",
@@ -122,7 +105,9 @@ const BlogPost = async ({ params }: Params) => {
 						fontFamily: "var(--font-geist-mono)",
 					}}
 				>
-					{post.date}
+					{presentation.conferenceName}
+					{presentation.date ? ` · ${presentation.date}` : ""}
+					{presentation.venue ? ` · ${presentation.venue}` : ""}
 				</p>
 				<h1
 					style={{
@@ -133,11 +118,28 @@ const BlogPost = async ({ params }: Params) => {
 						marginBottom: "16px",
 					}}
 				>
-					{post.title}
+					{presentation.title}
 				</h1>
-				{post.tags.length > 0 && (
-					<div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-						{post.tags.map((tag) => (
+				{presentation.conferenceUrl && (
+					<a
+						href={presentation.conferenceUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+						style={{ fontSize: "0.875rem", opacity: 0.6, color: "inherit" }}
+					>
+						{presentation.conferenceName} ↗
+					</a>
+				)}
+				{presentation.tags.length > 0 && (
+					<div
+						style={{
+							display: "flex",
+							gap: "6px",
+							flexWrap: "wrap",
+							marginTop: "14px",
+						}}
+					>
+						{presentation.tags.map((tag) => (
 							<span
 								key={tag}
 								style={{
@@ -155,9 +157,26 @@ const BlogPost = async ({ params }: Params) => {
 				)}
 			</header>
 
+			{embed?.html && <SpeakerDeckEmbed html={embed.html} />}
+
+			<a
+				href={presentation.speakerDeckUrl}
+				target="_blank"
+				rel="noopener noreferrer"
+				style={{
+					fontSize: "0.875rem",
+					opacity: 0.6,
+					color: "inherit",
+					display: "inline-block",
+					marginBottom: "36px",
+				}}
+			>
+				{dict.presentations.watchOnSpeakerDeck} ↗
+			</a>
+
 			<div className="mdx-prose">
 				<MDXRemote
-					source={post.content}
+					source={presentation.content}
 					options={{
 						mdxOptions: {
 							rehypePlugins: [
@@ -182,4 +201,4 @@ const BlogPost = async ({ params }: Params) => {
 	);
 };
 
-export default BlogPost;
+export default PresentationDetail;
