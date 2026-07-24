@@ -23,7 +23,7 @@ async function apiFetch<T>(path: string): Promise<T> {
 	}
 	const res = await fetch(`${BLOG_API_URL}${path}`, {
 		headers: { Authorization: `Bearer ${BLOG_API_KEY}` },
-		next: { revalidate: 3600 },
+		next: { revalidate: 300 },
 	});
 	if (!res.ok) throw new Error(`Blog API ${res.status}: ${path}`);
 	return res.json() as Promise<T>;

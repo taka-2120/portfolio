@@ -9,7 +9,7 @@ import { getAllPresentations } from "@/utils/presentations";
 import { getSpeakerDeckEmbed } from "@/utils/speakerdeck";
 import { getDictionary } from "../dictionaries";
 
-export const revalidate = 3600;
+export const revalidate = 300;
 
 export async function generateMetadata({
 	params,

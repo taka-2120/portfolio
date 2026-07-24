@@ -24,7 +24,7 @@ async function apiFetch<T>(path: string): Promise<T> {
 	}
 	const res = await fetch(`${PORTAL_API_URL}${path}`, {
 		headers: { Authorization: `Bearer ${PORTAL_API_TOKEN}` },
-		next: { revalidate: 3600 },
+		next: { revalidate: 300 },
 	});
 	if (!res.ok) throw new Error(`Portal API ${res.status}: ${path}`);
 	return res.json() as Promise<T>;
