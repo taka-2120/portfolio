@@ -12,7 +12,7 @@ export async function getSpeakerDeckEmbed(
 	try {
 		const res = await fetch(
 			`https://speakerdeck.com/oembed.json?url=${encodeURIComponent(url)}`,
-			{ next: { revalidate: 3600 } },
+			{ next: { revalidate: 300 } },
 		);
 		if (!res.ok) return null;
 		const data = await res.json();

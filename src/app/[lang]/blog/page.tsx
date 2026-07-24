@@ -5,7 +5,7 @@ import type { AsyncLangParam } from "@/types/lang-param";
 import { getAllPosts } from "@/utils/blog";
 import { getDictionary } from "../dictionaries";
 
-export const revalidate = 3600;
+export const revalidate = 300;
 
 export async function generateMetadata({
 	params,
