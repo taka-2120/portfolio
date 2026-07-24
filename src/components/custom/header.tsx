@@ -5,9 +5,11 @@ import { usePathname, useRouter } from "next/navigation";
 const Header = ({
 	lang,
 	showBlog = false,
+	showPresentations = false,
 }: {
 	lang: string;
 	showBlog?: boolean;
+	showPresentations?: boolean;
 }) => {
 	const pathname = usePathname();
 	const router = useRouter();
@@ -28,6 +30,14 @@ const Header = ({
 		},
 		...(showBlog
 			? [{ label: lang === "ja" ? "ブログ" : "Blog", href: `/${lang}/blog` }]
+			: []),
+		...(showPresentations
+			? [
+					{
+						label: lang === "ja" ? "登壇" : "Talks",
+						href: `/${lang}/presentations`,
+					},
+				]
 			: []),
 	];
 

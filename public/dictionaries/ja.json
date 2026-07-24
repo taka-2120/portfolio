@@ -48,5 +48,11 @@
 		"readMore": "続きを読む",
 		"noPosts": "まだ記事がありません。",
 		"backToBlog": "← ブログへ戻る"
+	},
+	"presentations": {
+		"title": "登壇",
+		"noPosts": "まだ登壇履歴がありません。",
+		"backToList": "← 登壇一覧へ戻る",
+		"watchOnSpeakerDeck": "Speaker Deckで見る"
 	}
 }
