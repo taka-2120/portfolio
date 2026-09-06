@@ -50,7 +50,8 @@ export async function getAllPosts(lang: string): Promise<BlogPost[]> {
 				published: raw.published !== false,
 			}))
 			.filter((p) => p.published);
-	} catch {
+	} catch (err) {
+		console.error("[blog]", err);
 		return [];
 	}
 }
@@ -71,7 +72,8 @@ export async function getAllPostsIncludingDrafts(
 			image: typeof raw.image === "string" ? raw.image : undefined,
 			published: raw.published !== false,
 		}));
-	} catch {
+	} catch (err) {
+		console.error("[blog]", err);
 		return [];
 	}
 }
@@ -94,7 +96,8 @@ export async function getPost(
 			published: raw.published !== false,
 			content: String(raw.content ?? ""),
 		};
-	} catch {
+	} catch (err) {
+		console.error("[blog]", err);
 		return null;
 	}
 }
