@@ -1,0 +1,11 @@
+{
+	"redirects": [
+		{ "source": "/time-meet/privacy-policy/en", "destination": "/en/services/time-meet/privacy-policy", "permanent": true },
+		{ "source": "/time-meet/privacy-policy/ja", "destination": "/ja/services/time-meet/privacy-policy", "permanent": true },
+		{ "source": "/eco-notify/privacy-policy/en", "destination": "/en/services/eco-cycle/privacy-policy", "permanent": true },
+		{ "source": "/eco-notify/privacy-policy/ja", "destination": "/ja/services/eco-cycle/privacy-policy", "permanent": true },
+		{ "source": "/en/services/eco-notify/privacy-policy", "destination": "/en/services/eco-cycle/privacy-policy", "permanent": true },
+		{ "source": "/ja/services/eco-notify/privacy-policy", "destination": "/ja/services/eco-cycle/privacy-policy", "permanent": true },
+		{ "source": "/", "destination": "/en", "permanent": false }
+	]
+}

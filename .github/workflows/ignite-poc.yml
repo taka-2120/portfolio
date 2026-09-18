@@ -1,0 +1,72 @@
+name: Ignite PoC build
+
+# Phase 0 spike (see ignite-poc/README.md): validates that the Swift/Ignite
+# toolchain builds cleanly in CI and that the static output can be handed to
+# Vercel without Vercel ever running Swift itself. Scoped to ignite-poc/ so
+# it doesn't affect the existing Next.js site or its deployment.
+on:
+  push:
+    branches: [main]
+    paths: ["ignite-poc/**", ".github/workflows/ignite-poc.yml"]
+  pull_request:
+    paths: ["ignite-poc/**", ".github/workflows/ignite-poc.yml"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: ignite-poc
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Swift
+        uses: swift-actions/setup-swift@v2
+        with:
+          swift-version: "6.2"
+
+      - name: Cache SwiftPM
+        uses: actions/cache@v4
+        with:
+          path: ignite-poc/.build
+          key: ${{ runner.os }}-spm-${{ hashFiles('ignite-poc/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+
+      - name: Build site
+        run: swift run
+
+      - name: Merge locale output for deployment
+        run: ./Scripts/merge-build.sh
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ignite-poc-deploy
+          path: ignite-poc/Deploy
+
+      # Deploy is intentionally opt-in: it only runs once VERCEL_TOKEN,
+      # VERCEL_ORG_ID, and VERCEL_PROJECT_ID secrets are configured for a
+      # dedicated PoC Vercel project. Until then this job builds and
+      # uploads an artifact only, which is enough to validate the pipeline.
+      - name: Check Vercel secrets configured
+        id: vercel-check
+        run: |
+          if [ -n "${{ secrets.VERCEL_TOKEN }}" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Deploys Deploy/ as a plain static directory. Vercel has no framework
+      # to detect here, so it uploads the files as-is with no build step of
+      # its own - this is what decouples Vercel from ever needing Swift.
+      - name: Deploy static output to Vercel
+        if: steps.vercel-check.outputs.configured == 'true'
+        working-directory: ignite-poc
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: npx vercel deploy ./Deploy --prod --yes --token="$VERCEL_TOKEN"
