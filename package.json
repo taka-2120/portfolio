@@ -14,7 +14,7 @@
 		"@biomejs/biome": "^2.3.14",
 		"@chakra-ui/react": "^3.32.0",
 		"@emotion/react": "^11.14.0",
-		"firebase": "^12.9.0",
+		"firebase": "^13.0.0",
 		"gray-matter": "^4.0.3",
 		"next": "16.2.9",
 		"next-mdx-remote": "^6.0.0",
